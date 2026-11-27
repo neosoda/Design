@@ -9,7 +9,12 @@ Icônes, textures, illustrations. Cette collection accueille les ressources de c
 ## Galerie
 
 <!-- gallery:start -->
-*Aucune ressource pour le moment.*
+<table>
+<tr>
+<td width="50%" valign="top"><a href="loup-cyberpunk/README.md"><img src="loup-cyberpunk/preview.jpg" alt="Aperçu : Loup cyberpunk" width="100%"><br><strong>Loup cyberpunk</strong></a><br>Illustration de loup cyberpunk, atmosphère Matrix et code vert.<br><sub>Référence · avatar · cyberpunk · illustration · matrix</sub></td>
+<td width="50%"></td>
+</tr>
+</table>
 <!-- gallery:end -->
 
 [Guide de classement](../../CONTRIBUTING.md)

@@ -9,7 +9,12 @@ Références et idées UX. Cette collection accueille les ressources de cette fa
 ## Galerie
 
 <!-- gallery:start -->
-*Aucune ressource pour le moment.*
+<table>
+<tr>
+<td width="50%" valign="top"><a href="loop-engineering/README.md"><img src="loop-engineering/preview.svg" alt="Aperçu : Loop Engineering · Product Engineering V2" width="100%"><br><strong>Loop Engineering · Product Engineering V2</strong></a><br>Méthode d&#x27;ingénierie itérative, qualité produit et contrôle UX/UI anti-slop.<br><sub>Référence · prompt · workflow · ux · quality</sub></td>
+<td width="50%"></td>
+</tr>
+</table>
 <!-- gallery:end -->
 
 [Guide de classement](../../CONTRIBUTING.md)

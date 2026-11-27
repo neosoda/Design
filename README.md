@@ -39,7 +39,24 @@
 Un aperçu pour chaque ressource, une fiche dédiée et les fichiers associés lorsque leur licence le permet.
 
 <!-- gallery:start -->
-*La collection prend forme. Les premières ressources apparaîtront ici.*
+<table>
+<tr>
+<td width="50%" valign="top"><a href="collections/themes/admin-dashboard-v15/README.md"><img src="collections/themes/admin-dashboard-v15/preview.webp" alt="Aperçu : Admin Dashboard V15" width="100%"><br><strong>Admin Dashboard V15</strong></a><br>Dashboard React responsive avec KPI, tableaux, graphiques et paramètres personnalisables.<br><sub>Réutilisable · react · dashboard · typescript</sub></td>
+<td width="50%" valign="top"><a href="collections/design-systems/radar-cap/README.md"><img src="collections/design-systems/radar-cap/preview.svg" alt="Aperçu : RADAR · Cap" width="100%"><br><strong>RADAR · Cap</strong></a><br>Identité éditoriale : cible ouverte, point corail, typographie Schibsted Grotesk et ton professionnel.<br><sub>Référence · branding · logo · editorial · radar</sub></td>
+</tr>
+<tr>
+<td width="50%" valign="top"><a href="collections/design-systems/rapport/README.md"><img src="collections/design-systems/rapport/preview.webp" alt="Aperçu : Rapport · CRM" width="100%"><br><strong>Rapport · CRM</strong></a><br>Charte UX/UI éditoriale : toile pêche-sauge, cartes métier colorées, transitions et surfaces givrées.<br><sub>Référence · crm · motion · tokens · prototype</sub></td>
+<td width="50%" valign="top"><a href="collections/design-systems/sentinelflow/README.md"><img src="collections/design-systems/sentinelflow/preview.png" alt="Aperçu : SentinelFlow · Identité V1" width="100%"><br><strong>SentinelFlow · Identité V1</strong></a><br>Référentiel ITSM : identité de marque, tokens, composants, contrastes et écrans métier.<br><sub>Référence · itsm · tokens · design-system · accessibility</sub></td>
+</tr>
+<tr>
+<td width="50%" valign="top"><a href="collections/design-systems/warm-frosted-editorial/README.md"><img src="collections/design-systems/warm-frosted-editorial/preview.svg" alt="Aperçu : Warm Frosted Editorial" width="100%"><br><strong>Warm Frosted Editorial</strong></a><br>Charte Bento lumineuse : verre dépoli chaud, sable, sauge, sapin et corail.<br><sub>Référence · bento · glassmorphism · tokens · editorial</sub></td>
+<td width="50%" valign="top"><a href="collections/components/glassy-otp/README.md"><img src="collections/components/glassy-otp/preview.webp" alt="Aperçu : Glassy OTP" width="100%"><br><strong>Glassy OTP</strong></a><br>Composant OTP animé en verre fumé, saisie à quatre chiffres et validation lumineuse.<br><sub>Référence · react · otp · motion · glassmorphism</sub></td>
+</tr>
+<tr>
+<td width="50%" valign="top"><a href="collections/assets/loup-cyberpunk/README.md"><img src="collections/assets/loup-cyberpunk/preview.jpg" alt="Aperçu : Loup cyberpunk" width="100%"><br><strong>Loup cyberpunk</strong></a><br>Illustration de loup cyberpunk, atmosphère Matrix et code vert.<br><sub>Référence · avatar · cyberpunk · illustration · matrix</sub></td>
+<td width="50%" valign="top"><a href="collections/inspiration/loop-engineering/README.md"><img src="collections/inspiration/loop-engineering/preview.svg" alt="Aperçu : Loop Engineering · Product Engineering V2" width="100%"><br><strong>Loop Engineering · Product Engineering V2</strong></a><br>Méthode d&#x27;ingénierie itérative, qualité produit et contrôle UX/UI anti-slop.<br><sub>Référence · prompt · workflow · ux · quality</sub></td>
+</tr>
+</table>
 <!-- gallery:end -->
 
 ## L'esprit de la collection
