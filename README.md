@@ -56,6 +56,10 @@ Un aperçu pour chaque ressource, une fiche dédiée et les fichiers associés l
 <td width="50%" valign="top"><a href="collections/assets/loup-cyberpunk/README.md"><img src="collections/assets/loup-cyberpunk/preview.jpg" alt="Aperçu : Loup cyberpunk" width="100%"><br><strong>Loup cyberpunk</strong></a><br>Illustration de loup cyberpunk, atmosphère Matrix et code vert.<br><sub>Référence · avatar · cyberpunk · illustration · matrix</sub></td>
 <td width="50%" valign="top"><a href="collections/inspiration/loop-engineering/README.md"><img src="collections/inspiration/loop-engineering/preview.svg" alt="Aperçu : Loop Engineering · Product Engineering V2" width="100%"><br><strong>Loop Engineering · Product Engineering V2</strong></a><br>Méthode d&#x27;ingénierie itérative, qualité produit et contrôle UX/UI anti-slop.<br><sub>Référence · prompt · workflow · ux · quality</sub></td>
 </tr>
+<tr>
+<td width="50%" valign="top"><a href="collections/inspiration/ship-production-readiness/README.md"><img src="collections/inspiration/ship-production-readiness/preview.svg" alt="Aperçu : SHIP · Production Readiness Gate" width="100%"><br><strong>SHIP · Production Readiness Gate</strong></a><br>Master prompt de validation finale : 20 release gates, corrections itératives et décision de livraison fondée sur des preuves.<br><sub>Référence · prompt · release · security · qa · ux</sub></td>
+<td width="50%"></td>
+</tr>
 </table>
 <!-- gallery:end -->
 
