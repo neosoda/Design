@@ -1,0 +1,99 @@
+/* Rapport — design tokens v3 (fusion Claude × ChatGPT).
+   Reconstruits depuis 14485.mp4, pas le CSS original.
+   Source de vérité : prototype/index.html. Les noms de la v2 (ChatGPT) sont conservés,
+   les valeurs sont celles du prototype, mesurées ou arbitrées (voir CHARTE.md §10). */
+:root {
+  color-scheme: light;
+
+  /* Toile : dégradé global, immobile, peu saturé */
+  --canvas-peach: #f1dac0; --canvas-honey: #eedec0; --canvas-neutral: #ece6dc; --canvas-sage: #dfebdd;
+  --canvas-gradient: radial-gradient(75% 55% at 0% 0%, var(--canvas-peach), transparent 72%),
+                     radial-gradient(70% 60% at 100% 100%, var(--canvas-sage), transparent 72%),
+                     var(--canvas-neutral);
+
+  /* Surfaces */
+  --surface: rgba(248,245,239,.70);        /* panneaux givrés (backdrop-filter: blur 18px) */
+  --surface-border: rgba(255,255,255,.65);
+  --surface-solid: #f7f4ee;                /* drawer, palette, dialogues */
+  --surface-chip: #fbfaf7;                 /* boutons ronds, champs, capsules */
+  --surface-muted: rgba(25,27,27,.065);    /* pistes, segmentés, sous-blocs */
+  --scrim: rgba(234,229,220,.38);          /* + blur 10px derrière les overlays */
+
+  /* Encre (contrastes vérifiés WCAG, cf. CHARTE.md §06) */
+  --ink: #181815;
+  --muted: #65655b;      /* 5,1:1 sur surface — remplace #7a7d78 (3,6:1, échec AA) */
+  --faint: #8c8d86;      /* placeholders uniquement */
+  --line: rgba(24,24,21,.08);
+
+  /* Couleurs d'étape (objets métier) */
+  --stage-yellow: #f0c94e; --stage-green: #2b5c4e; --stage-orange: #c64720; --stage-black: #181815;
+  --stage-won: #f6f3ed;
+  --on-yellow: #181815; --on-dark: #ffffff; --on-orange: #ffffff;
+  --on-color-secondary-opacity: .85;       /* .72 donnait 3,2:1 sur rouille */
+
+  /* Statuts de facture (texte + point, jamais la couleur seule) */
+  --status-paid: #2b5c4e; --status-draft: #65655b; --status-due: #7a5a06; --status-overdue: #a23818;  /* rouille assombrie : 3,8:1 → ≥ 4,5:1 en petit texte */
+
+  /* Typographie — Urbanist mesurée la plus proche (§02) */
+  --font-ui: 'Urbanist', 'Outfit', system-ui, sans-serif;
+  --fs-caption: 12px; --fs-label: 12.5px; --fs-body: 15px; --fs-card-title: 16px;
+  --fs-kpi: 20px; --fs-figure: clamp(26px, 3vw, 31px); --fs-page-title: clamp(28px, 3.3vw, 35px);
+  --fs-display: clamp(36px, 7vw, 44px);    /* montant de la modale */
+  --fw-regular: 400; --fw-medium: 500; --fw-semibold: 600;
+  --tracking-title: -.025em; --tracking-figure: -.02em;
+  --numeric: tabular-nums;
+
+  /* Espacement & rayons */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px;
+  --radius-control: 999px; --radius-card: 18px; --radius-panel: 24px; --radius-column: 22px; --radius-sheet: 28px; --radius-dialog: 30px;
+
+  /* Ombres */
+  --shadow-panel: 0 20px 40px -26px rgba(80,60,30,.35), 0 2px 6px -3px rgba(80,60,30,.08);
+  --shadow-float: 0 20px 40px -18px rgba(0,0,0,.55);       /* rail, dock */
+  --shadow-raised: 0 34px 50px -20px rgba(0,0,0,.5);       /* carte soulevée */
+  --shadow-dialog: 0 40px 80px -30px rgba(0,0,0,.55);
+
+  /* Courbes */
+  --ease-out: cubic-bezier(.22,1,.36,1);       /* entrées, réorganisations */
+  --ease-in-out: cubic-bezier(.65,0,.35,1);    /* changements réversibles */
+  --ease-spring: cubic-bezier(.34,1.45,.64,1); /* contrôles uniquement (boutons, knob, étoile) */
+  --ease-sheet: cubic-bezier(.32,.72,0,1);     /* morph carte↔dialogue, drawer */
+  --ease-drop: cubic-bezier(.2,1.25,.4,1);     /* atterrissage d'une carte déposée */
+
+  /* Durées */
+  --motion-fast: 200ms;     /* tooltip, couleurs de contrôle */
+  --motion-control: 300ms;  /* hover/press des boutons */
+  --motion-exit: 240ms;     /* sortie de vue (fondu + flou 10px + scale .988) */
+  --motion-layout: 260ms;   /* FLIP des voisins pendant un drag */
+  --motion-enter: 800ms;    /* entrée des blocs (translate 16px, blur 5px, désaturé) */
+  --motion-morph: 560ms;    /* carte → dialogue (retour : 440ms) */
+  --motion-sheet: 550ms;    /* drawer facture */
+  --motion-chart: 700ms;    /* morph entre périodes ; dessin initial 1300ms */
+  --motion-count: 1000ms;   /* chiffres, départ à 38 % de la cible */
+  --stagger: 45ms;          /* décalage entre blocs, plafonné à 900ms */
+
+  /* Drag & drop */
+  --tilt-max: 3;            /* degrés, proportionnel à la vitesse horizontale */
+  --lift-scale: 1.04;
+  --drag-follow: .32;       /* lerp de suivi du pointeur, par frame */
+  --touch-hold: 280ms;      /* appui long avant drag au doigt */
+
+  /* Shell */
+  --rail-width: 44px; --rail-offset: 14px; --content-max: 1200px; --content-gutter: clamp(14px,3vw,28px);
+  --backdrop-blur: 18px; --scrim-blur: 10px;
+}
+
+/* Thème sombre : même idée, de nuit */
+:root[data-theme=dark] {
+  color-scheme: dark;
+  --canvas-peach: #2b2118; --canvas-neutral: #111312; --canvas-sage: #11211a;
+  --surface: rgba(33,35,33,.72); --surface-border: rgba(255,255,255,.06); --surface-solid: #1c1e1c; --surface-chip: #262826;
+  --surface-muted: rgba(255,255,255,.07); --scrim: rgba(8,10,9,.5);
+  --ink: #edece7; --muted: #999c95; --faint: #6c6f69; --line: rgba(255,255,255,.08);
+  --stage-black: #0b0c0c; --stage-won: #2a2c2a; --status-paid: #7fbfa9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion-fast: 1ms; --motion-control: 1ms; --motion-exit: 1ms; --motion-layout: 1ms; --motion-enter: 1ms;
+          --motion-morph: 1ms; --motion-sheet: 1ms; --motion-chart: 1ms; --motion-count: 1ms; --stagger: 0ms; --tilt-max: 0; }
+}

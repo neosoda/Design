@@ -1,0 +1,14 @@
+{
+  "title": "Service Desk UI · Design System",
+  "description": "Interface ITSM générique : tableaux denses, états métier, thèmes clair et sombre, composants et tokens.",
+  "tags": [
+    "itsm",
+    "tokens",
+    "design-system",
+    "accessibility"
+  ],
+  "source": "Collection personnelle, version neutralisée",
+  "license": "Inconnue",
+  "usage": "reference",
+  "preview": "preview.svg"
+}

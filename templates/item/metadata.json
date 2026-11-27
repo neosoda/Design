@@ -1,0 +1,11 @@
+{
+  "title": "Nom de la ressource",
+  "description": "Description courte",
+  "tags": [
+    "ui"
+  ],
+  "source": "URL ou création personnelle",
+  "license": "Inconnue",
+  "usage": "reference",
+  "preview": "preview.webp"
+}
