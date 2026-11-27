@@ -9,11 +9,11 @@ Dashboard React responsive avec KPI, tableaux, graphiques et paramètres personn
 ## Ressources
 
 - [Guide et installation](files/README.md)
-- [Aperçu HTML autonome](files/preview-users.html)
+- [Aperçu HTML autonome](files/preview-users.html) (télécharger le fichier Raw, puis l’ouvrir dans un navigateur)
 - [Prompt d'intégration](files/PROMPT_CODEX.md)
 - [Licence MIT](files/LICENSE)
 
-Miniature : capture du prototype HTML rendue dans Chromium hors ligne.
+Miniature : capture réelle haute définition du prototype HTML autonome, rendu et vérifié dans Chromium sur ordinateur et mobile.
 
 ## Provenance et droits
 

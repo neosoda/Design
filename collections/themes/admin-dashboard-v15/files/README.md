@@ -63,7 +63,7 @@ Pour les projets SaaS, remplacer le tableau `config.users` par vos données serv
 
 ## Aperçu sans installation
 
-`preview-users.html` est un **aperçu statique** de la vue Users, générable à nouveau via `python generate_preview.py`. Ses boutons sont intentionnellement inactifs : pour les interactions, lancer la démo React avec `npm run dev`.
+`preview-users.html` est un **aperçu statique autonome** de la vue Users (CSS intégré, sans dépendance réseau, sans installation). Téléchargez le fichier et ouvrez-le directement dans votre navigateur. Il peut être régénéré via `python generate_preview.py`. Ses boutons sont intentionnellement inactifs : pour les interactions, lancer la démo React avec `npm run dev`.
 
 ## Fichiers
 
