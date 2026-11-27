@@ -1,0 +1,14 @@
+{
+  "title": "Loop Engineering · Product Engineering V2",
+  "description": "Méthode d'ingénierie itérative, qualité produit et contrôle UX/UI anti-slop.",
+  "tags": [
+    "prompt",
+    "workflow",
+    "ux",
+    "quality"
+  ],
+  "source": "LOOP Prompt.txt (collection personnelle)",
+  "license": "Inconnue",
+  "usage": "reference",
+  "preview": "preview.svg"
+}
