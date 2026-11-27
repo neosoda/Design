@@ -1,0 +1,13 @@
+{
+  "title": "Admin Dashboard V15",
+  "description": "Dashboard React responsive avec KPI, tableaux, graphiques et paramètres personnalisables.",
+  "tags": [
+    "react",
+    "dashboard",
+    "typescript"
+  ],
+  "source": "admin-dashboard-v15-template.zip (collection personnelle)",
+  "license": "MIT",
+  "usage": "reusable",
+  "preview": "preview.webp"
+}

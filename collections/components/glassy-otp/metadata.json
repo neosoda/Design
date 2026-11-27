@@ -1,0 +1,14 @@
+{
+  "title": "Glassy OTP",
+  "description": "Composant OTP animé en verre fumé, saisie à quatre chiffres et validation lumineuse.",
+  "tags": [
+    "react",
+    "otp",
+    "motion",
+    "glassmorphism"
+  ],
+  "source": "Glassy-OTP-Kit.zip + prompt OTP.md (collection personnelle)",
+  "license": "Inconnue",
+  "usage": "reference",
+  "preview": "preview.webp"
+}

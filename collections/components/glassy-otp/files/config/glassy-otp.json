@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "Glassy OTP",
+  "version": "1.0.0",
+  "inspiration": "Glassy OTP V15 - vidéo fournie par l'utilisateur",
+  "component": "components/GlassyOtp.tsx",
+  "style": "components/GlassyOtp.module.css",
+  "framework": ["React", "Next.js App Router"],
+  "dependencies": [],
+  "config": {
+    "digits": 4,
+    "cooldownSeconds": 25,
+    "autoComplete": true,
+    "locale": "fr-FR",
+    "design": {
+      "cardMaxWidthPx": 400,
+      "cardMinHeightPx": 480,
+      "cardRadiusPx": 27,
+      "backdropBlurPx": 35,
+      "glassGradient": ["#423731cc", "#251f1edb", "#64402ab9"],
+      "border": "rgba(255,255,255,0.27)",
+      "text": "#faf8f4",
+      "muted": "#c4bcb5",
+      "accent": "#43e8b6",
+      "success": "#22bf80",
+      "animation": {
+        "slotReorderMs": 520,
+        "minimumVerificationMs": 900,
+        "connectedStageMs": 780,
+        "checkStageMs": 830,
+        "reducedMotionSupport": true
+      }
+    },
+    "labels": {
+      "title": "Vérifiez votre boîte mail",
+      "instruction": "Saisissez le code reçu à",
+      "verify": "Vérifier le code",
+      "verifying": "Vérification…",
+      "verified": "Vérifié",
+      "resendQuestion": "Pas reçu de code ?",
+      "resend": "Renvoyer",
+      "resendIn": "Renvoyer dans",
+      "successTitle": "Identité confirmée",
+      "successBody": "Votre adresse e-mail est confirmée. Vous pouvez continuer en toute sécurité.",
+      "emailConfirmed": "Adresse e-mail confirmée",
+      "deviceTrusted": "Session vérifiée",
+      "continue": "Continuer",
+      "invalid": "Code incorrect ou expiré. Réessayez."
+    }
+  },
+  "security": {
+    "mustVerifyServerSide": true,
+    "mustRateLimit": true,
+    "mustExpireCodes": true,
+    "mustBindToSession": true,
+    "mustAvoidStoringOtpInLocalStorage": true,
+    "demoCodeIsNeverProductionValid": true
+  }
+}

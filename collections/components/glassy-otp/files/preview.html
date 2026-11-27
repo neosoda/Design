@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="color-scheme" content="dark"><title>Glassy OTP — Live Demo</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100dvh;display:grid;place-items:center;background:#29231f;color:white;font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+.scene{position:fixed;inset:0;overflow:hidden;z-index:-1;background:linear-gradient(90deg,#44382e 0 13%,#8e7965 13% 86%,#3e3129 86%)}
+.scene::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 25%,#a18b78aa,transparent 65%);filter:blur(4px)}
+.shelf{position:absolute;top:0;bottom:19%;width:18%;background:repeating-linear-gradient(to bottom,transparent 0 116px,#2d2119 116px 128px),linear-gradient(90deg,#543d2d,#3b2a21);box-shadow:inset 0 0 25px #1d100b88}
+.shelf.left{left:0}.shelf.right{right:0}
+.shelf::before{content:"";position:absolute;inset:12px 10%;background:repeating-linear-gradient(to bottom,transparent 0 110px,#f8ab5b55 112px,#ec9c4c00 128px)}
+.tv{position:absolute;top:27%;left:19%;right:19%;height:44%;border:14px solid #251e19;border-radius:5px;background:linear-gradient(130deg,#24211f,#0c0e0f 75%);box-shadow:0 9px 25px #19100f66}
+.console{position:absolute;left:16%;right:16%;bottom:16%;height:12%;background:linear-gradient(#ba9c7a,#867056);box-shadow:0 10px 30px #1c1411aa}
+.table{position:absolute;left:-8%;right:-8%;bottom:-5%;height:16%;border-top:15px solid #ae8d6d;border-radius:60% 60% 0 0;background:linear-gradient(#7d6045,#4f3a2b);box-shadow:0 -5px 25px #2b201a88}
+.sceneShade{position:absolute;inset:0;background:linear-gradient(#1b15114d,#1b17185e)}
+.demoWrap{position:relative;width:min(100%,460px);padding:36px 22px 64px;display:grid;justify-items:center}
+.brand{position:relative;font-size:clamp(24px,5vw,36px);font-weight:730;letter-spacing:-.065em;text-shadow:0 2px 8px #0006;margin:0 0 19px}.brand span{color:#ffb76c}
+.instructions{position:relative;margin:17px 0 0;display:flex;align-items:center;gap:10px;justify-content:center;padding:9px 15px;background:#392b25ba;border:1px solid #ffffff37;border-radius:28px;color:#f1e8e1;font-size:12px;box-shadow:0 5px 20px #0002}
+.instructions strong{font-size:13px;letter-spacing:.18em}
+.instructions button{color:#fff;background:#ffffff16;border:1px solid #ffffff25;border-radius:15px;padding:4px 10px;font-size:11px;cursor:pointer}
+.instructions button:hover{background:#ffffff35}
+@media(max-height:760px){.demoWrap{padding-top:20px;padding-bottom:24px}.brand{margin-bottom:10px}}
+.card {
+  --otp-text: #faf8f4;
+  --otp-muted: #c4bcb5;
+  --otp-accent: #43e8b6;
+  --otp-success: #22bf80;
+  --otp-edge: rgb(255 255 255 / 27%);
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 400px);
+  min-height: 480px;
+  box-sizing: border-box;
+  padding: 31px 27px 24px;
+  overflow: hidden;
+  border: 1px solid var(--otp-edge);
+  border-radius: 27px;
+  background: linear-gradient(135deg, rgb(66 55 49 / 79%), rgb(37 31 30 / 86%) 60%, rgb(100 64 42 / 73%));
+  box-shadow: 0 30px 75px rgb(0 0 0 / 31%), inset 0 1px 0 rgb(255 255 255 / 13%);
+  -webkit-backdrop-filter: blur(35px) saturate(125%);
+  backdrop-filter: blur(35px) saturate(125%);
+  color: var(--otp-text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-align: center;
+}
+.card * { box-sizing: border-box; }
+.topGlow { pointer-events: none; position: absolute; inset: -100px 0 auto; height: 245px; background: radial-gradient(ellipse, rgb(255 255 255 / 12%), transparent 69%); z-index: -1; }
+.symbol { position: relative; display: grid; place-items: center; width: 62px; height: 62px; margin: 0 auto 17px; border-radius: 50%; border: 1px solid rgb(255 255 255 / 32%); background: radial-gradient(circle at 35% 25%,rgb(255 255 255 / 22%),rgb(255 255 255 / 7%) 65%); box-shadow: 0 0 0 8px rgb(255 255 255 / 5%), inset 0 1px 0 rgb(255 255 255 / 30%); transition: opacity 350ms ease; }
+.symbolHidden { opacity: .12; }
+.notification { position: absolute; top: 13px; right: 10px; width: 10px; height: 10px; border-radius: 50%; background: #ff826e; border: 2px solid #57504c; }
+.title { margin: 0 0 7px; font-size: 20px; font-weight: 670; line-height: 1.25; letter-spacing: -.025em; }
+.subtitle { margin: 0 0 4px; font-size: 12px; color: var(--otp-muted); }
+.email { display: inline-block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 3px 9px; color: #f2eae5; font-size: 11px; letter-spacing: .012em; border: 1px solid rgb(255 255 255 / 11%); border-radius: 6px; background: rgb(255 255 255 / 10%); }
+.otpArea { position: relative; width: 258px; height: 142px; max-width: 100%; margin: 7px auto 4px; }
+.slots { position: absolute; inset: 0; }
+.slot { position: absolute; top: 44px; left: calc(12px + var(--i) * 62px); display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid rgb(255 255 255 / 19%); border-radius: 11px; background: linear-gradient(145deg,rgb(255 255 255 / 17%),rgb(255 255 255 / 7%)); box-shadow: inset 0 1px 0 rgb(255 255 255 / 9%), 0 7px 14px rgb(0 0 0 / 13%); color: #fff; font-size: 24px; font-weight: 640; transition: transform 520ms cubic-bezier(.19,1,.32,1), background 260ms, box-shadow 260ms, border-color 260ms, opacity 280ms; }
+.filledSlot { background: linear-gradient(145deg,rgb(255 255 255 / 27%),rgb(255 255 255 / 12%)); border-color: rgb(255 255 255 / 27%); }
+.activeSlot { border-color: rgb(255 255 255 / 58%); box-shadow: 0 0 0 2px rgb(255 255 255 / 8%), inset 0 1px 0 rgb(255 255 255 / 15%); }
+.otpArea:focus-within .activeSlot { box-shadow: 0 0 0 3px rgb(67 232 182 / 14%), inset 0 1px 0 rgb(255 255 255 / 22%); border-color: var(--otp-accent); }
+.nativeInput { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: text; z-index: 4; font-size: 16px; }
+.square .slot:nth-child(1) { transform: translate(52px,-39px); }
+.square .slot:nth-child(2) { transform: translate(-10px,49px); }
+.square .slot:nth-child(3) { transform: translate(24px,-39px); }
+.square .slot:nth-child(4) { transform: translate(-38px,49px); }
+.square .slot { border-color: rgb(94 236 183 / 60%); background: linear-gradient(145deg,rgb(36 149 99 / 67%),rgb(19 107 78 / 48%)); box-shadow: 0 0 18px rgb(69 255 174 / 17%),inset 0 1px 0 rgb(255 255 255 / 28%); }
+.connectors { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; opacity: 0; transition: opacity 180ms; }
+.connectors path { stroke: #baffdf; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; filter: drop-shadow(0 0 5px #65ffc5); }
+.connectors circle { fill: #effff7; filter: drop-shadow(0 0 9px #9fffd1); opacity: 0; }
+.linked .connectors { opacity: 1; }
+.linked .connectors path { animation: drawPath 570ms ease-out forwards; }
+.linked .connectors circle { animation: revealDot 350ms 470ms ease-out forwards; }
+@keyframes drawPath { to { stroke-dashoffset: 0; } }
+@keyframes revealDot { to { opacity: 1; } }
+.checked .slot, .checked .connectors { opacity: 0; }
+.largeCheck { position: absolute; z-index: 3; top: 39px; left: 99px; display: grid; place-items: center; width: 60px; height: 60px; border-radius: 17px; background: linear-gradient(145deg,#47efa2,#178e67); box-shadow: 0 0 0 8px rgb(49 236 156 / 9%),0 0 32px rgb(31 235 141 / 39%),inset 0 1px 0 rgb(255 255 255 / 30%); animation: pop .55s cubic-bezier(.18,.89,.32,1.28) both; }
+@keyframes pop { from { opacity: 0; transform: scale(.2) rotate(-18deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
+.six .slot { left: calc(var(--i) * 44px); width: 38px; font-size: 21px; }
+.six .connectors { display: none; }
+.liveRegion { min-height: 20px; margin-top: -6px; }
+.error, .notice { margin: 0 0 6px; font-size: 11px; line-height: 1.4; }
+.error { color: #ffb4a8; }
+.notice { color: #9cf7d2; }
+.action { display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; height: 44px; border: 1px solid rgb(255 255 255 / 9%); border-radius: 11px; font-size: 12px; font-weight: 650; background: rgb(255 255 255 / 18%); color: #f0e9e3; transition: background 300ms, box-shadow 300ms; }
+.action > button { display: block; width: 100%; height: 100%; border: 0; border-radius: inherit; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.action > button:disabled { cursor: not-allowed; opacity: .62; }
+.action > button:not(:disabled):hover { background: rgb(255 255 255 / 11%); }
+.actionSuccess { background: linear-gradient(100deg,#36d78e,#1b9e69); border-color: rgb(192 255 220 / 17%); box-shadow: 0 7px 30px rgb(36 218 138 / 18%); color: white; }
+.spinner { width: 13px; height: 13px; border: 2px solid rgb(255 255 255 / 35%); border-top-color: white; border-radius: 50%; animation: spin .75s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.resendRow { margin: 13px 0 0; font-size: 11px; color: var(--otp-muted); }
+.resendTimer { margin-left: 6px; color: #e0d8d0; }
+.resendRow button { color: #ecfff7; font: inherit; border: 0; background: transparent; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.resendRow button:disabled { cursor: not-allowed; opacity: .55; }
+.successScene { padding-top: 15px; animation: reveal 650ms ease both; }
+@keyframes reveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.successHalo { display: grid; place-items: center; width: 83px; height: 83px; margin: 0 auto 24px; border-radius: 50%; border: 1px solid rgb(195 255 218 / 37%); background: linear-gradient(145deg,#51e6a2,#13986d); box-shadow: 0 0 0 9px rgb(68 244 159 / 10%),0 0 0 19px rgb(70 242 154 / 5%),0 10px 40px rgb(23 229 131 / 27%); }
+.successDescription { max-width: 260px; margin: 7px auto 20px; color: var(--otp-muted); font-size: 12px; line-height: 1.6; }
+.confirmationRows { display: grid; gap: 9px; margin: 0 0 20px; }
+.confirmationRow { display: flex; align-items: center; gap: 11px; padding: 12px; border: 1px solid rgb(255 255 255 / 10%); border-radius: 11px; background: rgb(255 255 255 / 9%); text-align: left; color: #f8f4ee; font-size: 11px; }
+.confirmationRow > span:nth-child(2) { flex: 1; }
+.smallCheck { display: grid; place-items: center; width: 19px; height: 19px; background: rgb(51 221 145 / 17%); color: #8fffca; border-radius: 50%; }
+.continueButton { display: flex; align-items: center; justify-content: center; gap: 11px; width: 100%; min-height: 44px; background: #f3eee8; border: 1px solid rgb(255 255 255 / 72%); border-radius: 11px; font: 650 12px Inter,system-ui,sans-serif; color: #352923; cursor: pointer; }
+.continueButton:hover { background: white; }
+.card button:focus-visible { outline: 2px solid var(--otp-accent); outline-offset: 3px; }
+@media (max-width: 420px) { .card { padding-inline: 18px; min-height: 466px; } }
+@media (prefers-reduced-motion: reduce) { .card *, .card *::before, .card *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+</style></head><body>
+<div class="scene" aria-hidden="true"><div class="shelf left"></div><div class="shelf right"></div><div class="tv"></div><div class="console"></div><div class="table"></div><div class="sceneShade"></div></div>
+<main class="demoWrap">
+<h1 class="brand">Glassy OTP <span>V15</span></h1>
+<section id="card" class="card" aria-label="Démo de vérification OTP">
+  <div class="topGlow" aria-hidden="true"></div>
+  <div id="entryScene">
+    <div id="symbol" class="symbol"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" aria-hidden="true"><rect x="3.25" y="5.5" width="17.5" height="13" rx="3" stroke="currentColor" stroke-width="1.55"/><path d="m4.25 7 7.1 5.3a1.15 1.15 0 0 0 1.3 0L19.75 7" stroke="currentColor" stroke-width="1.55" stroke-linecap="round"/></svg><span class="notification"></span></div>
+    <h2 class="title">Vérifiez votre boîte mail</h2>
+    <p class="subtitle">Saisissez le code reçu à</p><div class="email">al•••@example.com</div>
+    <div class="otpArea" id="otpArea">
+      <div class="slots" id="slots" aria-hidden="true">
+        <span class="slot" style="--i:0"></span><span class="slot" style="--i:1"></span><span class="slot" style="--i:2"></span><span class="slot" style="--i:3"></span>
+        <svg class="connectors" viewBox="0 0 258 142" fill="none" aria-hidden="true"><path pathLength="1" d="M88 29 184 117"/><path pathLength="1" d="M184 29 88 117"/><circle cx="136" cy="73" r="4"/></svg>
+      </div>
+      <input id="otpInput" class="nativeInput" aria-label="Code de vérification à 4 chiffres" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" maxlength="4" spellcheck="false" autofocus />
+      <span id="check" class="largeCheck" style="display:none" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" fill="none"><path d="m5 12.5 4.4 4.4L19 7.5" stroke="currentColor" stroke-width="2.55" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </div>
+    <div class="liveRegion" aria-live="polite" aria-atomic="true"><p class="error" id="error"></p><p class="notice" id="notice"></p></div>
+    <div id="action" class="action"><button id="verify" type="button" disabled>Vérifier le code</button></div>
+    <p class="resendRow">Pas reçu de code ? <span class="resendTimer" id="resendTimer">Renvoyer dans 0:25</span><button type="button" id="resend" style="display:none">Renvoyer</button></p>
+  </div>
+  <div class="successScene" id="successScene" style="display:none">
+    <div class="successHalo"><svg viewBox="0 0 24 24" width="34" height="34" fill="none"><path d="m5 12.5 4.4 4.4L19 7.5" stroke="currentColor" stroke-width="2.55" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h2 class="title">Identité confirmée</h2><p class="successDescription">Votre adresse e-mail est confirmée. Vous pouvez continuer en toute sécurité.</p>
+    <div class="confirmationRows"><div class="confirmationRow"><span>✉</span><span>Adresse e-mail confirmée</span><span class="smallCheck">✓</span></div><div class="confirmationRow"><span>✓</span><span>Session vérifiée</span><span class="smallCheck">✓</span></div></div>
+    <button class="continueButton" id="continue">Continuer <span aria-hidden="true">→</span></button>
+  </div>
+</section>
+<div class="instructions">Démo locale : <strong>2468</strong><button id="tryWrong">Code incorrect</button><button id="reset">Recommencer</button></div>
+</main>
+<script>
+(()=>{
+  const $=id=>document.getElementById(id), el={area:$('otpArea'),input:$('otpInput'),action:$('action'),verify:$('verify'),error:$('error'),notice:$('notice'),resend:$('resend'),timer:$('resendTimer'),slots:[...document.querySelectorAll('.slot')],entry:$('entryScene'),success:$('successScene'),check:$('check'),symbol:$('symbol')};
+  let code='',stage='entry', cooldown=25,seq=0;
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  function paint(){el.slots.forEach((s,i)=>{s.textContent=code[i]||'';s.classList.toggle('activeSlot',i===code.length&&stage==='entry');s.classList.toggle('filledSlot',!!code[i]);s.classList.toggle('successSlot',stage==='linked'||stage==='check')});el.input.value=code;if(el.verify)el.verify.disabled=code.length!==4;}
+  function status(next){stage=next;el.area.className='otpArea'+(['verifying','linked'].includes(next)?' square':'')+(next==='linked'?' linked':'')+(next==='check'?' checked':'');el.input.style.display=next==='entry'?'block':'none';el.symbol.classList.toggle('symbolHidden',next==='check');el.check.style.display=next==='check'?'grid':'none';el.action.classList.toggle('actionSuccess',['linked','check'].includes(next));if(next==='verifying')el.action.innerHTML='<span class="spinner"></span> Vérification…';else if(['linked','check'].includes(next))el.action.innerHTML='✓ Vérifié';else el.action.innerHTML='<button id="verify" type="button" '+(code.length!==4?'disabled':'')+'>Vérifier le code</button>';el.verify=$('verify');if(el.verify)el.verify.onclick=()=>verify();paint();}
+  async function verify(){if(stage!=='entry'||code.length!==4)return;const n=++seq;el.error.textContent='';el.notice.textContent='';status('verifying');await sleep(900);if(n!==seq)return;if(code!=='2468'){code='';status('entry');el.error.textContent='Code incorrect ou expiré. Réessayez.';el.input.focus();return;}status('linked');await sleep(780);if(n!==seq)return;status('check');await sleep(830);if(n!==seq)return;stage='complete';el.entry.style.display='none';el.success.style.display='block';}
+  function setCode(v){if(stage!=='entry')return;code=v.replace(/\D/g,'').slice(0,4);el.error.textContent='';el.notice.textContent='';paint();if(code.length===4)void verify();}
+  el.input.addEventListener('input',e=>setCode(e.target.value));
+  el.verify.onclick=()=>verify();
+  function reset(){seq++;code='';stage='entry';el.entry.style.display='block';el.success.style.display='none';el.error.textContent='';el.notice.textContent='';status('entry');el.input.focus();}
+  $('reset').onclick=reset;
+  $('tryWrong').onclick=()=>{reset();setCode('0000');};
+  $('continue').onclick=()=>{reset();el.notice.textContent='Démo terminée : connecte ce bouton à ta navigation.';};
+  el.resend.onclick=()=>{if(cooldown>0||stage!=='entry')return;reset();cooldown=25;el.notice.textContent='Démo : nouveau code 2468 disponible.';updateTimer();};
+  function updateTimer(){el.timer.textContent='Renvoyer dans 0:'+String(cooldown).padStart(2,'0');el.timer.style.display=cooldown>0?'inline':'none';el.resend.style.display=cooldown===0?'inline':'none';}
+  setInterval(()=>{if(cooldown>0)cooldown--;updateTimer();},1000);
+  paint(); updateTimer(); setTimeout(()=>el.input.focus(),100);
+})();
+</script></body></html>
