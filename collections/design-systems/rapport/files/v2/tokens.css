@@ -1,0 +1,20 @@
+/* Rapport-inspired design system. Reconstructed, not original CSS. */
+:root {
+  color-scheme: light;
+  --canvas-peach: #eedccc; --canvas-honey: #eedec0; --canvas-neutral: #e8e7dc; --canvas-sage: #e9efe5;
+  --surface: rgba(255,255,249,.56); --surface-solid: #f5f3eb; --surface-muted: rgba(33,43,33,.045);
+  --ink: #181815; --muted: #65655b; --line: rgba(24,24,21,.09);
+  --stage-yellow: #f0c94e; --stage-green: #2b5c4e; --stage-orange: #c64720; --stage-black: #181815;
+  --on-yellow: #181815; --on-dark: #f9f8f2; --on-orange: #fffaf1;
+  --font-ui: 'Manrope', 'Plus Jakarta Sans', 'Avenir Next', 'Segoe UI', sans-serif;
+  --fs-caption: 12px; --fs-body: 14px; --fs-card-title: 16px; --fs-kpi: 24px; --fs-page-title: 30px; --fs-display: 40px;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px;
+  --radius-control: 999px; --radius-card: 20px; --radius-panel: 26px; --radius-dialog: 32px;
+  --shadow-panel: 0 8px 26px rgba(32,39,28,.045); --shadow-float: 0 12px 30px rgba(28,30,22,.15);
+  --shadow-raised: 0 14px 32px rgba(28,30,22,.21); --shadow-dialog: 0 24px 70px rgba(19,31,24,.24);
+  --ease-out: cubic-bezier(.22,1,.36,1); --ease-in-out: cubic-bezier(.65,0,.35,1);
+  --motion-fast: 140ms; --motion-control: 200ms; --motion-layout: 280ms; --motion-page: 340ms; --motion-morph: 420ms; --motion-chart: 620ms;
+  --rail-width: 56px; --rail-offset: 18px; --content-gutter: 24px; --backdrop-blur: 9px;
+  --canvas-gradient: radial-gradient(ellipse at 34% 0%,var(--canvas-honey),transparent 57%),radial-gradient(ellipse at 0% 3%,var(--canvas-peach),transparent 66%),linear-gradient(145deg,var(--canvas-neutral) 45%,var(--canvas-sage));
+}
+@media (prefers-reduced-motion: reduce) { :root { --motion-fast: 1ms; --motion-control: 1ms; --motion-layout: 1ms; --motion-page: 1ms; --motion-morph: 1ms; --motion-chart: 1ms; } }

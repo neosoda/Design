@@ -1,0 +1,13 @@
+/* Correspondance shadcn/ui → jetons SentinelFlow. Importer après tokens.css. Valable pour les deux thèmes. */
+:root, [data-theme="dark"] {
+  --background: var(--sf-canvas); --foreground: var(--sf-text);
+  --card: var(--sf-surface); --card-foreground: var(--sf-text);
+  --popover: var(--sf-surface); --popover-foreground: var(--sf-text);
+  --primary: var(--sf-primary); --primary-foreground: var(--sf-primary-fg);
+  --secondary: var(--sf-surface-2); --secondary-foreground: var(--sf-text);
+  --muted: var(--sf-surface-2); --muted-foreground: var(--sf-text-3);
+  --accent: var(--sf-primary-subtle); --accent-foreground: var(--sf-primary-subtle-fg);
+  --destructive: var(--sf-danger); --destructive-foreground: var(--sf-primary-fg);
+  --border: var(--sf-border); --input: var(--sf-border-control); --ring: var(--sf-focus);
+  --radius: var(--sf-radius-md);
+}

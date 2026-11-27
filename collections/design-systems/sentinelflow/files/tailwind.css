@@ -1,0 +1,20 @@
+/* SentinelFlow pour Tailwind CSS 4. Importer après tokens.css. */
+@import "tailwindcss";
+@import "./fonts/fonts.css";
+@import "./tokens.css";
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@theme inline {
+  --color-canvas: var(--sf-canvas); --color-surface: var(--sf-surface); --color-surface-2: var(--sf-surface-2); --color-surface-3: var(--sf-surface-3);
+  --color-border: var(--sf-border); --color-border-strong: var(--sf-border-strong); --color-border-control: var(--sf-border-control);
+  --color-ink: var(--sf-text); --color-ink-2: var(--sf-text-2); --color-ink-3: var(--sf-text-3);
+  --color-primary: var(--sf-primary); --color-primary-hover: var(--sf-primary-hover); --color-primary-fg: var(--sf-primary-fg);
+  --color-primary-subtle: var(--sf-primary-subtle); --color-primary-subtle-fg: var(--sf-primary-subtle-fg);
+  --color-danger: var(--sf-danger); --color-danger-subtle: var(--sf-danger-subtle);
+  --color-warning: var(--sf-warning); --color-warning-subtle: var(--sf-warning-subtle);
+  --color-success: var(--sf-success); --color-success-subtle: var(--sf-success-subtle); --color-paused: var(--sf-paused);
+  --font-sans: var(--sf-font-sans); --font-mono: var(--sf-font-mono);
+  --radius-sm: var(--sf-radius-sm); --radius-md: var(--sf-radius-md); --radius-lg: var(--sf-radius-lg);
+  --shadow-1: var(--sf-shadow-1); --shadow-2: var(--sf-shadow-2);
+  --ease-veille: var(--sf-ease-veille);
+  --breakpoint-sm: 640px; --breakpoint-md: 1024px; --breakpoint-lg: 1280px; --breakpoint-xl: 1600px;
+}

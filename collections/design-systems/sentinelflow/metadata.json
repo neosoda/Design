@@ -1,0 +1,14 @@
+{
+  "title": "SentinelFlow · Identité V1",
+  "description": "Référentiel ITSM : identité de marque, tokens, composants, contrastes et écrans métier.",
+  "tags": [
+    "itsm",
+    "tokens",
+    "design-system",
+    "accessibility"
+  ],
+  "source": "SentinelFlow-referentiel-v1.zip (collection personnelle)",
+  "license": "Inconnue",
+  "usage": "reference",
+  "preview": "preview.png"
+}
