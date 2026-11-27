@@ -1,0 +1,15 @@
+{
+  "title": "SHIP · Production Readiness Gate",
+  "description": "Master prompt de validation finale : 20 release gates, corrections itératives et décision de livraison fondée sur des preuves.",
+  "tags": [
+    "prompt",
+    "release",
+    "security",
+    "qa",
+    "ux"
+  ],
+  "source": "02_SHIP final prompt verif.txt (collection personnelle)",
+  "license": "Inconnue",
+  "usage": "reference",
+  "preview": "preview.svg"
+}
