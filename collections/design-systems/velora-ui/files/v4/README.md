@@ -56,6 +56,6 @@ python tests/smoke.py
 - Les cinq profils partagent un même moteur et une même structure : ce sont des templates de démarrage, pas cinq produits métiers complets.
 - Pas de backend, d'authentification, de persistance distante ou de données de production. Les mutations CRM héritées de V3 ne sont pas toutes persistées.
 - Les widgets sont redimensionnables par paliers ; pas de redimensionnement libre pixel par pixel.
-- La V4 doit encore passer la recette Chromium réelle (390/768/1440, quatre palettes, clavier, focus, contraste WCAG AA, régressions CRM et stabilité visuelle). Le script de smoke test est fourni mais n'a pas été exécuté dans la session de création.
-- Ne pas déclarer la conformité WCAG complète sans mesure de contraste sur les surfaces réelles et parcours clavier/lecteur d'écran.
+- Recette Chromium exécutée (375/390/768/1440 px, zoom 200 %, quatre palettes Light/Dark/Ivory/Mist, clavier/focus, smoke Playwright E2E et contraste WCAG AA mesuré ≥ 4,86:1 — voir [QA.md](QA.md)).
+- Ne pas déclarer la conformité WCAG intégrale au-delà des surfaces et parcours vérifiés sans audit lecteur d'écran dédié.
 - Licence des références d'origine inconnue : conserver les mentions de provenance et vérifier les droits avant réutilisation.

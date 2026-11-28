@@ -6,12 +6,12 @@ Bibliothèque de directions artistiques originales, transférables entre produit
 
 | Identité | Terrain | Composition distinctive | État |
 |---|---|---|---|
-| Velora | CRM | Rail flottant, rythme organique | Existant |
+| Velora | CRM, SaaS | Rail flottant, rythme organique, V4 Studio | Validé (V4 fusionnée, WCAG AA ≥ 4,86:1, smoke Chromium) |
 | Nexora | ITSM | File de travail et tableau dense | Existant |
 | Lumera | Portails | Bento éditorial, verre chaud | Existant |
 | Axiom | Analytics | Rail violet, panneaux analytiques | Existant |
-| Forma | Institutionnel, documentation | Grille suisse, index éditorial, signalétique | Prototype initial, QA navigateur à faire |
-| Vector | Supervision, cyber | Panneaux de télémétrie, carte topologique, chronologie | À construire |
+| Forma | Institutionnel, documentation | Grille suisse, index éditorial, signalétique | Validé (94/100, Rams 29/30, recette Chromium & WebP) |
+| Vector | Supervision, cyber | Panneaux de télémétrie, carte topologique, chronologie | En cours (Vague 1) |
 | Opaline | Commerce premium | Photographie de produit, asymétrie, matière | À construire |
 | Tempo | Collaboration | Liste, planning, document de travail | À construire |
 | Meridian | Finance | Chiffres alignés, journal et allocation | À construire |

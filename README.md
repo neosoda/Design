@@ -42,7 +42,7 @@ Un aperçu pour chaque ressource, une fiche dédiée et les fichiers associés l
 <table>
 <tr>
 <td width="50%" valign="top"><a href="collections/themes/axiom-ui/README.md"><img src="collections/themes/axiom-ui/preview.svg" alt="Aperçu : Axiom UI" width="100%"><br><strong>Axiom UI</strong></a><br>Dashboard React modulaire : KPI, graphiques accessibles, densité et navigation personnalisables.<br><sub>Réutilisable · react · dashboard · typescript</sub></td>
-<td width="50%" valign="top"><a href="collections/design-systems/forma-ui/README.md"><img src="collections/design-systems/forma-ui/preview.svg" alt="Aperçu : Forma UI" width="100%"><br><strong>Forma UI</strong></a><br>Direction suisse : sites institutionnels, index éditoriaux et centres de ressources.<br><sub>Référence · institutional · editorial · typography · prototype</sub></td>
+<td width="50%" valign="top"><a href="collections/design-systems/forma-ui/README.md"><img src="collections/design-systems/forma-ui/preview.webp" alt="Aperçu : Forma UI" width="100%"><br><strong>Forma UI</strong></a><br>Direction suisse : sites institutionnels, index éditoriaux et centres de ressources.<br><sub>Référence · institutional · editorial · typography · prototype · accessibility</sub></td>
 </tr>
 <tr>
 <td width="50%" valign="top"><a href="collections/design-systems/lumera-ui/README.md"><img src="collections/design-systems/lumera-ui/preview.svg" alt="Aperçu : Lumera UI" width="100%"><br><strong>Lumera UI</strong></a><br>Design system Bento éditorial : verre chaud, sable et sauge, surfaces accessibles et prototype interactif.<br><sub>Référence · bento · glassmorphism · tokens · editorial</sub></td>
