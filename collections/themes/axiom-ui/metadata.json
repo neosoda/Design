@@ -1,0 +1,13 @@
+{
+  "title": "Axiom UI",
+  "description": "Dashboard React modulaire : KPI, graphiques accessibles, densité et navigation personnalisables.",
+  "tags": [
+    "react",
+    "dashboard",
+    "typescript"
+  ],
+  "source": "admin-dashboard-v15-template.zip (collection personnelle)",
+  "license": "MIT",
+  "usage": "reusable",
+  "preview": "preview.svg"
+}

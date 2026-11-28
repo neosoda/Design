@@ -1,0 +1,5 @@
+/* Lumera UI — semantic tokens, independent of framework. */
+:root{color-scheme:light;--bg-1:#f4e9e1;--bg-2:#e6efe9;--bg-aura-warm:#f7d6c4;--bg-aura-cool:#d4e8dc;--ink:#1d2b29;--muted-strong:#576662;--pine:#1f4d44;--coral:#e8664a;--coral-text:#a83d28;--glass:rgba(255,255,255,.72);--glass-solid:#fafbf8;--line:rgba(31,77,68,.22);--focus:#1f4d44;--radius:24px;--blur:18px;--shadow:0 12px 32px rgba(31,77,68,.08);--font:Manrope,system-ui,sans-serif;--serif:"Instrument Serif",Georgia,serif;--mono:"JetBrains Mono",monospace;--motion:220ms;--ease:cubic-bezier(.2,.8,.2,1)}
+:root[data-surface="solid"]{--glass:var(--glass-solid);--blur:0px}
+@media(prefers-reduced-motion:reduce){:root{--motion:0ms}}
+@media(prefers-contrast:more){:root{--glass:#fff;--line:#576662;--blur:0px}}

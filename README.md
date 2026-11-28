@@ -41,12 +41,12 @@ Un aperçu pour chaque ressource, une fiche dédiée et les fichiers associés l
 <!-- gallery:start -->
 <table>
 <tr>
-<td width="50%" valign="top"><a href="collections/themes/admin-dashboard-v15/README.md"><img src="collections/themes/admin-dashboard-v15/preview.webp" alt="Aperçu : Admin Dashboard V15" width="100%"><br><strong>Admin Dashboard V15</strong></a><br>Dashboard React responsive avec KPI, tableaux, graphiques et paramètres personnalisables.<br><sub>Réutilisable · react · dashboard · typescript</sub></td>
-<td width="50%" valign="top"><a href="collections/design-systems/service-desk-ui/README.md"><img src="collections/design-systems/service-desk-ui/preview.svg" alt="Aperçu : Service Desk UI · Design System" width="100%"><br><strong>Service Desk UI · Design System</strong></a><br>Interface ITSM générique : tableaux denses, états métier, thèmes clair et sombre, composants et tokens.<br><sub>Référence · itsm · tokens · design-system · accessibility</sub></td>
+<td width="50%" valign="top"><a href="collections/themes/axiom-ui/README.md"><img src="collections/themes/axiom-ui/preview.svg" alt="Aperçu : Axiom UI" width="100%"><br><strong>Axiom UI</strong></a><br>Dashboard React modulaire : KPI, graphiques accessibles, densité et navigation personnalisables.<br><sub>Réutilisable · react · dashboard · typescript</sub></td>
+<td width="50%" valign="top"><a href="collections/design-systems/lumera-ui/README.md"><img src="collections/design-systems/lumera-ui/preview.svg" alt="Aperçu : Lumera UI" width="100%"><br><strong>Lumera UI</strong></a><br>Design system Bento éditorial : verre chaud, sable et sauge, surfaces accessibles et prototype interactif.<br><sub>Référence · bento · glassmorphism · tokens · editorial</sub></td>
 </tr>
 <tr>
+<td width="50%" valign="top"><a href="collections/design-systems/nexora-ui/README.md"><img src="collections/design-systems/nexora-ui/preview.svg" alt="Aperçu : Nexora UI" width="100%"><br><strong>Nexora UI</strong></a><br>Design system ITSM : navigation configurable, tableaux à trois densités, états métier et thèmes clair/sombre.<br><sub>Référence · itsm · tokens · design-system · accessibility</sub></td>
 <td width="50%" valign="top"><a href="collections/design-systems/velora-ui/README.md"><img src="collections/design-systems/velora-ui/preview.svg" alt="Aperçu : Velora UI" width="100%"><br><strong>Velora UI</strong></a><br>Charte UX/UI éditoriale : toile pêche-sauge, cartes métier colorées, transitions et surfaces givrées.<br><sub>Référence · crm · motion · tokens · prototype</sub></td>
-<td width="50%" valign="top"><a href="collections/design-systems/warm-frosted-editorial/README.md"><img src="collections/design-systems/warm-frosted-editorial/preview.svg" alt="Aperçu : Warm Frosted Editorial" width="100%"><br><strong>Warm Frosted Editorial</strong></a><br>Charte Bento lumineuse : verre dépoli chaud, sable, sauge, sapin et corail.<br><sub>Référence · bento · glassmorphism · tokens · editorial</sub></td>
 </tr>
 <tr>
 <td width="50%" valign="top"><a href="collections/components/glassy-otp/README.md"><img src="collections/components/glassy-otp/preview.webp" alt="Aperçu : Glassy OTP" width="100%"><br><strong>Glassy OTP</strong></a><br>Composant OTP animé en verre fumé, saisie à quatre chiffres et validation lumineuse.<br><sub>Référence · react · otp · motion · glassmorphism</sub></td>
@@ -54,6 +54,10 @@ Un aperçu pour chaque ressource, une fiche dédiée et les fichiers associés l
 </tr>
 </table>
 <!-- gallery:end -->
+
+## Quatre identités, quatre usages
+
+**Axiom UI** pour les dashboards analytiques, **Lumera UI** pour les interfaces éditoriales et Bento, **Nexora UI** pour la gestion de services, **Velora UI** pour les expériences CRM fluides. Chaque identité conserve son propre langage visuel.
 
 ## L'esprit de la collection
 
