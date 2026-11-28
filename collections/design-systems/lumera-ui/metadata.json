@@ -1,0 +1,14 @@
+{
+  "title": "Lumera UI",
+  "description": "Design system Bento éditorial : verre chaud, sable et sauge, surfaces accessibles et prototype interactif.",
+  "tags": [
+    "bento",
+    "glassmorphism",
+    "tokens",
+    "editorial"
+  ],
+  "source": "charte Bento.txt + prompt charte bento.md (collection personnelle)",
+  "license": "Inconnue",
+  "usage": "reference",
+  "preview": "preview.svg"
+}
