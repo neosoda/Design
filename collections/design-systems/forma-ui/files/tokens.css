@@ -1,0 +1,7 @@
+/* Forma UI — primitives, sémantique, composants */
+:root {
+ --forma-paper:#f3f4ef; --forma-ink:#171a1d; --forma-blue:#1937a5; --forma-slate:#4a555e; --forma-rule:#b0b5b6; --forma-white:#fff;
+ --forma-font:"Helvetica Neue",Arial,sans-serif; --forma-space:8px;
+ --forma-bg:var(--forma-paper); --forma-fg:var(--forma-ink); --forma-accent:var(--forma-blue); --forma-muted:var(--forma-slate); --forma-border:var(--forma-rule); --forma-on-accent:var(--forma-white);
+ --forma-action-bg:var(--forma-accent); --forma-action-fg:var(--forma-on-accent); --forma-focus:var(--forma-accent); --forma-max:1320px;
+}
