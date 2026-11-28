@@ -1,12 +1,20 @@
 """Optional real-browser regression test: pip install playwright; playwright install chromium."""
+import shutil
 from pathlib import Path
 from playwright.sync_api import sync_playwright, expect
 
 URL = (Path(__file__).resolve().parents[1] / "prototype.html").as_uri()
 
+def _launch(pw):
+    try:
+        return pw.chromium.launch(args=["--no-sandbox", "--disable-dev-shm-usage"])
+    except Exception:
+        exe = shutil.which("google-chrome") or shutil.which("chromium") or shutil.which("chromium-browser")
+        return pw.chromium.launch(executable_path=exe, args=["--no-sandbox", "--disable-dev-shm-usage"])
+
 def main():
     with sync_playwright() as pw:
-        browser = pw.chromium.launch()
+        browser = _launch(pw)
         page = browser.new_page(viewport={"width": 1440, "height": 900}, reduced_motion="reduce")
         errors = []
         page.on("pageerror", lambda error: errors.append(str(error)))
