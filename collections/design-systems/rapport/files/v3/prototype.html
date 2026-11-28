@@ -484,6 +484,24 @@ body.phone .rail{left:max(14px,calc(50% - 290px))}
   table.tbl{font-size:13px}
 }
 @media (prefers-reduced-motion:reduce){:root{--motion-fast:1ms;--motion-control:1ms;--motion-exit:1ms;--motion-layout:1ms;--motion-enter:1ms;--motion-morph:1ms;--motion-sheet:1ms;--motion-chart:1ms;--motion-count:1ms;--stagger:0ms;--tilt-max:0}*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
+/* Collapsible floating rail: compact, pinned open, or temporary expansion. */
+:root{--rail-width:44px;--rail-expanded-width:208px;--rail-offset:14px;--rail-gap:16px;--rail-motion:260ms}
+.rail{width:var(--rail-width);transition:width var(--rail-motion) var(--ease);max-height:calc(100dvh - 28px)}
+.rail button{width:100%;display:flex;align-items:center;justify-content:flex-start;padding:0 14px;flex-shrink:0;text-align:left;border-radius:12px}
+.rail button[data-rail-mode][aria-pressed=true]{color:var(--y);opacity:1}
+.rail button[data-rail-mode]:focus-visible,.rail button[data-rail-toggle]:focus-visible{outline:2px solid var(--y);outline-offset:-3px}
+.rail[data-open=true]{width:var(--rail-expanded-width);overflow:hidden}
+.rail[data-open=true] button:hover{transform:none;background:rgba(255,255,255,.09)}
+.rail[data-open=true] button span{left:44px;padding:0;background:transparent;opacity:1;transform:translate(0,-50%);transition:opacity 160ms var(--ease);white-space:nowrap}
+.rail[data-open=true] button:focus-visible{outline:2px solid var(--y);outline-offset:-3px}
+.rail hr{flex-shrink:0}
+@media(min-width:561px){
+  body:not(.phone) .app{transition:padding-left var(--rail-motion) var(--ease)}
+  body[data-rail-mode=expanded]:not(.phone) .app{padding-left:max(clamp(78px,7vw,100px),calc(var(--rail-offset) + var(--rail-expanded-width) + var(--rail-gap) - max(0px,(100vw - 1200px)/2)))}
+}
+body.phone .rail [data-rail-toggle],body.phone .rail [data-rail-mode],body.phone .rail .rail-control-divider{display:none}
+@media(max-height:500px){.rail,.rail[data-open=true]{overflow-y:auto;overflow-x:hidden}.rail button:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){:root{--rail-motion:1ms}}
 </style>
 </head>
 <body>
@@ -645,9 +663,40 @@ let ROs=[];const watch=(el,fn)=>{const ro=new ResizeObserver(()=>fn());ro.observ
 
 /* ---------- shell ---------- */
 $('#inboxBtn').innerHTML=I.inbox;$('#bellBtn').innerHTML=I.bell;
-const RAIL=[['search','Search  ⌘K',()=>openPalette()],['plus','New deal',()=>openCreate('deal')],['star','Starred customers',()=>{S.starOnly=true;nav('customers',true)}],['cal','Schedule',()=>nav('schedule')],['mobile','Phone preview',()=>{document.body.classList.toggle('phone');requestAnimationFrame(moveInd)}],['send','Copy weekly digest',()=>copyText(digest(),'Weekly digest copied')],['share','Copy link to this view',()=>copyText(location.href,'Link copied')],['upload','Export pipeline CSV',()=>copyText(dealsCSV(),'Pipeline CSV copied')],'hr',['gear','Settings',()=>toast('Settings aren’t part of this reproduction')],['moon','Theme',()=>toggleTheme()]];
-$('#rail').innerHTML=RAIL.map((r,i)=>r==='hr'?'<hr>':`<button data-i="${i}" aria-label="${r[1]}">${I[r[0]]}<span>${r[1]}</span></button>`).join('');
-$('#rail').addEventListener('click',e=>{const b=e.target.closest('button');if(b)RAIL[+b.dataset.i][2]()});
+const RAIL=[['search','Search  ⌘K',()=>openPalette()],['plus','New deal',()=>openCreate('deal')],['star','Starred customers',()=>{S.starOnly=true;nav('customers',true)}],['cal','Schedule',()=>nav('schedule')],['mobile','Phone preview',()=>{document.body.classList.toggle('phone');applyRail();requestAnimationFrame(moveInd)}],['send','Copy weekly digest',()=>copyText(digest(),'Weekly digest copied')],['share','Copy link to this view',()=>copyText(location.href,'Link copied')],['upload','Export pipeline CSV',()=>copyText(dealsCSV(),'Pipeline CSV copied')],'hr',['gear','Settings',()=>toast('Settings aren’t part of this reproduction')],['moon','Theme',()=>toggleTheme()]];
+const rail=$('#rail');
+const railKey='rapport.sidebar.mode';
+const railModes=['collapsed','expanded','auto'];
+let railMode='collapsed',railHovered=false,railKeyboard=false;
+try{const saved=localStorage.getItem(railKey);if(railModes.includes(saved))railMode=saved}catch{}
+const railArrow=P('<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16m4-11 3 3-3 3"/>');
+const railAuto=P('<path d="M4 12h16m-4-4 4 4-4 4M8 8l-4 4 4 4"/>');
+rail.innerHTML='<button type="button" data-rail-toggle aria-expanded="false">'+railArrow+'<span>Expand menu</span></button><button type="button" data-rail-mode aria-label="Automatic expansion" aria-pressed="false">'+railAuto+'<span>Automatic expansion</span></button><hr class="rail-control-divider">'+RAIL.map((r,i)=>r==='hr'?'<hr>':`<button type="button" data-i="${i}" aria-label="${r[1]}">${I[r[0]]}<span>${r[1]}</span></button>`).join('');
+const railToggle=rail.querySelector('[data-rail-toggle]');
+const railAutoButton=rail.querySelector('[data-rail-mode]');
+function applyRail(){
+ const open=!document.body.classList.contains('phone')&&(railMode==='expanded'||(railMode==='auto'&&(railHovered||railKeyboard)));
+ document.body.dataset.railMode=railMode;rail.dataset.open=String(open);
+ railToggle.setAttribute('aria-expanded',String(open));
+ const label=open?'Collapse menu':'Expand menu';
+ railToggle.setAttribute('aria-label',label);railToggle.title=label;railToggle.querySelector('span').textContent=label;
+ railToggle.firstElementChild.style.transform=open?'scaleX(-1)':'';
+ railAutoButton.setAttribute('aria-pressed',String(railMode==='auto'));
+ railAutoButton.title=railMode==='auto'?'Disable automatic expansion':'Enable automatic expansion';
+}
+function setRailMode(mode){railMode=mode;try{localStorage.setItem(railKey,mode)}catch{}applyRail()}
+rail.addEventListener('pointerenter',e=>{railHovered=e.pointerType==='mouse'||e.pointerType==='pen';applyRail()});
+rail.addEventListener('pointerleave',()=>{railHovered=false;applyRail()});
+rail.addEventListener('focusin',e=>{railKeyboard=e.target.matches(':focus-visible');applyRail()});
+rail.addEventListener('focusout',()=>{queueMicrotask(()=>{railKeyboard=rail.contains(document.activeElement)&&document.activeElement.matches(':focus-visible');applyRail()})});
+rail.addEventListener('keydown',e=>{if(railMode==='auto'&&e.key==='Escape'){railKeyboard=false;railHovered=false;applyRail()}});
+rail.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;
+ if(b===railToggle){setRailMode(rail.dataset.open==='true'?'collapsed':'expanded');return}
+ if(b===railAutoButton){setRailMode(railMode==='auto'?'collapsed':'auto');return}
+ if(b.hasAttribute('data-i'))RAIL[Number(b.dataset.i)][2]();
+});
+applyRail();
 function isDark(){const t=document.documentElement.dataset.theme;return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches}
 function toggleTheme(){document.documentElement.dataset.theme=isDark()?'light':'dark';setThemeIcon();if(S.route)redrawCharts()}
 function setThemeIcon(){const b=$('#rail button[data-i="10"]');if(b)b.firstElementChild.outerHTML=isDark()?I.sun:I.moon}
