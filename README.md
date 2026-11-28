@@ -42,22 +42,28 @@ Un aperçu pour chaque ressource, une fiche dédiée et les fichiers associés l
 <table>
 <tr>
 <td width="50%" valign="top"><a href="collections/themes/axiom-ui/README.md"><img src="collections/themes/axiom-ui/preview.svg" alt="Aperçu : Axiom UI" width="100%"><br><strong>Axiom UI</strong></a><br>Dashboard React modulaire : KPI, graphiques accessibles, densité et navigation personnalisables.<br><sub>Réutilisable · react · dashboard · typescript</sub></td>
+<td width="50%" valign="top"><a href="collections/design-systems/forma-ui/README.md"><img src="collections/design-systems/forma-ui/preview.svg" alt="Aperçu : Forma UI" width="100%"><br><strong>Forma UI</strong></a><br>Direction suisse : sites institutionnels, index éditoriaux et centres de ressources.<br><sub>Référence · institutional · editorial · typography · prototype</sub></td>
+</tr>
+<tr>
 <td width="50%" valign="top"><a href="collections/design-systems/lumera-ui/README.md"><img src="collections/design-systems/lumera-ui/preview.svg" alt="Aperçu : Lumera UI" width="100%"><br><strong>Lumera UI</strong></a><br>Design system Bento éditorial : verre chaud, sable et sauge, surfaces accessibles et prototype interactif.<br><sub>Référence · bento · glassmorphism · tokens · editorial</sub></td>
-</tr>
-<tr>
 <td width="50%" valign="top"><a href="collections/design-systems/nexora-ui/README.md"><img src="collections/design-systems/nexora-ui/preview.svg" alt="Aperçu : Nexora UI" width="100%"><br><strong>Nexora UI</strong></a><br>Design system ITSM : navigation configurable, tableaux à trois densités, états métier et thèmes clair/sombre.<br><sub>Référence · itsm · tokens · design-system · accessibility</sub></td>
-<td width="50%" valign="top"><a href="collections/design-systems/velora-ui/README.md"><img src="collections/design-systems/velora-ui/preview.svg" alt="Aperçu : Velora UI" width="100%"><br><strong>Velora UI</strong></a><br>Charte UX/UI éditoriale : toile pêche-sauge, cartes métier colorées, transitions et surfaces givrées.<br><sub>Référence · crm · motion · tokens · prototype</sub></td>
 </tr>
 <tr>
+<td width="50%" valign="top"><a href="collections/design-systems/velora-ui/README.md"><img src="collections/design-systems/velora-ui/preview.svg" alt="Aperçu : Velora UI" width="100%"><br><strong>Velora UI</strong></a><br>Charte UX/UI éditoriale : toile pêche-sauge, cartes métier colorées, transitions et surfaces givrées.<br><sub>Référence · crm · motion · tokens · prototype</sub></td>
 <td width="50%" valign="top"><a href="collections/components/glassy-otp/README.md"><img src="collections/components/glassy-otp/preview.webp" alt="Aperçu : Glassy OTP" width="100%"><br><strong>Glassy OTP</strong></a><br>Composant OTP animé en verre fumé, saisie à quatre chiffres et validation lumineuse.<br><sub>Référence · react · otp · motion · glassmorphism</sub></td>
+</tr>
+<tr>
 <td width="50%" valign="top"><a href="collections/assets/loup-cyberpunk/README.md"><img src="collections/assets/loup-cyberpunk/preview.jpg" alt="Aperçu : Loup cyberpunk" width="100%"><br><strong>Loup cyberpunk</strong></a><br>Illustration de loup cyberpunk, atmosphère Matrix et code vert.<br><sub>Référence · avatar · cyberpunk · illustration · matrix</sub></td>
+<td width="50%"></td>
 </tr>
 </table>
 <!-- gallery:end -->
 
-## Quatre identités, quatre usages
+## Des identités pour chaque usage
 
-**Axiom UI** pour les dashboards analytiques, **Lumera UI** pour les interfaces éditoriales et Bento, **Nexora UI** pour la gestion de services, **Velora UI** pour les expériences CRM fluides. Chaque identité conserve son propre langage visuel.
+**Axiom UI** pour les dashboards analytiques, **Lumera UI** pour les interfaces éditoriales et Bento, **Nexora UI** pour la gestion de services, **Velora UI** pour les expériences CRM fluides. **Forma UI** pour les sites institutionnels et les centres de ressources. Chaque identité conserve son propre langage visuel.
+
+[Design Studio : feuille de route et méthode de création](STUDIO.md)
 
 ## L'esprit de la collection
 
