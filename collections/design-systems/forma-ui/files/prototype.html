@@ -1,10 +1,1864 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Forma UI — Maison des ressources</title><style>
-/* Forma UI — primitives, sémantique, composants */
+<!doctype html>
+<html lang="fr" data-theme="light" data-density="standard">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Forma UI — Maison des ressources publiques (Démonstration fictive)</title>
+  <meta name="description" content="Prototype autonome Forma UI : signalétique suisse, index documentaire filtrable, lecture réglementaire et préparateur de démarche publique.">
+  <style id="forma-styles">
+/* FORMA:INLINE:START */
+/* Forma UI — Tokens (Primitive → Semantic → Component, synchronized with tokens.json) */
 :root {
- --forma-paper:#f3f4ef; --forma-ink:#171a1d; --forma-blue:#1937a5; --forma-slate:#4a555e; --forma-rule:#b0b5b6; --forma-white:#fff;
- --forma-font:"Helvetica Neue",Arial,sans-serif; --forma-space:8px;
- --forma-bg:var(--forma-paper); --forma-fg:var(--forma-ink); --forma-accent:var(--forma-blue); --forma-muted:var(--forma-slate); --forma-border:var(--forma-rule); --forma-on-accent:var(--forma-white);
- --forma-action-bg:var(--forma-accent); --forma-action-fg:var(--forma-on-accent); --forma-focus:var(--forma-accent); --forma-max:1320px;
+  color-scheme: light;
+
+  /* 1. Primitives */
+  --forma-paper-50: #fafbf8;
+  --forma-paper-100: #f3f4ef;
+  --forma-paper-200: #e6e8e0;
+  --forma-paper-300: #d2d6cc;
+  --forma-ink-950: #111417;
+  --forma-ink-900: #171a1d;
+  --forma-ink-700: #364049;
+  --forma-ink-600: #4a555e;
+  --forma-ink-400: #8a949c;
+  --forma-ink-300: #b0b5b6;
+  --forma-ultramarine-800: #12287a;
+  --forma-ultramarine-700: #1937a5;
+  --forma-ultramarine-600: #2548c8;
+  --forma-ultramarine-300: #84a4ff;
+  --forma-ultramarine-200: #adc2ff;
+  --forma-ultramarine-100: #e5ebf9;
+  --forma-vermilion-700: #a82419;
+  --forma-vermilion-300: #ff8f85;
+  --forma-vermilion-100: #fbeae8;
+  --forma-forest-700: #185c37;
+  --forma-forest-300: #75d49e;
+  --forma-forest-100: #e6f2eb;
+  --forma-ochre-700: #7d4e00;
+  --forma-ochre-300: #f2c46d;
+  --forma-ochre-100: #f9f0dc;
+  --forma-slate-950: #101316;
+  --forma-slate-900: #161b20;
+  --forma-slate-850: #1d242b;
+  --forma-slate-700: #313b45;
+  --forma-slate-200: #a9b2ba;
+  --forma-slate-50: #eef0ec;
+  --forma-white: #ffffff;
+
+  /* Typography & Scale */
+  --forma-font: "Helvetica Neue", "Neue Haas Grotesk Text Pro", "Liberation Sans", Arial, sans-serif;
+  --forma-font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --forma-text-xs: 0.8125rem;   /* 13px */
+  --forma-text-sm: 0.875rem;    /* 14px */
+  --forma-text-base: 1rem;      /* 16px */
+  --forma-text-lg: 1.1875rem;   /* 19px */
+  --forma-text-xl: 1.375rem;    /* 22px */
+  --forma-text-2xl: 1.75rem;    /* 28px */
+  --forma-text-3xl: clamp(1.85rem, 3.4vw, 2.75rem);
+  --forma-text-display: clamp(2.5rem, 5.6vw, 4.75rem);
+
+  /* Spacing & Geometry (strict 0px architectural corners) */
+  --forma-space-1: 4px;
+  --forma-space-2: 8px;
+  --forma-space-3: 12px;
+  --forma-space-4: 16px;
+  --forma-space-5: 24px;
+  --forma-space-6: 32px;
+  --forma-space-7: 48px;
+  --forma-space-8: 64px;
+  --forma-space-9: 96px;
+  --forma-radius: 0px;
+  --forma-rule-thin: 1px;
+  --forma-rule-heavy: 2px;
+
+  /* 2. Semantic (Light — Papier froid, plus V1 compatibility aliases) */
+  --forma-paper: var(--forma-paper-100);
+  --forma-ink: var(--forma-ink-900);
+  --forma-blue: var(--forma-ultramarine-700);
+  --forma-slate: var(--forma-ink-600);
+  --forma-rule: var(--forma-ink-300);
+
+  --forma-bg: var(--forma-paper-100);
+  --forma-surface: var(--forma-paper-50);
+  --forma-surface-subtle: var(--forma-paper-200);
+  --forma-fg: var(--forma-ink-900);
+  --forma-muted: var(--forma-ink-600);
+  --forma-border: var(--forma-ink-300);
+  --forma-border-strong: var(--forma-ink-900);
+  --forma-accent: var(--forma-ultramarine-700);
+  --forma-accent-hover: var(--forma-ultramarine-800);
+  --forma-accent-subtle: var(--forma-ultramarine-100);
+  --forma-on-accent: var(--forma-white);
+  --forma-danger: var(--forma-vermilion-700);
+  --forma-danger-subtle: var(--forma-vermilion-100);
+  --forma-success: var(--forma-forest-700);
+  --forma-success-subtle: var(--forma-forest-100);
+  --forma-warning: var(--forma-ochre-700);
+  --forma-warning-subtle: var(--forma-ochre-100);
+  --forma-focus: var(--forma-ultramarine-700);
+  --forma-scrim: rgba(17, 20, 23, 0.62);
+
+  /* 3. Component */
+  --forma-max: 1320px;
+  --forma-measure: 68ch;
+  --forma-control-h: 44px;
+  --forma-action-bg: var(--forma-accent);
+  --forma-action-fg: var(--forma-on-accent);
 }
-*{box-sizing:border-box}html,body{overflow-x:clip;margin:0}html{scroll-behavior:auto}body{font:16px/1.55 var(--forma-font);background:var(--forma-bg);color:var(--forma-fg)}a{color:inherit;text-underline-offset:.2em}a:hover{text-decoration-thickness:2px}button,input,select{font:inherit;color:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--forma-focus);outline-offset:3px}::selection{background:var(--forma-accent);color:var(--forma-on-accent)}.wrap{max-width:var(--forma-max);margin:auto;padding-inline:clamp(20px,4vw,64px)}.skip{position:absolute;inset:8px auto auto 8px;transform:translateY(-200%);background:var(--forma-bg);padding:12px;z-index:5}.skip:focus{transform:none}.header{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-block:22px;border-bottom:1px solid var(--forma-border)}.brand{font-size:30px;font-weight:700;letter-spacing:-.04em;text-decoration:none}.header nav{display:flex;gap:24px;flex-wrap:wrap}.header nav a{padding:10px 0}.hero{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:end;padding-block:clamp(40px,7vw,100px)}h1,h2,h3,p{margin:0}h1{font-size:clamp(42px,6.6vw,88px);line-height:1.04;letter-spacing:-.04em;overflow-wrap:break-word}h2{font-size:clamp(27px,4vw,46px);line-height:1.12;letter-spacing:-.035em;overflow-wrap:break-word}.intro{max-width:54ch;margin:24px 0;font-size:19px;color:var(--forma-muted)}.action{display:inline-flex;align-items:center;min-height:44px;background:var(--forma-action-bg);color:var(--forma-action-fg);padding:10px 20px;text-decoration:none;border:1px solid var(--forma-action-bg)}.action:hover{text-decoration:underline}.graphic{background:var(--forma-accent);aspect-ratio:4/3;min-width:0;display:grid;place-items:center}.graphic svg{width:80%;height:80%;color:var(--forma-on-accent)}.index{padding-block:32px 64px;border-top:1px solid var(--forma-border)}.section-head{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:end;margin-bottom:28px}.section-head p{max-width:48ch;color:var(--forma-muted)}.filters{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) auto;gap:12px;align-items:end;margin-bottom:16px}.filters[hidden],[hidden]{display:none!important}.filters label{display:grid;gap:6px;font-size:14px;font-weight:600}.filters input,.filters select,.filters button{min-height:44px;padding:8px 12px;border:1px solid var(--forma-muted);background:var(--forma-bg);border-radius:0}.filters button:hover{background:var(--forma-accent);color:var(--forma-on-accent)}.status{color:var(--forma-muted);font-size:14px;min-height:24px;margin-bottom:12px}.resource{border-top:1px solid var(--forma-border)}.resource:last-of-type{border-bottom:1px solid var(--forma-border)}.resource summary{cursor:pointer;min-height:78px;display:grid;grid-template-columns:minmax(90px,1fr) minmax(0,3fr) minmax(0,3fr) 24px;gap:16px;align-items:center;padding:16px 0;list-style:none}.resource summary::-webkit-details-marker{display:none}.resource summary::after{content:"+";font-size:24px;text-align:right;color:var(--forma-accent)}.resource[open] summary::after{content:"−"}.category{color:var(--forma-muted);font-size:13px}.resource-title{font-size:22px;font-weight:700;letter-spacing:-.02em;overflow-wrap:anywhere}.description{color:var(--forma-muted)}.resource-body{margin:0 40px 24px 14%;max-width:67ch;line-height:1.7}.resource-body h3{margin-bottom:8px}.empty{padding:24px 0;border-top:1px solid var(--forma-border)}.about{padding:32px 0 64px;border-top:1px solid var(--forma-border);display:grid;grid-template-columns:1fr 2fr;gap:24px}.about p{max-width:65ch;color:var(--forma-muted)}footer{border-top:1px solid var(--forma-border);padding-block:24px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px;color:var(--forma-muted)}@media(max-width:760px){.hero,.section-head,.about{grid-template-columns:1fr}.graphic{aspect-ratio:16/9}.filters{grid-template-columns:1fr 1fr}.filters label:first-child{grid-column:1/-1}.resource summary{grid-template-columns:minmax(0,1fr) 24px;gap:6px 12px}.resource summary::after{grid-column:2;grid-row:1/4;align-self:center}.resource summary>*{grid-column:1}.resource-body{margin:0 24px 24px 0}.header{align-items:flex-start;flex-direction:column;gap:4px}.header nav{gap:16px}.intro{font-size:17px}}@media(max-width:360px){.filters{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}@media print{.filters,.skip,.graphic,.header nav,.action{display:none!important}.wrap{max-width:none;padding:0}.hero{padding-block:20px}.resource-body{margin:0 0 16px}}
-</style></head><body><a class="skip" href="#main">Aller au contenu</a><div class="wrap"><header class="header"><a class="brand" href="#main">Forma.</a><nav aria-label="Navigation principale"><a href="#main">Accueil</a><a href="#index">Ressources</a><a href="#about">À propos</a></nav></header><main id="main"><section class="hero"><div><h1>Maison des ressources.</h1><p class="intro">Des repères clairs pour trouver un document, découvrir un service et préparer votre démarche.</p><a class="action" href="#index">Consulter les ressources</a></div><div class="graphic"><svg viewBox="0 0 400 300" fill="none" aria-hidden="true"><path d="M75 240V60h150v180zM110 225V45h150v180zM145 210V30h150v180z" stroke="currentColor" stroke-width="2"/><path d="M172 70h96M172 86h96M172 102h56M172 153h96" stroke="currentColor" stroke-width="4"/><path d="M75 240l220-30" stroke="currentColor" stroke-width="2"/><path d="M295 210h40v40" stroke="currentColor" stroke-width="6"/></svg></div></section><section id="index" class="index" aria-labelledby="index-title"><div class="section-head"><h2 id="index-title">Index des ressources</h2><p>Recherchez un sujet ou sélectionnez un type de ressource. Ouvrez une fiche pour consulter son contenu.</p></div><form class="filters" hidden role="search" aria-label="Recherche dans les ressources"><label>Rechercher<input id="q" type="search" placeholder="Ex. visite"></label><label>Type<select id="kind"><option value="">Tous</option><option>Guide</option><option>Service</option><option>Document</option></select></label><button type="reset">Réinitialiser</button></form><p class="status" id="status" role="status"></p><p id="empty" class="empty" hidden>Aucune ressource trouvée. Modifiez la recherche ou réinitialisez les filtres.</p><details class="resource" data-kind="Guide"><summary><span class="category">Guide</span><span class="resource-title">Préparer une visite</span><span class="description">Horaires, accès et conditions d'accueil.</span></summary><div class="resource-body"><h3>Contenu de la fiche</h3><p>La fiche de visite rassemble les informations pratiques à vérifier avant le déplacement. Remplacez ce contenu fictif par les horaires et conditions réels.</p></div></details><details class="resource" data-kind="Service"><summary><span class="category">Service</span><span class="resource-title">Réserver un espace</span><span class="description">Modalités de réservation et équipements.</span></summary><div class="resource-body"><h3>Contenu de la fiche</h3><p>Décrivez les espaces disponibles, les conditions d'accès et le contact chargé des réservations.</p></div></details><details class="resource" data-kind="Document"><summary><span class="category">Document</span><span class="resource-title">Règlement intérieur</span><span class="description">Règles de vie et usage des ressources.</span></summary><div class="resource-body"><h3>Contenu de la fiche</h3><p>Insérez ici le règlement en vigueur, sa date et son lien de téléchargement officiel.</p></div></details><details class="resource" data-kind="Guide"><summary><span class="category">Guide</span><span class="resource-title">Utiliser les ressources numériques</span><span class="description">Accès, assistance et prise en main.</span></summary><div class="resource-body"><h3>Contenu de la fiche</h3><p>Présentez les étapes de connexion, les prérequis, les modalités d'assistance et les alternatives accessibles.</p></div></details><details class="resource" data-kind="Service"><summary><span class="category">Service</span><span class="resource-title">Demander un accompagnement</span><span class="description">Identifier le bon interlocuteur.</span></summary><div class="resource-body"><h3>Contenu de la fiche</h3><p>Indiquez le parcours de demande, les délais réellement annoncés et les moyens de contact.</p></div></details></section><section id="about" class="about"><h2>À propos</h2><p>Maison des ressources est une institution fictive créée pour démontrer Forma UI. Les fiches sont des exemples de structure éditoriale, pas des services réels.</p></section></main><footer><span>Forma UI / Démonstration</span><a href="#main">Retour en haut</a></footer></div><script>const form=document.querySelector('.filters'),search=document.querySelector('#q'),kind=document.querySelector('#kind'),items=[...document.querySelectorAll('.resource')],status=document.querySelector('#status'),empty=document.querySelector('#empty');function normalize(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim()}function update(){const q=normalize(search.value);let n=0;for(const item of items){const show=(!q||normalize(item.textContent).includes(q))&&(!kind.value||item.dataset.kind===kind.value);item.hidden=!show;if(show)n++}status.textContent=n===1?'1 ressource':n+' ressources';empty.hidden=n!==0}form.hidden=false;search.addEventListener('input',update);kind.addEventListener('change',update);form.addEventListener('reset',()=>{search.value='';kind.value='';update()});form.addEventListener('submit',e=>e.preventDefault());update();</script></body></html>
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --forma-bg: var(--forma-slate-950);
+  --forma-surface: var(--forma-slate-900);
+  --forma-surface-subtle: var(--forma-slate-850);
+  --forma-fg: var(--forma-slate-50);
+  --forma-muted: var(--forma-slate-200);
+  --forma-border: var(--forma-slate-700);
+  --forma-border-strong: var(--forma-slate-50);
+  --forma-accent: var(--forma-ultramarine-300);
+  --forma-accent-hover: var(--forma-ultramarine-200);
+  --forma-accent-subtle: #1a2744;
+  --forma-on-accent: var(--forma-slate-950);
+  --forma-danger: var(--forma-vermilion-300);
+  --forma-danger-subtle: #361816;
+  --forma-success: var(--forma-forest-300);
+  --forma-success-subtle: #132e20;
+  --forma-warning: var(--forma-ochre-300);
+  --forma-warning-subtle: #33240b;
+  --forma-focus: var(--forma-ultramarine-300);
+  --forma-scrim: rgba(8, 10, 13, 0.76);
+  --forma-action-bg: var(--forma-accent);
+  --forma-action-fg: var(--forma-on-accent);
+}
+
+@media (min-width: 961px) and (pointer: fine) {
+  :root[data-density="compact"] {
+    --forma-control-h: 38px;
+    --forma-space-5: 18px;
+    --forma-space-6: 24px;
+  }
+}
+
+/* Forma UI — Components (Swiss Institutional & Editorial Grid, zero shadow, zero radius) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  overflow-x: clip;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  font-family: var(--forma-font);
+  font-size: var(--forma-text-base);
+  line-height: 1.55;
+  background: var(--forma-bg);
+  color: var(--forma-fg);
+  -webkit-font-smoothing: antialiased;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+::selection {
+  background: var(--forma-accent);
+  color: var(--forma-on-accent);
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  border-radius: var(--forma-radius);
+}
+
+button:not(:disabled):not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--forma-focus);
+  outline-offset: 3px;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+dl,
+dd,
+ul,
+ol {
+  margin: 0;
+}
+
+.forma-h1 {
+  font-size: var(--forma-text-display);
+  line-height: 1.02;
+  letter-spacing: -0.038em;
+  font-weight: 700;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.forma-h2 {
+  font-size: var(--forma-text-3xl);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  overflow-wrap: break-word;
+}
+
+.forma-h2-compact {
+  font-size: var(--forma-text-2xl);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+.forma-h3 {
+  font-size: var(--forma-text-xl);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+.forma-section-subhead {
+  margin-bottom: var(--forma-space-3);
+}
+
+.forma-h4 {
+  font-size: var(--forma-text-lg);
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.forma-muted-copy {
+  color: var(--forma-muted);
+}
+
+.forma-code {
+  font-family: var(--forma-font-mono);
+  font-size: var(--forma-text-xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--forma-muted);
+}
+
+.forma-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.forma-skip {
+  position: absolute;
+  inset: var(--forma-space-2) auto auto var(--forma-space-2);
+  transform: translateY(-220%);
+  background: var(--forma-accent);
+  color: var(--forma-on-accent);
+  padding: var(--forma-space-3) var(--forma-space-4);
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 40;
+}
+
+.forma-skip:focus {
+  transform: translateY(0);
+}
+
+.forma-wrap {
+  max-width: var(--forma-max);
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 56px);
+}
+
+/* Institutional Notice Strip */
+.forma-notice {
+  border-bottom: var(--forma-rule-thin) solid var(--forma-border);
+  background: var(--forma-surface);
+}
+
+.forma-notice-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--forma-space-4);
+  padding-block: var(--forma-space-2);
+  font-size: var(--forma-text-sm);
+}
+
+.forma-notice-tag {
+  display: inline-block;
+  background: var(--forma-accent);
+  color: var(--forma-on-accent);
+  padding: 2px 8px;
+  font-weight: 600;
+  margin-right: var(--forma-space-2);
+}
+
+/* Header & Primary Navigation */
+.forma-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--forma-space-5);
+  padding-block: var(--forma-space-4);
+  border-bottom: var(--forma-rule-heavy) solid var(--forma-border-strong);
+}
+
+.forma-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--forma-space-3);
+  text-decoration: none;
+  font-size: var(--forma-text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.forma-brand-mark {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.forma-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--forma-space-1);
+}
+
+.forma-tab {
+  min-height: var(--forma-control-h);
+  padding: var(--forma-space-2) var(--forma-space-4);
+  background: transparent;
+  border: var(--forma-rule-thin) solid transparent;
+  font-weight: 600;
+  font-size: var(--forma-text-base);
+}
+
+.forma-tab:hover:not([aria-selected="true"]) {
+  border-color: var(--forma-border);
+  background: var(--forma-surface);
+}
+
+.forma-tab[aria-selected="true"] {
+  background: var(--forma-accent);
+  color: var(--forma-on-accent);
+  border-color: var(--forma-accent);
+}
+
+.forma-prefs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--forma-space-2);
+}
+
+/* Buttons & Interactive States (Default, Hover, Active/Pressed, Disabled) */
+.forma-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--forma-space-2);
+  min-height: var(--forma-control-h);
+  padding: var(--forma-space-2) var(--forma-space-5);
+  border: var(--forma-rule-thin) solid var(--forma-border-strong);
+  background: var(--forma-bg);
+  color: var(--forma-fg);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.forma-btn:hover:not(:disabled):not([aria-disabled="true"]):not([aria-pressed="true"]) {
+  background: var(--forma-surface-subtle);
+}
+
+.forma-btn[aria-pressed="true"] {
+  background: var(--forma-fg);
+  color: var(--forma-bg);
+  border-color: var(--forma-fg);
+}
+
+.forma-btn-primary {
+  background: var(--forma-action-bg);
+  color: var(--forma-action-fg);
+  border-color: var(--forma-action-bg);
+}
+
+.forma-btn-primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--forma-accent-hover);
+  border-color: var(--forma-accent-hover);
+}
+
+.forma-btn-sm {
+  min-height: 38px;
+  padding: 6px 12px;
+  font-size: var(--forma-text-sm);
+}
+
+.forma-btn-block {
+  width: 100%;
+}
+
+.forma-btn:disabled,
+.forma-btn[aria-disabled="true"],
+.forma-input:disabled,
+.forma-select:disabled,
+.forma-textarea:disabled {
+  opacity: 0.52;
+  cursor: not-allowed;
+  background: var(--forma-surface-subtle);
+  color: var(--forma-muted);
+  border-color: var(--forma-border);
+}
+
+/* Monumental Swiss Hero */
+.forma-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(24px, 4.5vw, 64px);
+  align-items: end;
+  padding-block: clamp(32px, 5.5vw, 72px);
+  border-bottom: var(--forma-rule-thin) solid var(--forma-border);
+}
+
+.forma-lead {
+  max-width: 54ch;
+  margin-block: var(--forma-space-5);
+  font-size: var(--forma-text-lg);
+  line-height: 1.5;
+  color: var(--forma-muted);
+}
+
+.forma-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--forma-space-3);
+}
+
+.forma-plate {
+  background: var(--forma-accent);
+  color: var(--forma-on-accent);
+  aspect-ratio: 4 / 3;
+  min-width: 0;
+  padding: var(--forma-space-5);
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.forma-plate svg {
+  width: 100%;
+  height: 100%;
+  max-height: 220px;
+}
+
+.forma-plate-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--forma-space-3);
+  border-top: var(--forma-rule-thin) solid currentColor;
+  padding-top: var(--forma-space-3);
+  font-size: var(--forma-text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Section Grid (Swiss 4fr / 8fr Spine) */
+.forma-section {
+  padding-block: var(--forma-space-7);
+  border-bottom: var(--forma-rule-thin) solid var(--forma-border);
+}
+
+.forma-spine-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+
+.forma-spine-note {
+  margin-top: var(--forma-space-3);
+  max-width: 38ch;
+  color: var(--forma-muted);
+  font-size: var(--forma-text-base);
+}
+
+/* Direct Orientation Directory (Horizontal Swiss Rows, never tiles) */
+.forma-directory {
+  border-top: var(--forma-rule-heavy) solid var(--forma-border-strong);
+}
+
+.forma-dir-row {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1.4fr) minmax(0, 1.8fr) auto;
+  gap: var(--forma-space-4);
+  align-items: center;
+  padding-block: var(--forma-space-4);
+  border-bottom: var(--forma-rule-thin) solid var(--forma-border);
+}
+
+.forma-dir-title {
+  font-size: var(--forma-text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.forma-dir-desc {
+  color: var(--forma-muted);
+}
+
+/* Catalogue & Faceted Index */
+.forma-index-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 3.2fr) minmax(0, 8.8fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: start;
+  padding-block: var(--forma-space-6) var(--forma-space-8);
+}
+
+.forma-rail-panel {
+  border-top: var(--forma-rule-heavy) solid var(--forma-border-strong);
+  padding-top: var(--forma-space-4);
+  display: grid;
+  align-content: start;
+  gap: var(--forma-space-4);
+}
+
+.forma-form-stack {
+  display: grid;
+  gap: var(--forma-space-4);
+}
+
+.forma-field {
+  display: grid;
+  gap: 6px;
+}
+
+.forma-field label {
+  font-size: var(--forma-text-sm);
+  font-weight: 600;
+}
+
+.forma-input,
+.forma-select,
+.forma-textarea {
+  min-height: var(--forma-control-h);
+  width: 100%;
+  padding: 8px 12px;
+  border: var(--forma-rule-thin) solid var(--forma-border-strong);
+  background: var(--forma-surface);
+  color: var(--forma-fg);
+}
+
+.forma-input[aria-invalid="true"],
+.forma-select[aria-invalid="true"],
+.forma-textarea[aria-invalid="true"] {
+  border-color: var(--forma-danger);
+  border-width: var(--forma-rule-heavy);
+}
+
+.forma-field-hint {
+  font-size: var(--forma-text-xs);
+  color: var(--forma-muted);
+}
+
+.forma-field-error {
+  font-size: var(--forma-text-sm);
+  color: var(--forma-danger);
+  font-weight: 600;
+}
+
+.forma-index-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--forma-space-3);
+  padding-bottom: var(--forma-space-3);
+  border-bottom: var(--forma-rule-heavy) solid var(--forma-border-strong);
+}
+
+.forma-status-line {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.forma-state-switch {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--forma-space-1);
+}
+
+.forma-skeleton-stack {
+  padding-block: var(--forma-space-5);
+  display: grid;
+  gap: var(--forma-space-4);
+}
+
+.forma-w-38 { width: 38%; }
+.forma-w-92 { width: 92%; }
+.forma-w-84 { width: 84%; }
+.forma-w-76 { width: 76%; }
+
+.forma-index-row {
+  border-bottom: var(--forma-rule-thin) solid var(--forma-border);
+}
+
+.forma-index-row summary {
+  list-style: none;
+  cursor: pointer;
+  min-height: 76px;
+  padding-block: var(--forma-space-4);
+  display: grid;
+  grid-template-columns: 88px 110px minmax(0, 2.2fr) minmax(0, 2.4fr) 32px;
+  gap: var(--forma-space-4);
+  align-items: center;
+}
+
+.forma-index-row summary::-webkit-details-marker {
+  display: none;
+}
+
+.forma-index-row summary:hover {
+  background: var(--forma-surface);
+}
+
+.forma-index-plus {
+  font-size: var(--forma-text-xl);
+  font-weight: 700;
+  text-align: right;
+  color: var(--forma-accent);
+}
+
+.forma-index-row[open] .forma-index-plus::before {
+  content: "−";
+}
+
+.forma-index-row:not([open]) .forma-index-plus::before {
+  content: "+";
+}
+
+.forma-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border: var(--forma-rule-thin) solid var(--forma-border);
+  background: var(--forma-surface);
+  font-size: var(--forma-text-xs);
+  font-weight: 600;
+  width: fit-content;
+}
+
+.forma-row-title {
+  font-size: var(--forma-text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  overflow-wrap: break-word;
+}
+
+.forma-row-summary {
+  color: var(--forma-muted);
+}
+
+.forma-fiche {
+  padding: var(--forma-space-4) var(--forma-space-5) var(--forma-space-5);
+  margin-bottom: var(--forma-space-4);
+  background: var(--forma-surface);
+  border: var(--forma-rule-thin) solid var(--forma-border);
+  border-top: var(--forma-rule-heavy) solid var(--forma-border-strong);
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr);
+  gap: var(--forma-space-5);
+}
+
+.forma-fiche-prose {
+  max-width: var(--forma-measure);
+  line-height: 1.65;
+}
+
+.forma-fiche-actions {
+  margin-top: var(--forma-space-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--forma-space-2);
+}
+
+.forma-meta-dl {
+  display: grid;
+  align-content: start;
+  gap: var(--forma-space-2);
+  font-size: var(--forma-text-sm);
+  border-top: var(--forma-rule-thin) solid var(--forma-border);
+  padding-top: var(--forma-space-3);
+}
+
+.forma-meta-dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--forma-space-3);
+}
+
+.forma-meta-dl dt {
+  color: var(--forma-muted);
+}
+
+.forma-meta-dl dd {
+  font-weight: 600;
+  text-align: right;
+}
+
+/* States: Empty, Error, Success */
+.forma-callout {
+  padding: var(--forma-space-5);
+  border: var(--forma-rule-thin) solid var(--forma-border-strong);
+  border-top-width: var(--forma-rule-heavy);
+  background: var(--forma-surface);
+  display: grid;
+  gap: var(--forma-space-3);
+  margin-block: var(--forma-space-4);
+}
+
+.forma-callout-error {
+  border-color: var(--forma-danger);
+  background: var(--forma-danger-subtle);
+}
+
+.forma-callout-success {
+  border-color: var(--forma-success);
+  background: var(--forma-success-subtle);
+}
+
+/* Documentation & Civic Procedure Surface */
+.forma-doc-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 3.2fr) minmax(0, 8.8fr);
+  gap: clamp(24px, 4vw, 56px);
+  padding-block: var(--forma-space-6) var(--forma-space-8);
+  align-items: start;
+}
+
+.forma-toc {
+  position: sticky;
+  top: var(--forma-space-5);
+  border-top: var(--forma-rule-heavy) solid var(--forma-border-strong);
+  padding-top: var(--forma-space-4);
+  display: grid;
+  gap: var(--forma-space-2);
+}
+
+.forma-toc a {
+  display: flex;
+  align-items: center;
+  min-height: 38px;
+  padding-block: 6px;
+  text-decoration: none;
+  border-bottom: var(--forma-rule-thin) solid var(--forma-border);
+  font-size: var(--forma-text-sm);
+  font-weight: 600;
+}
+
+.forma-toc a:hover {
+  color: var(--forma-accent);
+}
+
+.forma-prose {
+  max-width: var(--forma-measure);
+  display: grid;
+  gap: var(--forma-space-6);
+}
+
+.forma-prose p {
+  line-height: 1.68;
+}
+
+.forma-steps {
+  list-style: none;
+  padding: 0;
+  border-top: var(--forma-rule-thin) solid var(--forma-border);
+}
+
+.forma-steps li {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: var(--forma-space-4);
+  padding-block: var(--forma-space-4);
+  border-bottom: var(--forma-rule-thin) solid var(--forma-border);
+}
+
+.forma-step-num {
+  font-family: var(--forma-font-mono);
+  font-weight: 700;
+  font-size: var(--forma-text-lg);
+  color: var(--forma-accent);
+}
+
+/* Data Table (Schedules & Tariffs) */
+.forma-table-wrap {
+  overflow-x: auto;
+}
+
+.forma-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: var(--forma-rule-heavy) solid var(--forma-border-strong);
+  font-size: var(--forma-text-sm);
+}
+
+.forma-table th,
+.forma-table td {
+  padding: 12px 10px;
+  border-bottom: var(--forma-rule-thin) solid var(--forma-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.forma-table th {
+  font-weight: 700;
+  background: var(--forma-surface);
+}
+
+/* Civic Form / Dossier Simulator */
+.forma-form-box {
+  border-top: var(--forma-rule-heavy) solid var(--forma-border-strong);
+  padding-top: var(--forma-space-5);
+  display: grid;
+  gap: var(--forma-space-4);
+}
+
+.forma-fieldset {
+  border: var(--forma-rule-thin) solid var(--forma-border);
+  padding: var(--forma-space-4);
+  display: grid;
+  gap: var(--forma-space-2);
+}
+
+.forma-fieldset legend {
+  font-weight: 700;
+  padding-inline: 6px;
+}
+
+.forma-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--forma-space-2);
+  min-height: 40px;
+}
+
+.forma-radio input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--forma-accent);
+}
+
+/* Modal Document Reader */
+.forma-dialog {
+  max-width: 680px;
+  width: calc(100% - 32px);
+  border: var(--forma-rule-heavy) solid var(--forma-border-strong);
+  background: var(--forma-bg);
+  color: var(--forma-fg);
+  padding: var(--forma-space-6);
+}
+
+.forma-dialog::backdrop {
+  background: var(--forma-scrim);
+}
+
+.forma-dialog-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: var(--forma-space-4);
+  padding-bottom: var(--forma-space-4);
+  border-bottom: var(--forma-rule-thin) solid var(--forma-border);
+  margin-bottom: var(--forma-space-4);
+}
+
+.forma-dialog-title {
+  font-size: var(--forma-text-xl);
+  margin-top: var(--forma-space-1);
+}
+
+.forma-dialog-body {
+  display: grid;
+  gap: var(--forma-space-3);
+  line-height: 1.65;
+}
+
+/* Footer */
+.forma-footer {
+  border-top: var(--forma-rule-heavy) solid var(--forma-border-strong);
+  padding-block: var(--forma-space-6);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--forma-space-4);
+  font-size: var(--forma-text-sm);
+  color: var(--forma-muted);
+}
+
+@media (max-width: 960px), (pointer: coarse) {
+  .forma-btn-sm,
+  .forma-radio,
+  .forma-toc a {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 960px) {
+  .forma-header {
+    grid-template-columns: 1fr;
+    gap: var(--forma-space-3);
+  }
+  .forma-hero,
+  .forma-spine-grid,
+  .forma-index-layout,
+  .forma-doc-layout,
+  .forma-fiche {
+    grid-template-columns: 1fr;
+  }
+  .forma-plate {
+    aspect-ratio: 16 / 6;
+    max-height: 210px;
+    padding: var(--forma-space-4);
+  }
+  .forma-plate svg {
+    max-height: 120px;
+  }
+  .forma-toc {
+    position: static;
+  }
+  .forma-dir-row {
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: var(--forma-space-2) var(--forma-space-3);
+  }
+  .forma-dir-desc,
+  .forma-dir-row .forma-btn {
+    grid-column: 2;
+  }
+  .forma-index-row summary {
+    grid-template-columns: minmax(0, 1fr) 28px;
+    gap: 6px var(--forma-space-3);
+  }
+  .forma-index-row summary > :not(.forma-index-plus) {
+    grid-column: 1;
+  }
+  .forma-index-plus {
+    grid-column: 2;
+    grid-row: 1 / 5;
+  }
+}
+
+@media (max-width: 520px) {
+  .forma-notice-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .forma-nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: var(--forma-rule-thin) solid var(--forma-border);
+  }
+  .forma-tab {
+    justify-content: flex-start;
+    text-align: left;
+    border: 0;
+    border-bottom: var(--forma-rule-thin) solid var(--forma-border);
+  }
+  .forma-dir-row {
+    grid-template-columns: 1fr;
+  }
+  .forma-dir-desc,
+  .forma-dir-row .forma-btn {
+    grid-column: 1;
+  }
+}
+
+@media print {
+  :root,
+  :root[data-theme="dark"] {
+    color-scheme: light;
+    --forma-bg: #ffffff;
+    --forma-surface: #ffffff;
+    --forma-surface-subtle: #f4f4f4;
+    --forma-fg: #000000;
+    --forma-muted: #222222;
+    --forma-border: #888888;
+    --forma-border-strong: #000000;
+    --forma-accent: #000000;
+    --forma-on-accent: #ffffff;
+  }
+  .forma-notice,
+  .forma-prefs,
+  .forma-nav,
+  .forma-skip,
+  .forma-hero-actions,
+  .forma-rail-panel,
+  .forma-state-switch {
+    display: none !important;
+  }
+  .forma-wrap {
+    max-width: none;
+    padding: 0;
+  }
+  .forma-view-panel {
+    display: block !important;
+  }
+}
+
+/* Forma UI — Motion (functional signaletics only, zero decorative choreography) */
+:root {
+  --forma-duration-fast: 110ms;
+  --forma-duration-base: 160ms;
+  --forma-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+.forma-btn,
+.forma-tab,
+.forma-nav-link,
+.forma-index-row summary {
+  transition:
+    background-color var(--forma-duration-fast) var(--forma-ease-standard),
+    color var(--forma-duration-fast) var(--forma-ease-standard),
+    border-color var(--forma-duration-fast) var(--forma-ease-standard);
+}
+
+.forma-view-panel[data-active="true"] {
+  animation: forma-panel-in var(--forma-duration-base) var(--forma-ease-standard);
+}
+
+@keyframes forma-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes forma-pulse-bar {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.9; }
+}
+
+.forma-skeleton-line {
+  height: 14px;
+  background: var(--forma-surface-subtle);
+  animation: forma-pulse-bar 1.2s var(--forma-ease-standard) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --forma-duration-fast: 0ms;
+    --forma-duration-base: 0ms;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* FORMA:INLINE:END */
+  </style>
+</head>
+<body>
+  <a class="forma-skip" href="#main-content">Aller au contenu principal</a>
+
+  <section class="forma-notice" id="public-notice" aria-label="Information pratique">
+    <div class="forma-wrap forma-notice-inner">
+      <p><span class="forma-notice-tag">Information</span> Récolement annuel des fonds anciens&nbsp;: la salle des microfilms ferme à 17&nbsp;h&nbsp;00 du 2 au 6&nbsp;décembre (données fictives de démonstration).</p>
+      <button type="button" class="forma-btn forma-btn-sm" id="dismiss-notice">Masquer l'avis</button>
+    </div>
+  </section>
+
+  <div class="forma-wrap">
+    <header class="forma-header">
+      <a class="forma-brand" href="#main-content" data-goto-surface="portal">
+        <svg class="forma-brand-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect width="64" height="64" fill="var(--forma-accent)"/>
+          <path d="M14 48V16h22v32H14Z" stroke="var(--forma-on-accent)" stroke-width="2.5"/>
+          <path d="M24 44V12h22v32H24Z" fill="var(--forma-accent)" stroke="var(--forma-on-accent)" stroke-width="2.5"/>
+          <path d="M30 21h10M30 27h10M30 33h6" stroke="var(--forma-on-accent)" stroke-width="2.5"/>
+          <path d="M14 52h36" stroke="var(--forma-on-accent)" stroke-width="3"/>
+        </svg>
+        <span>Forma.</span>
+      </a>
+
+      <nav aria-label="Navigation principale">
+        <div class="forma-nav" role="tablist" aria-label="Sections de la démonstration">
+          <button type="button" class="forma-tab" role="tab" id="tab-portal" aria-selected="true" tabindex="0" aria-controls="panel-portal" data-surface="portal">Accueil et orientation</button>
+          <button type="button" class="forma-tab" role="tab" id="tab-index" aria-selected="false" tabindex="-1" aria-controls="panel-index" data-surface="index">Index documentaire (8)</button>
+          <button type="button" class="forma-tab" role="tab" id="tab-procedure" aria-selected="false" tabindex="-1" aria-controls="panel-procedure" data-surface="procedure">Règlement et démarche</button>
+        </div>
+      </nav>
+
+      <div class="forma-prefs" role="group" aria-label="Préférences de lecture">
+        <button type="button" class="forma-btn forma-btn-sm" id="toggle-density" aria-pressed="false">Densité compacte</button>
+        <button type="button" class="forma-btn forma-btn-sm" id="toggle-theme" aria-pressed="false">Mode nuit</button>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <!-- SURFACE 1 : PORTAIL & ORIENTATION -->
+      <div id="panel-portal" class="forma-view-panel" role="tabpanel" aria-labelledby="tab-portal" data-active="true">
+        <section class="forma-hero" aria-labelledby="hero-title">
+          <div>
+            <h1 class="forma-h1" id="hero-title">Maison des ressources publiques.</h1>
+            <p class="forma-lead">Trouvez un texte de référence, consultez les modalités d'accès aux salles d'étude et préparez votre dossier administratif sans intermédiaire.</p>
+            <div class="forma-hero-actions">
+              <button type="button" class="forma-btn forma-btn-primary" data-goto-surface="index">Consulter l'index documentaire</button>
+              <button type="button" class="forma-btn" data-goto-surface="procedure">Préparer une demande d'accès</button>
+            </div>
+          </div>
+
+          <div class="forma-plate" aria-hidden="true">
+            <svg viewBox="0 0 420 260" fill="none">
+              <rect x="44" y="34" width="164" height="192" stroke="currentColor" stroke-width="2"/>
+              <rect x="86" y="22" width="164" height="192" fill="var(--forma-accent)" stroke="currentColor" stroke-width="2"/>
+              <rect x="128" y="10" width="164" height="192" fill="var(--forma-accent)" stroke="currentColor" stroke-width="2.5"/>
+              <path d="M156 50h108M156 68h108M156 86h68M156 134h108M156 152h84" stroke="currentColor" stroke-width="4"/>
+              <path d="M44 226l292-36" stroke="currentColor" stroke-width="2"/>
+              <path d="M336 190h40v40" stroke="currentColor" stroke-width="6"/>
+            </svg>
+            <div class="forma-plate-caption">
+              <span>Planche signalétique F-04</span>
+              <span>Grille modulaire 12 colonnes</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="forma-section" aria-labelledby="routing-title">
+          <div class="forma-spine-grid">
+            <div>
+              <h2 class="forma-h2" id="routing-title">Accès direct par besoin</h2>
+              <p class="forma-spine-note">Chaque entrée mène directement au fonds correspondant ou au formulaire de préparation de démarche.</p>
+            </div>
+
+            <div class="forma-directory">
+              <div class="forma-dir-row">
+                <span class="forma-code">OR-01</span>
+                <span class="forma-dir-title">Consultation sur place</span>
+                <span class="forma-dir-desc">Mardi au samedi, 09&nbsp;h&nbsp;00 – 18&nbsp;h&nbsp;30. Accès libre au rez-de-chaussée, inscription requise pour les fonds patrimoniaux.</span>
+                <button type="button" class="forma-btn forma-btn-sm" data-filter-jump="Guide">Voir les guides</button>
+              </div>
+              <div class="forma-dir-row">
+                <span class="forma-code">OR-02</span>
+                <span class="forma-dir-title">Réservation d'atelier ou salle</span>
+                <span class="forma-dir-desc">Trois salles d'étude collective (6 à 18&nbsp;places) pour associations, chercheurs et groupes scolaires.</span>
+                <button type="button" class="forma-btn forma-btn-sm" data-filter-jump="Service">Voir les services</button>
+              </div>
+              <div class="forma-dir-row">
+                <span class="forma-code">OR-03</span>
+                <span class="forma-dir-title">Textes et arrêtés en vigueur</span>
+                <span class="forma-dir-desc">Règlement intérieur consolidé, barèmes de reproduction certifiée et charte d'accessibilité numérique.</span>
+                <button type="button" class="forma-btn forma-btn-sm" data-filter-jump="Règlement">Voir les textes</button>
+              </div>
+              <div class="forma-dir-row">
+                <span class="forma-code">OR-04</span>
+                <span class="forma-dir-title">Dossier de recherche ou prêt</span>
+                <span class="forma-dir-desc">Vérifiez en deux minutes les pièces requises selon votre profil avant votre venue au guichet.</span>
+                <button type="button" class="forma-btn forma-btn-sm" data-goto-surface="procedure">Ouvrir la démarche</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- SURFACE 2 : INDEX DOCUMENTAIRE -->
+      <div id="panel-index" class="forma-view-panel" role="tabpanel" aria-labelledby="tab-index" hidden>
+        <div class="forma-index-layout">
+          <aside class="forma-rail-panel" aria-label="Critères de filtrage">
+            <h2 class="forma-h2">Filtrer l'index</h2>
+            <form id="filter-form" class="forma-form-stack" role="search" aria-label="Recherche dans l'index documentaire">
+              <div class="forma-field">
+                <label for="q">Recherche par mot-clé ou cote</label>
+                <input class="forma-input" id="q" type="search" placeholder="Ex. salle, DOC-03, tarif">
+                <span class="forma-field-hint">Insensible aux accents et à la casse.</span>
+              </div>
+
+              <div class="forma-field">
+                <label for="kind">Nature de la ressource</label>
+                <select class="forma-select" id="kind">
+                  <option value="">Toutes les natures</option>
+                  <option value="Guide">Guide pratique</option>
+                  <option value="Service">Service au public</option>
+                  <option value="Règlement">Texte réglementaire</option>
+                  <option value="Formulaire">Formulaire officiel</option>
+                </select>
+              </div>
+
+              <div class="forma-field">
+                <label for="audience">Public concerné</label>
+                <select class="forma-select" id="audience">
+                  <option value="">Tous les publics</option>
+                  <option value="Usagers">Tout public / Usagers</option>
+                  <option value="Chercheurs">Chercheurs et étudiants</option>
+                  <option value="Associations">Associations et collectifs</option>
+                </select>
+              </div>
+
+              <button type="reset" class="forma-btn forma-btn-block">Réinitialiser les critères</button>
+            </form>
+          </aside>
+
+          <section aria-labelledby="catalogue-heading">
+            <div class="forma-index-toolbar">
+              <div>
+                <h2 id="catalogue-heading" class="forma-h2-compact">Répertoire général des ressources</h2>
+                <p class="forma-status-line" id="index-status" role="status" aria-live="polite">8 ressources affichées</p>
+              </div>
+
+              <div class="forma-state-switch" role="group" aria-label="Aperçu des états système">
+                <button type="button" class="forma-btn forma-btn-sm" data-sim-state="ready" aria-pressed="true">État nominal</button>
+                <button type="button" class="forma-btn forma-btn-sm" data-sim-state="loading" aria-pressed="false">Chargement</button>
+                <button type="button" class="forma-btn forma-btn-sm" data-sim-state="error" aria-pressed="false">Erreur réseau</button>
+              </div>
+            </div>
+
+            <div id="state-loading" class="forma-skeleton-stack" hidden aria-live="polite">
+              <div class="forma-skeleton-line forma-w-38"></div>
+              <div class="forma-skeleton-line forma-w-92"></div>
+              <div class="forma-skeleton-line forma-w-84"></div>
+              <div class="forma-skeleton-line forma-w-76"></div>
+            </div>
+
+            <div id="state-error" class="forma-callout forma-callout-error" role="alert" hidden>
+              <h3 class="forma-h4">Synchronisation du répertoire interrompue</h3>
+              <p>Le serveur documentaire n'a pas répondu dans le délai imparti (10&nbsp;s). Vos critères de recherche sont conservés localement.</p>
+              <div>
+                <button type="button" class="forma-btn" id="retry-index">Réessayer le chargement</button>
+              </div>
+            </div>
+
+            <div id="state-empty" class="forma-callout" hidden>
+              <h3 class="forma-h4">Aucune ressource ne correspond à ces critères</h3>
+              <p>Vérifiez l'orthographe du terme recherché ou élargissez la nature de document sélectionnée.</p>
+              <div>
+                <button type="button" class="forma-btn forma-btn-primary" id="empty-reset">Afficher les 8 ressources</button>
+              </div>
+            </div>
+
+            <div id="index-list">
+              <details class="forma-index-row" data-kind="Guide" data-audience="Usagers">
+                <summary>
+                  <span class="forma-code">GU-01.2</span>
+                  <span class="forma-tag">Guide</span>
+                  <span class="forma-row-title">Préparer une première visite</span>
+                  <span class="forma-row-summary">Horaires d'ouverture, accès PMR, vestiaires et délivrance de la carte.</span>
+                  <span class="forma-index-plus" aria-hidden="true"></span>
+                </summary>
+                <div class="forma-fiche">
+                  <div class="forma-fiche-prose">
+                    <p>L'accès aux espaces de lecture générale est libre et gratuit. Une rampe de plain-pied est située rue du Midi (entrée B) avec boucle magnétique à la banque d'accueil principale. Les effets volumineux sont déposés en consigne sécurisée gratuite.</p>
+                    <div class="forma-fiche-actions">
+                      <button type="button" class="forma-btn forma-btn-sm" data-open-doc="GU-01.2" data-doc-title="Préparer une première visite">Ouvrir la notice complète</button>
+                      <button type="button" class="forma-btn forma-btn-sm" disabled>Archive PDF scellée (hors démo)</button>
+                    </div>
+                  </div>
+                  <dl class="forma-meta-dl">
+                    <div><dt>Cote</dt><dd class="forma-tabular">GU-01.2</dd></div>
+                    <div><dt>Mise à jour</dt><dd class="forma-tabular">14 oct. 2026</dd></div>
+                    <div><dt>Public</dt><dd>Usagers</dd></div>
+                    <div><dt>Service</dt><dd>Accueil général</dd></div>
+                  </dl>
+                </div>
+              </details>
+
+              <details class="forma-index-row" data-kind="Service" data-audience="Associations">
+                <summary>
+                  <span class="forma-code">SV-04.0</span>
+                  <span class="forma-tag">Service</span>
+                  <span class="forma-row-title">Réserver une salle de travail collectif</span>
+                  <span class="forma-row-summary">Capacités de 6 à 18&nbsp;places, équipement de projection et créneaux réservables.</span>
+                  <span class="forma-index-plus" aria-hidden="true"></span>
+                </summary>
+                <div class="forma-fiche">
+                  <div class="forma-fiche-prose">
+                    <p>Les salles C1 à C3 accueillent les réunions associatives à but non lucratif et les séminaires d'étude. Toute demande s'effectue au minimum 48&nbsp;heures ouvrées avant le créneau souhaité.</p>
+                    <div class="forma-fiche-actions">
+                      <button type="button" class="forma-btn forma-btn-sm" data-goto-surface="procedure">Préparer la réservation</button>
+                    </div>
+                  </div>
+                  <dl class="forma-meta-dl">
+                    <div><dt>Cote</dt><dd class="forma-tabular">SV-04.0</dd></div>
+                    <div><dt>Délai réponse</dt><dd class="forma-tabular">48&nbsp;h ouvrées</dd></div>
+                    <div><dt>Public</dt><dd>Associations</dd></div>
+                    <div><dt>Tarif</dt><dd>Gratuit (convention)</dd></div>
+                  </dl>
+                </div>
+              </details>
+
+              <details class="forma-index-row" data-kind="Règlement" data-audience="Usagers">
+                <summary>
+                  <span class="forma-code">DOC-03.1</span>
+                  <span class="forma-tag">Règlement</span>
+                  <span class="forma-row-title">Règlement intérieur des salles de lecture</span>
+                  <span class="forma-row-summary">Conditions de consultation, protection des originaux et tranquillité publique.</span>
+                  <span class="forma-index-plus" aria-hidden="true"></span>
+                </summary>
+                <div class="forma-fiche">
+                  <div class="forma-fiche-prose">
+                    <p>Adopté par délibération fictive n°&nbsp;2026-18&nbsp;: usage exclusif du crayon graphite en salle du patrimoine, photographie sans flash autorisée sauf mention contraire sur la chemise de cote.</p>
+                    <div class="forma-fiche-actions">
+                      <button type="button" class="forma-btn forma-btn-sm" data-open-doc="DOC-03.1" data-doc-title="Règlement intérieur des salles de lecture">Lire le texte intégral</button>
+                    </div>
+                  </div>
+                  <dl class="forma-meta-dl">
+                    <div><dt>Cote</dt><dd class="forma-tabular">DOC-03.1</dd></div>
+                    <div><dt>Entrée en vigueur</dt><dd class="forma-tabular">01 sept. 2026</dd></div>
+                    <div><dt>Public</dt><dd>Usagers</dd></div>
+                    <div><dt>Format</dt><dd>HTML / PDF accessible</dd></div>
+                  </dl>
+                </div>
+              </details>
+
+              <details class="forma-index-row" data-kind="Service" data-audience="Chercheurs">
+                <summary>
+                  <span class="forma-code">SV-07.3</span>
+                  <span class="forma-tag">Service</span>
+                  <span class="forma-row-title">Consultation sur dérogation des fonds réservés</span>
+                  <span class="forma-row-summary">Procédure d'accréditation scientifique et commande de liasses en magasin.</span>
+                  <span class="forma-index-plus" aria-hidden="true"></span>
+                </summary>
+                <div class="forma-fiche">
+                  <div class="forma-fiche-prose">
+                    <p>Les levées de magasin ont lieu à 10&nbsp;h&nbsp;00, 13&nbsp;h&nbsp;30 et 15&nbsp;h&nbsp;30 (maximum 5&nbsp;liasses par séance). Les chercheurs accrédités peuvent précommander leurs cotes 72&nbsp;heures à l'avance.</p>
+                    <div class="forma-fiche-actions">
+                      <button type="button" class="forma-btn forma-btn-sm" data-open-doc="SV-07.3" data-doc-title="Consultation des fonds réservés">Ouvrir la notice complète</button>
+                    </div>
+                  </div>
+                  <dl class="forma-meta-dl">
+                    <div><dt>Cote</dt><dd class="forma-tabular">SV-07.3</dd></div>
+                    <div><dt>Levées / jour</dt><dd class="forma-tabular">3 créneaux</dd></div>
+                    <div><dt>Public</dt><dd>Chercheurs</dd></div>
+                    <div><dt>Service</dt><dd>Conservation</dd></div>
+                  </dl>
+                </div>
+              </details>
+
+              <details class="forma-index-row" data-kind="Guide" data-audience="Usagers">
+                <summary>
+                  <span class="forma-code">GU-09.0</span>
+                  <span class="forma-tag">Guide</span>
+                  <span class="forma-row-title">Postes numériques et accompagnement</span>
+                  <span class="forma-row-summary">Accès aux revues en ligne, postes adaptés malvoyants et permanence médiation.</span>
+                  <span class="forma-index-plus" aria-hidden="true"></span>
+                </summary>
+                <div class="forma-fiche">
+                  <div class="forma-fiche-prose">
+                    <p>Douze postes en libre accès dont deux équipés de télé-agrandisseur haute définition et afficheur braille 40&nbsp;cellules. Permanence d'aide aux démarches le mercredi et le vendredi matin.</p>
+                  </div>
+                  <dl class="forma-meta-dl">
+                    <div><dt>Cote</dt><dd class="forma-tabular">GU-09.0</dd></div>
+                    <div><dt>Mise à jour</dt><dd class="forma-tabular">03 nov. 2026</dd></div>
+                    <div><dt>Public</dt><dd>Usagers</dd></div>
+                    <div><dt>Postes adaptés</dt><dd class="forma-tabular">2 unités</dd></div>
+                  </dl>
+                </div>
+              </details>
+
+              <details class="forma-index-row" data-kind="Règlement" data-audience="Chercheurs">
+                <summary>
+                  <span class="forma-code">DOC-11.4</span>
+                  <span class="forma-tag">Règlement</span>
+                  <span class="forma-row-title">Barème des reproductions et licences de réutilisation</span>
+                  <span class="forma-row-summary">Numérisation haute définition, domaine public et attribution des sources.</span>
+                  <span class="forma-index-plus" aria-hidden="true"></span>
+                </summary>
+                <div class="forma-fiche">
+                  <div class="forma-fiche-prose">
+                    <p>Les œuvres entrées dans le domaine public sont librement réutilisables sans redevance commerciale. Seuls les frais techniques de prise de vue hors format A2 sont facturés au coût réel.</p>
+                  </div>
+                  <dl class="forma-meta-dl">
+                    <div><dt>Cote</dt><dd class="forma-tabular">DOC-11.4</dd></div>
+                    <div><dt>Entrée en vigueur</dt><dd class="forma-tabular">15 janv. 2026</dd></div>
+                    <div><dt>Public</dt><dd>Chercheurs</dd></div>
+                    <div><dt>Licence</dt><dd>Domaine public / Etalab</dd></div>
+                  </dl>
+                </div>
+              </details>
+
+              <details class="forma-index-row" data-kind="Formulaire" data-audience="Associations">
+                <summary>
+                  <span class="forma-code">FM-02.1</span>
+                  <span class="forma-tag">Formulaire</span>
+                  <span class="forma-row-title">Convention annuelle d'accueil de groupe</span>
+                  <span class="forma-row-summary">Modèle de demande pour visites commentées, classes et ateliers d'éducation civique.</span>
+                  <span class="forma-index-plus" aria-hidden="true"></span>
+                </summary>
+                <div class="forma-fiche">
+                  <div class="forma-fiche-prose">
+                    <p>Permet d'inscrire jusqu'à 28&nbsp;participants par créneau du mardi matin avec médiateur dédié. Remise du formulaire au secrétariat trois semaines avant la séance.</p>
+                  </div>
+                  <dl class="forma-meta-dl">
+                    <div><dt>Cote</dt><dd class="forma-tabular">FM-02.1</dd></div>
+                    <div><dt>Délai dépôt</dt><dd class="forma-tabular">21 jours</dd></div>
+                    <div><dt>Public</dt><dd>Associations</dd></div>
+                    <div><dt>Service</dt><dd>Action culturelle</dd></div>
+                  </dl>
+                </div>
+              </details>
+
+              <details class="forma-index-row" data-kind="Formulaire" data-audience="Usagers">
+                <summary>
+                  <span class="forma-code">FM-05.0</span>
+                  <span class="forma-tag">Formulaire</span>
+                  <span class="forma-row-title">Demande de recherche administrative par correspondance</span>
+                  <span class="forma-row-summary">Délivrance d'extraits d'actes ou de délibérations communicables à distance.</span>
+                  <span class="forma-index-plus" aria-hidden="true"></span>
+                </summary>
+                <div class="forma-fiche">
+                  <div class="forma-fiche-prose">
+                    <p>Destiné aux usagers résidant hors du département&nbsp;: précisez la date exacte ou la fourchette quinquennale de l'acte recherché pour accélérer le traitement.</p>
+                  </div>
+                  <dl class="forma-meta-dl">
+                    <div><dt>Cote</dt><dd class="forma-tabular">FM-05.0</dd></div>
+                    <div><dt>Délai réponse</dt><dd class="forma-tabular">10 jours ouvrés</dd></div>
+                    <div><dt>Public</dt><dd>Usagers</dd></div>
+                    <div><dt>Service</dt><dd>Correspondance</dd></div>
+                  </dl>
+                </div>
+              </details>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- SURFACE 3 : LECTURE RÉGLEMENTAIRE & PRÉPARATEUR DE DÉMARCHE -->
+      <div id="panel-procedure" class="forma-view-panel" role="tabpanel" aria-labelledby="tab-procedure" hidden>
+        <div class="forma-doc-layout">
+          <aside class="forma-toc" aria-label="Sommaire et métadonnées de la démarche">
+            <nav aria-label="Sommaire de la démarche">
+              <a href="#sec-etapes">1. Étapes de la démarche</a>
+              <a href="#sec-horaires">2. Horaires et capacités</a>
+              <a href="#sec-dossier">3. Préparer votre demande</a>
+            </nav>
+            <dl class="forma-meta-dl">
+              <div><dt>Référence</dt><dd class="forma-tabular">DEM-2026-A</dd></div>
+              <div><dt>Statut</dt><dd>Texte consolidé</dd></div>
+              <div><dt>Nature</dt><dd>Démo fictive</dd></div>
+            </dl>
+          </aside>
+
+          <div class="forma-prose">
+            <header>
+              <h2 class="forma-h2">Inscription aux fonds et réservation d'espace d'étude</h2>
+            </header>
+
+            <section id="sec-etapes" aria-labelledby="h-etapes">
+              <h3 id="h-etapes" class="forma-h3 forma-section-subhead">1. Étapes de la démarche</h3>
+              <ol class="forma-steps">
+                <li>
+                  <span class="forma-step-num">01</span>
+                  <div>
+                    <strong>Vérifier les pièces selon votre profil</strong>
+                    <p>Une pièce d'identité suffit pour la carte annuelle lecteur&nbsp;; un justificatif associatif est requis uniquement pour les salles collectives.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="forma-step-num">02</span>
+                  <div>
+                    <strong>Enregistrer la pré-demande</strong>
+                    <p>Vous obtenez immédiatement un numéro de dossier horodaté et le récapitulatif imprimable des justificatifs à présenter.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="forma-step-num">03</span>
+                  <div>
+                    <strong>Retrait au guichet d'accueil</strong>
+                    <p>Votre carte ou confirmation de salle est remise en moins de cinq minutes sans nouvelle saisie.</p>
+                  </div>
+                </li>
+              </ol>
+            </section>
+
+            <section id="sec-horaires" aria-labelledby="h-horaires">
+              <h3 id="h-horaires" class="forma-h3 forma-section-subhead">2. Horaires et capacités des espaces</h3>
+              <div class="forma-table-wrap">
+                <table class="forma-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Espace</th>
+                      <th scope="col">Jours d'ouverture</th>
+                      <th scope="col">Amplitude</th>
+                      <th scope="col">Places</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Grande salle de lecture</td>
+                      <td>Mardi au samedi</td>
+                      <td class="forma-tabular">09&nbsp;h&nbsp;00 – 18&nbsp;h&nbsp;30</td>
+                      <td class="forma-tabular">140</td>
+                    </tr>
+                    <tr>
+                      <td>Salle du patrimoine et cartes</td>
+                      <td>Mardi au vendredi</td>
+                      <td class="forma-tabular">10&nbsp;h&nbsp;00 – 17&nbsp;h&nbsp;30</td>
+                      <td class="forma-tabular">32</td>
+                    </tr>
+                    <tr>
+                      <td>Salles collectives C1 à C3</td>
+                      <td>Mardi au samedi</td>
+                      <td class="forma-tabular">09&nbsp;h&nbsp;30 – 18&nbsp;h&nbsp;00</td>
+                      <td class="forma-tabular">6 à 18</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="sec-dossier" class="forma-form-box" aria-labelledby="h-dossier">
+              <h3 id="h-dossier" class="forma-h3">3. Préparer votre demande d'accès</h3>
+              <p class="forma-muted-copy">Cette simulation locale génère votre récapitulatif personnalisé sans transmettre aucune donnée sur le réseau.</p>
+
+              <form id="dossier-form" class="forma-form-stack" novalidate>
+                <fieldset class="forma-fieldset">
+                  <legend>Objet de votre demande</legend>
+                  <label class="forma-radio">
+                    <input type="radio" name="purpose" value="carte" checked>
+                    <span>Carte annuelle de lecteur (fonds général et patrimoine)</span>
+                  </label>
+                  <label class="forma-radio">
+                    <input type="radio" name="purpose" value="salle">
+                    <span>Réservation d'une salle de travail collectif (C1–C3)</span>
+                  </label>
+                </fieldset>
+
+                <div class="forma-field">
+                  <label for="applicant-name">Nom et prénom du demandeur</label>
+                  <input class="forma-input" id="applicant-name" name="applicantName" type="text" required aria-required="true" aria-describedby="err-name" autocomplete="name">
+                  <span class="forma-field-error" id="err-name" hidden>Indiquez le nom et le prénom du titulaire pour établir le récépissé.</span>
+                </div>
+
+                <div class="forma-field">
+                  <label for="applicant-email">Adresse électronique de confirmation</label>
+                  <input class="forma-input" id="applicant-email" name="applicantEmail" type="email" required aria-required="true" aria-describedby="hint-email err-email" autocomplete="email">
+                  <span class="forma-field-hint" id="hint-email">Utilisée uniquement pour afficher le récapitulatif de démonstration.</span>
+                  <span class="forma-field-error" id="err-email" hidden>Saisissez une adresse électronique valide contenant le caractère @ (exemple&nbsp;: nom@domaine.ch).</span>
+                </div>
+
+                <div class="forma-hero-actions">
+                  <button type="submit" class="forma-btn forma-btn-primary">Générer le récépissé de pré-demande</button>
+                  <button type="reset" class="forma-btn">Effacer le formulaire</button>
+                </div>
+              </form>
+
+              <div id="dossier-receipt" class="forma-callout forma-callout-success" role="status" aria-live="polite" hidden>
+                <h4 id="receipt-title" class="forma-h4">Pré-demande enregistrée</h4>
+                <p id="receipt-body"></p>
+                <p class="forma-code" id="receipt-pieces"></p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="forma-footer">
+      <span>Forma UI — Système de design institutionnel suisse (contenus fictifs de démonstration)</span>
+      <a href="#main-content">Haut de page</a>
+    </footer>
+  </div>
+
+  <dialog class="forma-dialog" id="doc-dialog" aria-labelledby="dialog-doc-title">
+    <div class="forma-dialog-head">
+      <div>
+        <p class="forma-code" id="dialog-doc-code">DOC</p>
+        <h2 id="dialog-doc-title" class="forma-dialog-title">Notice</h2>
+      </div>
+      <button type="button" class="forma-btn forma-btn-sm" id="close-doc-dialog">Fermer (Échap)</button>
+    </div>
+    <div id="dialog-doc-body" class="forma-dialog-body">
+      <p>Extrait normatif de démonstration généré localement par Forma UI. Dans une intégration réelle, cette vue présente l'arrêté consolidé, son historique de révision et son lien de téléchargement archivistique.</p>
+      <p class="forma-code">Vérification d'intégrité&nbsp;: conforme au gabarit éditorial Forma v1.0.</p>
+    </div>
+  </dialog>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const tabs = [...document.querySelectorAll('[role="tab"][data-surface]')];
+      const panels = {
+        portal: document.getElementById('panel-portal'),
+        index: document.getElementById('panel-index'),
+        procedure: document.getElementById('panel-procedure')
+      };
+
+      function switchSurface(target, focusMode = 'none') {
+        if (!panels[target]) return;
+        for (const tab of tabs) {
+          const active = tab.dataset.surface === target;
+          tab.setAttribute('aria-selected', String(active));
+          tab.setAttribute('tabindex', active ? '0' : '-1');
+          if (active && focusMode === 'tab') tab.focus();
+        }
+        for (const [key, panel] of Object.entries(panels)) {
+          const active = key === target;
+          panel.hidden = !active;
+          panel.setAttribute('data-active', String(active));
+        }
+        if (focusMode === 'heading') {
+          const heading = panels[target].querySelector('h1, h2');
+          if (heading) {
+            heading.setAttribute('tabindex', '-1');
+            heading.focus();
+          }
+        }
+      }
+
+      tabs.forEach((tab, idx) => {
+        tab.addEventListener('click', () => switchSurface(tab.dataset.surface, 'none'));
+        tab.addEventListener('keydown', (e) => {
+          let nextIdx = null;
+          if (e.key === 'ArrowRight') nextIdx = (idx + 1) % tabs.length;
+          else if (e.key === 'ArrowLeft') nextIdx = (idx - 1 + tabs.length) % tabs.length;
+          else if (e.key === 'Home') nextIdx = 0;
+          else if (e.key === 'End') nextIdx = tabs.length - 1;
+          if (nextIdx !== null) {
+            e.preventDefault();
+            switchSurface(tabs[nextIdx].dataset.surface, 'tab');
+          }
+        });
+      });
+
+      document.querySelectorAll('[data-goto-surface]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchSurface(btn.dataset.gotoSurface, 'heading');
+        });
+      });
+
+      // Preferences: Dark mode & Density
+      const themeBtn = document.getElementById('toggle-theme');
+      const densityBtn = document.getElementById('toggle-density');
+
+      themeBtn.addEventListener('click', () => {
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        themeBtn.setAttribute('aria-pressed', String(next === 'dark'));
+      });
+
+      densityBtn.addEventListener('click', () => {
+        const next = root.getAttribute('data-density') === 'compact' ? 'standard' : 'compact';
+        root.setAttribute('data-density', next);
+        densityBtn.setAttribute('aria-pressed', String(next === 'compact'));
+      });
+
+      // Public notice dismiss
+      const notice = document.getElementById('public-notice');
+      document.getElementById('dismiss-notice').addEventListener('click', () => {
+        notice.hidden = true;
+      });
+
+      // Index search, filters & states
+      const filterForm = document.getElementById('filter-form');
+      const qInput = document.getElementById('q');
+      const kindSelect = document.getElementById('kind');
+      const audSelect = document.getElementById('audience');
+      const rows = [...document.querySelectorAll('.forma-index-row')];
+      const statusEl = document.getElementById('index-status');
+      const emptyEl = document.getElementById('state-empty');
+      const loadingEl = document.getElementById('state-loading');
+      const errorEl = document.getElementById('state-error');
+      const listEl = document.getElementById('index-list');
+      const simButtons = [...document.querySelectorAll('[data-sim-state]')];
+      let simState = 'ready';
+
+      function norm(s) {
+        return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+      }
+
+      function renderIndex() {
+        for (const b of simButtons) {
+          b.setAttribute('aria-pressed', String(b.dataset.simState === simState));
+        }
+        if (simState === 'loading') {
+          loadingEl.hidden = false;
+          errorEl.hidden = true;
+          emptyEl.hidden = true;
+          listEl.hidden = true;
+          statusEl.textContent = 'Chargement du répertoire en cours…';
+          return;
+        }
+        if (simState === 'error') {
+          loadingEl.hidden = true;
+          errorEl.hidden = false;
+          emptyEl.hidden = true;
+          listEl.hidden = true;
+          statusEl.textContent = 'Synchronisation interrompue';
+          return;
+        }
+        loadingEl.hidden = true;
+        errorEl.hidden = true;
+        listEl.hidden = false;
+
+        const q = norm(qInput.value);
+        const k = kindSelect.value;
+        const a = audSelect.value;
+        let visible = 0;
+        for (const row of rows) {
+          const matchQ = !q || norm(row.textContent).includes(q);
+          const matchK = !k || row.dataset.kind === k;
+          const matchA = !a || row.dataset.audience === a;
+          const show = matchQ && matchK && matchA;
+          row.hidden = !show;
+          if (show) visible++;
+        }
+        statusEl.textContent = visible === 1 ? '1 ressource affichée' : `${visible} ressources affichées`;
+        emptyEl.hidden = visible !== 0;
+      }
+
+      qInput.addEventListener('input', renderIndex);
+      kindSelect.addEventListener('change', renderIndex);
+      audSelect.addEventListener('change', renderIndex);
+      filterForm.addEventListener('submit', e => e.preventDefault());
+      filterForm.addEventListener('reset', () => {
+        setTimeout(() => {
+          simState = 'ready';
+          renderIndex();
+        }, 0);
+      });
+
+      document.getElementById('empty-reset').addEventListener('click', () => {
+        filterForm.reset();
+      });
+
+      document.getElementById('retry-index').addEventListener('click', () => {
+        simState = 'ready';
+        renderIndex();
+      });
+
+      simButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          simState = btn.dataset.simState;
+          renderIndex();
+        });
+      });
+
+      document.querySelectorAll('[data-filter-jump]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          kindSelect.value = btn.dataset.filterJump;
+          qInput.value = '';
+          audSelect.value = '';
+          simState = 'ready';
+          switchSurface('index', 'heading');
+          renderIndex();
+        });
+      });
+
+      // Document Modal Reader
+      const dialog = document.getElementById('doc-dialog');
+      const dialogCode = document.getElementById('dialog-doc-code');
+      const dialogTitle = document.getElementById('dialog-doc-title');
+      let lastOpener = null;
+
+      document.querySelectorAll('[data-open-doc]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          lastOpener = btn;
+          dialogCode.textContent = `Cote ${btn.dataset.openDoc}`;
+          dialogTitle.textContent = btn.dataset.docTitle;
+          dialog.showModal();
+        });
+      });
+
+      document.getElementById('close-doc-dialog').addEventListener('click', () => {
+        dialog.close();
+      });
+
+      dialog.addEventListener('close', () => {
+        if (lastOpener) lastOpener.focus();
+      });
+
+      // Civic Form Validation & Receipt
+      const dossierForm = document.getElementById('dossier-form');
+      const nameInput = document.getElementById('applicant-name');
+      const emailInput = document.getElementById('applicant-email');
+      const errName = document.getElementById('err-name');
+      const errEmail = document.getElementById('err-email');
+      const receipt = document.getElementById('dossier-receipt');
+      const receiptBody = document.getElementById('receipt-body');
+      const receiptPieces = document.getElementById('receipt-pieces');
+
+      function clearFieldError(input, errEl) {
+        input.setAttribute('aria-invalid', 'false');
+        errEl.hidden = true;
+      }
+
+      nameInput.addEventListener('input', () => clearFieldError(nameInput, errName));
+      emailInput.addEventListener('input', () => clearFieldError(emailInput, errEmail));
+
+      dossierForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let firstInvalid = null;
+
+        if (!nameInput.value.trim()) {
+          nameInput.setAttribute('aria-invalid', 'true');
+          errName.hidden = false;
+          firstInvalid = firstInvalid || nameInput;
+        } else {
+          clearFieldError(nameInput, errName);
+        }
+
+        const emailVal = emailInput.value.trim();
+        if (!emailVal || !emailVal.includes('@') || !emailVal.includes('.')) {
+          emailInput.setAttribute('aria-invalid', 'true');
+          errEmail.hidden = false;
+          firstInvalid = firstInvalid || emailInput;
+        } else {
+          clearFieldError(emailInput, errEmail);
+        }
+
+        if (firstInvalid) {
+          receipt.hidden = true;
+          firstInvalid.focus();
+          return;
+        }
+
+        const purpose = dossierForm.elements.purpose.value;
+        const refCode = purpose === 'salle' ? 'DEM-SAL-8042' : 'DEM-LEC-4190';
+        receiptBody.textContent = `Dossier fictif ${refCode} établi au nom de ${nameInput.value.trim()} (${emailVal}). Présentez cette référence au guichet d'accueil.`;
+        receiptPieces.textContent = purpose === 'salle'
+          ? 'Pièces à présenter : pièce d’identité + récépissé associatif ou attestation de recherche.'
+          : 'Pièce à présenter : pièce d’identité en cours de validité uniquement.';
+        receipt.hidden = false;
+      });
+
+      dossierForm.addEventListener('reset', () => {
+        clearFieldError(nameInput, errName);
+        clearFieldError(emailInput, errEmail);
+        receipt.hidden = true;
+      });
+
+      renderIndex();
+    })();
+  </script>
+</body>
+</html>

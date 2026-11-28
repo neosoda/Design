@@ -5,10 +5,26 @@
     "institutional",
     "editorial",
     "typography",
-    "prototype"
+    "prototype",
+    "accessibility"
   ],
   "source": "Création originale pour Design",
   "license": "Inconnue",
   "usage": "reference",
-  "preview": "preview.svg"
+  "preview": "preview.webp",
+  "studio": {
+    "wave": 0,
+    "domain": "Institutionnel, documentation et services publics",
+    "maturity": "validated",
+    "modes": ["light", "dark"],
+    "prototype": "files/prototype.html",
+    "tokensCss": "files/tokens.css",
+    "tokensJson": "files/tokens.json",
+    "componentsCss": "files/components.css",
+    "motionCss": "files/motion.css",
+    "designDoc": "files/DESIGN.md",
+    "skillDoc": "files/SKILL.md",
+    "promptDoc": "files/PROMPT.md",
+    "qaDoc": "files/QA.md"
+  }
 }

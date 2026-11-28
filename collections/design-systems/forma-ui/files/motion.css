@@ -1,0 +1,57 @@
+/* Forma UI — Motion (functional signaletics only, zero decorative choreography) */
+:root {
+  --forma-duration-fast: 110ms;
+  --forma-duration-base: 160ms;
+  --forma-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+.forma-btn,
+.forma-tab,
+.forma-nav-link,
+.forma-index-row summary {
+  transition:
+    background-color var(--forma-duration-fast) var(--forma-ease-standard),
+    color var(--forma-duration-fast) var(--forma-ease-standard),
+    border-color var(--forma-duration-fast) var(--forma-ease-standard);
+}
+
+.forma-view-panel[data-active="true"] {
+  animation: forma-panel-in var(--forma-duration-base) var(--forma-ease-standard);
+}
+
+@keyframes forma-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes forma-pulse-bar {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.9; }
+}
+
+.forma-skeleton-line {
+  height: 14px;
+  background: var(--forma-surface-subtle);
+  animation: forma-pulse-bar 1.2s var(--forma-ease-standard) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --forma-duration-fast: 0ms;
+    --forma-duration-base: 0ms;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
