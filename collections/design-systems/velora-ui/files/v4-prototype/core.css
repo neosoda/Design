@@ -1,0 +1,16 @@
+/* Velora Core v4 — semantic surfaces, preferences, palettes */
+:root{--velora-radius:24px;--velora-space:18px;--velora-row:10px;--velora-glass:18px;--velora-speed:260ms;--velora-surface-alpha:.7;--mute:#55554c;--faint:#5d5e56}
+:root[data-velora-palette=ivory]{color-scheme:light;--bg:#eeebe3;--bgA:#f7ecdb;--bgB:#e5e3d8;--ink:#25241f;--mute:#565147;--faint:#5c584e;--card:rgba(251,249,243,var(--velora-surface-alpha));--cardB:rgba(255,255,255,.75);--solid:#fbf8f1;--chip:#fffdf7;--chipB:rgba(37,36,31,.1);--track:rgba(37,36,31,.07);--line:rgba(37,36,31,.12);--kc:#26251f;--won:#f7f3e8;--scrim:rgba(235,231,221,.5)}
+:root[data-velora-palette=mist]{color-scheme:light;--bg:#e6ebef;--bgA:#e0e9f4;--bgB:#dcece7;--ink:#202a31;--mute:#47555f;--faint:#505e67;--card:rgba(249,252,255,var(--velora-surface-alpha));--cardB:rgba(255,255,255,.75);--solid:#f5f9fb;--chip:#fdfefe;--chipB:rgba(32,42,49,.1);--track:rgba(32,42,49,.07);--line:rgba(32,42,49,.12);--kc:#233039;--won:#f1f5f7;--scrim:rgba(224,233,239,.5)}
+:root[data-theme=light]:not([data-velora-palette=mist]):not([data-velora-palette=ivory]){--card:rgba(248,245,239,var(--velora-surface-alpha));--mute:#55554c;--faint:#5d5e56}
+:root[data-theme=dark]{--card:rgba(33,35,33,var(--velora-surface-alpha));--mute:#b1b4ac;--faint:#969a91}
+:root[data-velora-density=compact]{--velora-space:12px;--velora-row:6px}
+:root[data-velora-density=spacious]{--velora-space:24px;--velora-row:14px}
+:root[data-velora-motion=off]{--velora-speed:1ms;--rail-motion:1ms;--motion-fast:1ms;--motion-control:1ms;--motion-exit:1ms;--motion-layout:1ms;--motion-enter:1ms;--motion-morph:1ms;--motion-sheet:1ms;--motion-chart:1ms;--motion-count:1ms;--stagger:0ms;--tilt-max:0}
+.card{padding:var(--velora-space);border-radius:var(--velora-radius);-webkit-backdrop-filter:blur(var(--velora-glass)) saturate(1.2);backdrop-filter:blur(var(--velora-glass)) saturate(1.2)}
+.tbl td{padding-block:var(--velora-row)}
+:focus-visible{outline:2px solid #2b5c4e;outline-offset:3px}
+:root[data-theme=dark] :focus-visible{outline-color:#f0c94e}
+
+:root[data-velora-motion=subtle]{--velora-speed:140ms;--rail-motion:140ms;--motion-fast:100ms;--motion-control:140ms;--motion-exit:120ms;--motion-layout:140ms;--motion-enter:280ms;--motion-morph:280ms;--motion-sheet:280ms;--motion-chart:300ms;--motion-count:350ms;--stagger:15ms;--tilt-max:0}
+@media(prefers-reduced-motion:reduce){:root[data-velora-motion=subtle]{--velora-speed:1ms;--rail-motion:1ms;--motion-fast:1ms;--motion-control:1ms;--motion-exit:1ms;--motion-layout:1ms;--motion-enter:1ms;--motion-morph:1ms;--motion-sheet:1ms;--motion-chart:1ms;--motion-count:1ms;--stagger:0ms}}

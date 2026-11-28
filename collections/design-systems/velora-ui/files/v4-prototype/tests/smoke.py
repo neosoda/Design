@@ -1,0 +1,85 @@
+"""Optional real-browser regression test: pip install playwright; playwright install chromium."""
+import shutil
+from pathlib import Path
+from playwright.sync_api import sync_playwright, expect
+
+URL = (Path(__file__).resolve().parents[1] / "prototype.html").as_uri()
+
+def _launch(pw):
+    try:
+        return pw.chromium.launch(args=["--no-sandbox", "--disable-dev-shm-usage"])
+    except Exception:
+        exe = shutil.which("google-chrome") or shutil.which("chromium") or shutil.which("chromium-browser")
+        return pw.chromium.launch(executable_path=exe, args=["--no-sandbox", "--disable-dev-shm-usage"])
+
+def main():
+    with sync_playwright() as pw:
+        browser = _launch(pw)
+        page = browser.new_page(viewport={"width": 1440, "height": 900}, reduced_motion="reduce")
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.goto(URL)
+        expect(page.get_by_role("button", name="Customize dashboard")).to_be_visible()
+        page.get_by_role("button", name="Customize dashboard").click()
+        width = page.locator("[data-vu-width]").first
+        old = width.inner_text()
+        width.click()
+        assert width.inner_text() != old
+        page.get_by_role("button", name="Finish editing").click()
+        page.locator("#rail button[aria-label='Settings']").click()
+        studio = page.get_by_role("dialog", name="Velora Studio")
+        expect(studio).to_be_visible()
+        studio.get_by_role("button", name="Mist").click()
+        studio.get_by_label("Density").select_option("compact")
+        studio.get_by_label("Sidebar").select_option("expanded")
+        studio.get_by_role("button", name="Done").click()
+        expect(page.locator("html")).to_have_attribute("data-velora-palette", "mist")
+        page.reload()
+        expect(page.locator("html")).to_have_attribute("data-velora-palette", "mist")
+        expect(page.locator("body")).to_have_attribute("data-rail-mode", "expanded")
+        page.get_by_role("button", name="Templates", exact=True).click()
+        expect(page.locator("#vu-profile")).to_be_visible()
+        for profile in ["crm", "itsm", "admin", "monitoring", "analytics"]:
+            page.locator("#vu-profile").select_option(profile)
+            expect(page.locator("[data-vu-results]")).to_contain_text("4 of 4")
+        page.get_by_role("button", name="New record").click()
+        panel = page.locator("dialog[open]")
+        panel.get_by_label("Title").fill("QA record")
+        panel.get_by_label("Owner / team").fill("QA")
+        panel.get_by_role("button", name="Save record").click()
+        expect(page.locator("[data-vu-results]")).to_contain_text("5 of 5")
+        page.get_by_label("Search records").fill("QA record")
+        expect(page.locator("[data-vu-results]")).to_contain_text("1 of 5")
+        page.get_by_role("button", name="Save view", exact=True).click()
+        page.get_by_label("View name").fill("QA view")
+        page.locator("dialog[open]").get_by_role("button", name="Save view").click()
+        expect(page.locator("#vu-view")).to_have_value(__import__("re").compile("^view-"))
+        page.get_by_role("button", name="Edit", exact=True).click()
+        expect(page.get_by_role("dialog", name="Record details")).to_be_visible()
+        page.keyboard.press("Escape")
+        page.locator("#bellBtn").click()
+        expect(page.get_by_role("dialog", name="Activity center")).to_be_visible()
+        page.get_by_role("button", name="Mark all read").click()
+        page.keyboard.press("Escape")
+        page.get_by_role("button", name="Playground", exact=True).click()
+        page.get_by_role("button", name="Error", exact=True).click()
+        expect(page.get_by_text("Unable to load the sample")).to_be_visible()
+        page.get_by_role("button", name="Retry").click()
+        expect(page.get_by_text("Loaded successfully.")).to_be_visible()
+        page.keyboard.press("Control+k")
+        expect(page.locator(".pal")).to_be_visible()
+        page.locator(".pal input").fill("Velora Studio")
+        expect(page.locator(".vu-command-run").first).to_contain_text("Open Velora Studio")
+        page.keyboard.press("Escape")
+        page.set_viewport_size({"width":390,"height":844})
+        expect(page.locator("#vuMobile")).to_be_visible()
+        page.locator("#vuMobile").click()
+        expect(page.locator("#rail")).to_be_visible()
+        page.keyboard.press("Escape")
+        expect(page.locator("#rail")).not_to_be_visible()
+        assert not errors, errors
+        browser.close()
+        print("Velora V4 browser smoke passed")
+
+if __name__ == "__main__":
+    main()

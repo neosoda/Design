@@ -1,0 +1,19 @@
+/* NexoraUI pour Tailwind CSS 4. Importer après tokens.css. */
+@import "tailwindcss";
+@import "./tokens.css";
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@theme inline {
+  --color-canvas: var(--ds-canvas); --color-surface: var(--ds-surface); --color-surface-2: var(--ds-surface-2); --color-surface-3: var(--ds-surface-3);
+  --color-border: var(--ds-border); --color-border-strong: var(--ds-border-strong); --color-border-control: var(--ds-border-control);
+  --color-ink: var(--ds-text); --color-ink-2: var(--ds-text-2); --color-ink-3: var(--ds-text-3);
+  --color-primary: var(--ds-primary); --color-primary-hover: var(--ds-primary-hover); --color-primary-fg: var(--ds-primary-fg);
+  --color-primary-subtle: var(--ds-primary-subtle); --color-primary-subtle-fg: var(--ds-primary-subtle-fg);
+  --color-danger: var(--ds-danger); --color-danger-subtle: var(--ds-danger-subtle);
+  --color-warning: var(--ds-warning); --color-warning-subtle: var(--ds-warning-subtle);
+  --color-success: var(--ds-success); --color-success-subtle: var(--ds-success-subtle); --color-paused: var(--ds-paused);
+  --font-sans: var(--ds-font-sans); --font-mono: var(--ds-font-mono);
+  --radius-sm: var(--ds-radius-sm); --radius-md: var(--ds-radius-md); --radius-lg: var(--ds-radius-lg);
+  --shadow-1: var(--ds-shadow-1); --shadow-2: var(--ds-shadow-2);
+  --ease-veille: var(--ds-ease-veille);
+  --breakpoint-sm: 640px; --breakpoint-md: 1024px; --breakpoint-lg: 1280px; --breakpoint-xl: 1600px;
+}

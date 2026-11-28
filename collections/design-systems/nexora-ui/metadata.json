@@ -1,0 +1,14 @@
+{
+  "title": "Nexora UI",
+  "description": "Design system ITSM : navigation configurable, tableaux à trois densités, états métier et thèmes clair/sombre.",
+  "tags": [
+    "itsm",
+    "tokens",
+    "design-system",
+    "accessibility"
+  ],
+  "source": "Collection personnelle, version neutralisée",
+  "license": "Inconnue",
+  "usage": "reference",
+  "preview": "preview.svg"
+}

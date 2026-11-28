@@ -11,12 +11,12 @@ Identités, tokens, règles. Cette collection accueille les ressources de cette 
 <!-- gallery:start -->
 <table>
 <tr>
-<td width="50%" valign="top"><a href="service-desk-ui/README.md"><img src="service-desk-ui/preview.svg" alt="Aperçu : Service Desk UI · Design System" width="100%"><br><strong>Service Desk UI · Design System</strong></a><br>Interface ITSM générique : tableaux denses, états métier, thèmes clair et sombre, composants et tokens.<br><sub>Référence · itsm · tokens · design-system · accessibility</sub></td>
-<td width="50%" valign="top"><a href="velora-ui/README.md"><img src="velora-ui/preview.webp" alt="Aperçu : Velora UI" width="100%"><br><strong>Velora UI</strong></a><br>Design system éditorial V4 : toile pêche-sauge, surfaces givrées, objets colorés par étape, motion interruptible, Studio et 5 modèles métier.<br><sub>Référence · design-system · tokens · motion · crm · itsm · dashboard · accessibility</sub></td>
+<td width="50%" valign="top"><a href="forma-ui/README.md"><img src="forma-ui/preview.webp" alt="Aperçu : Forma UI" width="100%"><br><strong>Forma UI</strong></a><br>Direction suisse : sites institutionnels, index éditoriaux et centres de ressources.<br><sub>Référence · institutional · editorial · typography · prototype · accessibility</sub></td>
+<td width="50%" valign="top"><a href="lumera-ui/README.md"><img src="lumera-ui/preview.svg" alt="Aperçu : Lumera UI" width="100%"><br><strong>Lumera UI</strong></a><br>Design system Bento éditorial : verre chaud, sable et sauge, surfaces accessibles et prototype interactif.<br><sub>Référence · bento · glassmorphism · tokens · editorial</sub></td>
 </tr>
 <tr>
-<td width="50%" valign="top"><a href="warm-frosted-editorial/README.md"><img src="warm-frosted-editorial/preview.svg" alt="Aperçu : Warm Frosted Editorial" width="100%"><br><strong>Warm Frosted Editorial</strong></a><br>Charte Bento lumineuse : verre dépoli chaud, sable, sauge, sapin et corail.<br><sub>Référence · bento · glassmorphism · tokens · editorial</sub></td>
-<td width="50%"></td>
+<td width="50%" valign="top"><a href="nexora-ui/README.md"><img src="nexora-ui/preview.svg" alt="Aperçu : Nexora UI" width="100%"><br><strong>Nexora UI</strong></a><br>Design system ITSM : navigation configurable, tableaux à trois densités, états métier et thèmes clair/sombre.<br><sub>Référence · itsm · tokens · design-system · accessibility</sub></td>
+<td width="50%" valign="top"><a href="velora-ui/README.md"><img src="velora-ui/preview.webp" alt="Aperçu : Velora UI" width="100%"><br><strong>Velora UI</strong></a><br>Design system éditorial V4 : toile pêche-sauge, surfaces givrées, objets colorés par étape, motion interruptible, Studio et 5 modèles métier.<br><sub>Référence · design-system · tokens · motion · crm · itsm · dashboard · accessibility</sub></td>
 </tr>
 </table>
 <!-- gallery:end -->
