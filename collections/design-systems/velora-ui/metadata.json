@@ -1,5 +1,5 @@
 {
-  "title": "Rapport · CRM",
+  "title": "Velora UI",
   "description": "Charte UX/UI éditoriale : toile pêche-sauge, cartes métier colorées, transitions et surfaces givrées.",
   "tags": [
     "crm",
@@ -10,5 +10,5 @@
   "source": "rapport-ux-ui-v3.zip + charte-ux-ui-rapport-v2.zip + TemplateTheme.html (collection personnelle)",
   "license": "Inconnue",
   "usage": "reference",
-  "preview": "preview.webp"
+  "preview": "preview.svg"
 }

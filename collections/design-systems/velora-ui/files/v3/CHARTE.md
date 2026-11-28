@@ -1,5 +1,5 @@
-# Charte UX/UI — Rapport · v3 (fusion Claude × ChatGPT)
-Analyse de 14485.mp4 (576 × 984, 30 i/s, 17,17 s). Cette version fusionne la charte v2 de ChatGPT (structure, mesures de composition, contrat de conception, transposition SentinelFlow) avec le prototype de Claude, qui devient la **référence exécutable** (`prototype/index.html`).
+# Charte UX/UI — Velora UI · v3 (fusion Claude × ChatGPT)
+Analyse de 14485.mp4 (576 × 984, 30 i/s, 17,17 s). Cette version fusionne la charte v2 de ChatGPT (structure, mesures de composition, contrat de conception, transposition SentinelFlow) avec le prototype de Claude, qui devient la **référence exécutable** (`prototype.html`).
 
 Statuts : **V** constat vidéo · **E** estimation · **P** prescription · **I** implémenté dans le prototype et vérifié (navigateur headless, 1280 × 900 et 390 × 844, thèmes clair et sombre, zéro erreur console). Quand un point I contredit un point P de la v2, l'arbitrage et sa preuve sont au §10. Le code source, les règles métier et le responsive d'origine restent inconnus.
 
@@ -35,7 +35,7 @@ Contenu max 1200 px, marge gauche réservée au rail compact (78–100 px). En m
 ## 04 — Bibliothèque de composants
 | Composant | Anatomie et règles |
 |---|---|
-| Shell / nav | Logo carré charbon + « rapport » ; nav horizontale sans fond ; capsule noire active ; boutons ronds à droite (point rouille = notification) ; rail noir flottant à icônes fines, info-bulle qui glisse au survol, séparateur avant réglages/lune. |
+| Shell / nav | Logo carré charbon + « Velora UI » ; nav horizontale sans fond ; capsule noire active ; boutons ronds à droite (point rouille = notification) ; rail noir flottant à icônes fines, info-bulle qui glisse au survol, séparateur avant réglages/lune. |
 | Dock | Capsule noire centrée en bas : point jaune pulsé, compteur « deals closing this month », bouton jaune « Review ». (V partiel : seule la capsule est visible dans la vidéo ; le contenu est I.) |
 | En-tête de page / KPI | Titre 2 lignes ; KPI = disque d'icône 40 px, valeur, libellé gris dessous, mini-capsule de variation (vert, jaune, rouille, neutre). |
 | Panneau graphique | Titre + segmenté (6M/12M) + boutons ronds ; chiffre principal avec phrase de contexte ; légende ; courbe Catmull-Rom 2,2 px, aire translucide en dégradé, cible pointillée ; info-bulle accrochée au point actif avec ligne guide. |
@@ -52,7 +52,7 @@ Contenu max 1200 px, marge gauche réservée au rail compact (78–100 px). En m
 - **Compact (44 px, par défaut)** : icônes seules, infobulles au survol et au focus clavier.
 - **Déplié (208 px)** : icônes et intitulés visibles en permanence ; la zone de contenu s’adapte sans recouvrement.
 - **Automatique** : le rail s’étend au survol souris/stylet ou au focus clavier, puis se replie à la sortie ; Échap ferme l’expansion temporaire.
-- Deux commandes intégrées au rail : déplier/replier (choix fixe) et activer/désactiver le mode automatique. Les choix sont conservés dans `localStorage` (`rapport.sidebar.mode`), avec repli sûr si le stockage est indisponible.
+- Deux commandes intégrées au rail : déplier/replier (choix fixe) et activer/désactiver le mode automatique. Les choix sont conservés dans `localStorage` (`velora-ui.sidebar.mode`), avec repli sûr si le stockage est indisponible et reprise automatique de la préférence de l’ancienne version.
 - Transition de 260 ms, courbe ease-out du thème, sans rebond ; respect de reduced motion, commandes nommées et états ARIA. En dessous de 560 px, le comportement mobile existant est conservé ; le mode de prévisualisation téléphone force temporairement le rail compact sans modifier la préférence.
 - Vérifier les trois modes, persistance, navigation, focus, clair/sombre et responsive. Cette évolution n’est pas incluse dans les validations historiques du prototype.
 
@@ -121,7 +121,7 @@ Sidebar d'admin classique, gris/bleu SaaS par défaut, grille uniforme sans hié
 ## Contenu du dossier
 - `CHARTE.md` — ce document.
 - `tokens.css` — tokens v3 (clair, sombre, reduced motion).
-- `prototype/index.html` — référence exécutable, autonome (police Urbanist via Google Fonts).
+- `prototype.html` — référence exécutable, autonome (police Urbanist via Google Fonts).
 - `charte.html` — charte visuelle v2 (ChatGPT), tokens et police mis à jour en v3.
 - `frames/` — 38 captures datées extraites de 14485.mp4.
 

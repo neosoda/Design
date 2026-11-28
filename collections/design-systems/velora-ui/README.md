@@ -1,12 +1,14 @@
 [← Collection](../README.md) · [Toutes les ressources](../../../README.md)
 
-# Rapport · CRM
+# Velora UI
 
 Charte UX/UI éditoriale : toile pêche-sauge, cartes métier colorées, transitions et surfaces givrées.
 
-![Aperçu de Rapport · CRM](preview.webp)
+![Aperçu de Velora UI](preview.svg)
 
 Le menu latéral des deux prototypes HTML dispose de trois modes mémorisés : compact (icônes seules), déplié permanent et automatique (survol/focus).
+
+*Soft by nature, fluid by design.*
 
 ## Ressources
 
@@ -17,7 +19,7 @@ Le menu latéral des deux prototypes HTML dispose de trois modes mémorisés : c
 - [Tokens V2](files/v2/tokens.css)
 - [TemplateTheme HTML](files/TemplateTheme.html)
 
-Miniature : capture Chromium du prototype V3. Les captures vidéo originales et les pages HTML intégrant ces captures ne sont pas republiées. Les versions V2 et V3 restent séparées.
+Miniature : aperçu vectoriel du prototype V3, illustrant le menu déplié. Les captures vidéo originales et les pages HTML intégrant ces captures ne sont pas republiées. Les versions V2 et V3 restent séparées.
 
 ## Provenance et droits
 
