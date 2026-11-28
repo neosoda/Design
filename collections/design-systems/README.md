@@ -16,7 +16,7 @@ Identités, tokens, règles. Cette collection accueille les ressources de cette 
 </tr>
 <tr>
 <td width="50%" valign="top"><a href="nexora-ui/README.md"><img src="nexora-ui/preview.svg" alt="Aperçu : Nexora UI" width="100%"><br><strong>Nexora UI</strong></a><br>Design system ITSM : navigation configurable, tableaux à trois densités, états métier et thèmes clair/sombre.<br><sub>Référence · itsm · tokens · design-system · accessibility</sub></td>
-<td width="50%" valign="top"><a href="velora-ui/README.md"><img src="velora-ui/preview.svg" alt="Aperçu : Velora UI" width="100%"><br><strong>Velora UI</strong></a><br>Charte UX/UI éditoriale : toile pêche-sauge, cartes métier colorées, transitions et surfaces givrées.<br><sub>Référence · crm · motion · tokens · prototype</sub></td>
+<td width="50%" valign="top"><a href="velora-ui/README.md"><img src="velora-ui/preview.webp" alt="Aperçu : Velora UI" width="100%"><br><strong>Velora UI</strong></a><br>Design system éditorial V4 : toile pêche-sauge, surfaces givrées, objets colorés par étape, motion interruptible, Studio et 5 modèles métier.<br><sub>Référence · design-system · tokens · motion · crm · itsm · dashboard · accessibility</sub></td>
 </tr>
 </table>
 <!-- gallery:end -->

@@ -49,7 +49,7 @@ Un aperçu pour chaque ressource, une fiche dédiée et les fichiers associés l
 <td width="50%" valign="top"><a href="collections/design-systems/nexora-ui/README.md"><img src="collections/design-systems/nexora-ui/preview.svg" alt="Aperçu : Nexora UI" width="100%"><br><strong>Nexora UI</strong></a><br>Design system ITSM : navigation configurable, tableaux à trois densités, états métier et thèmes clair/sombre.<br><sub>Référence · itsm · tokens · design-system · accessibility</sub></td>
 </tr>
 <tr>
-<td width="50%" valign="top"><a href="collections/design-systems/velora-ui/README.md"><img src="collections/design-systems/velora-ui/preview.svg" alt="Aperçu : Velora UI" width="100%"><br><strong>Velora UI</strong></a><br>Charte UX/UI éditoriale : toile pêche-sauge, cartes métier colorées, transitions et surfaces givrées.<br><sub>Référence · crm · motion · tokens · prototype</sub></td>
+<td width="50%" valign="top"><a href="collections/design-systems/velora-ui/README.md"><img src="collections/design-systems/velora-ui/preview.webp" alt="Aperçu : Velora UI" width="100%"><br><strong>Velora UI</strong></a><br>Design system éditorial V4 : toile pêche-sauge, surfaces givrées, objets colorés par étape, motion interruptible, Studio et 5 modèles métier.<br><sub>Référence · design-system · tokens · motion · crm · itsm · dashboard · accessibility</sub></td>
 <td width="50%" valign="top"><a href="collections/components/glassy-otp/README.md"><img src="collections/components/glassy-otp/preview.webp" alt="Aperçu : Glassy OTP" width="100%"><br><strong>Glassy OTP</strong></a><br>Composant OTP animé en verre fumé, saisie à quatre chiffres et validation lumineuse.<br><sub>Référence · react · otp · motion · glassmorphism</sub></td>
 </tr>
 <tr>

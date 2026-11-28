@@ -1,0 +1,248 @@
+/* Velora Core V4: base, typography and primitives.
+   Requires core/velora-tokens.css. Every class is prefixed "vl-" so Velora can live inside another app.
+   Decision log (antislop R-31): see CHARTE.md section 09. */
+
+/* ---------- Contrast boost (Studio option, also follows prefers-contrast) ---------- */
+:root[data-vl-contrast="more"] { --vl-alpha: .94; --vl-muted: #45453d; --vl-line: rgb(24 24 21 / .2); --vl-chip-border: rgb(24 24 21 / .22); --vl-surface-border: rgb(24 24 21 / .16); }
+:root[data-vl-contrast="more"][data-vl-palette="mist"] { --vl-muted: #34424b; }
+:root[data-vl-contrast="more"][data-vl-palette="ivory"] { --vl-muted: #403c34; }
+:root[data-vl-contrast="more"][data-vl-palette="dark"] { --vl-muted: #cfd1ca; --vl-line: rgb(255 255 255 / .22); --vl-chip-border: rgb(255 255 255 / .24); --vl-surface-border: rgb(255 255 255 / .18); }
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { min-width: 0; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body.vl-body {
+  margin: 0;
+  font: var(--vl-fw-regular) var(--vl-fs-body)/1.45 var(--vl-font-ui);
+  color: var(--vl-ink);
+  background: var(--vl-canvas-base);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  font-optical-sizing: auto;
+}
+/* The canvas is fixed and calm: one wash unifies the page (V3 signature). */
+body.vl-body::before { content: ""; position: fixed; inset: 0; z-index: -1; background: var(--vl-canvas); transition: background .5s; }
+:where(.vl-body) :is(button, input, select, textarea) { font: inherit; color: inherit; }
+:where(.vl-body) button { background: none; border: 0; padding: 0; cursor: pointer; }
+:where(.vl-body) button:disabled { cursor: not-allowed; }
+:where(.vl-body) a { color: inherit; }
+:where(.vl-body) :is(img, svg) { display: block; }
+:where(.vl-body) :is(h1, h2, h3, h4) { margin: 0; font-weight: var(--vl-fw-medium); letter-spacing: var(--vl-tracking-title); line-height: 1.12; }
+:where(.vl-body) p { margin: 0; }
+:where(.vl-body) ::selection { background: color-mix(in srgb, var(--vl-stage-yellow) 55%, transparent); color: var(--vl-ink); }
+[hidden] { display: none !important; }
+
+/* Focus is always visible: 2px ring in the palette focus colour, never removed without replacement (R-32). */
+:where(.vl-body) :focus-visible { outline: 2px solid var(--vl-focus); outline-offset: 2px; border-radius: 10px; }
+.vl-on-strong :focus-visible, .vl-on-strong:focus-visible { outline-color: var(--vl-stage-yellow); }
+
+.vl-sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.vl-skip { position: fixed; left: 12px; top: -60px; z-index: 200; background: var(--vl-strong); color: var(--vl-on-strong); padding: 10px 16px; border-radius: var(--vl-r-control); font-weight: 600; text-decoration: none; transition: top .2s var(--vl-ease-out); }
+.vl-skip:focus { top: 12px; }
+
+/* ---------- Typography ---------- */
+.vl-num { font-variant-numeric: tabular-nums; }
+.vl-muted { color: var(--vl-muted); }
+.vl-caption { font-size: var(--vl-fs-caption); color: var(--vl-muted); }
+.vl-label { font-size: var(--vl-fs-label); color: var(--vl-muted); }
+.vl-title { font-size: var(--vl-fs-page-title); font-weight: var(--vl-fw-medium); letter-spacing: var(--vl-tracking-title); line-height: 1.04; }
+.vl-figure { font-size: var(--vl-fs-figure); font-weight: var(--vl-fw-semibold); letter-spacing: var(--vl-tracking-figure); line-height: 1.1; }
+.vl-display { font-size: var(--vl-fs-display); font-weight: var(--vl-fw-semibold); letter-spacing: -.03em; line-height: 1; }
+.vl-kbd { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 6px; border: 1px solid var(--vl-line-strong); border-bottom-width: 2px; font: 600 11px/1 var(--vl-font-ui); color: var(--vl-muted); background: var(--vl-chip); }
+.vl-code { font-family: var(--vl-font-mono); font-size: .86em; padding: 1px 6px; border-radius: 6px; background: var(--vl-track); }
+svg.vl-i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+/* ---------- Layout helpers ---------- */
+.vl-row { display: flex; align-items: center; gap: var(--vl-space-3); flex-wrap: wrap; }
+.vl-row > .vl-grow, .vl-grow { flex: 1 1 auto; }
+.vl-stack { display: grid; gap: var(--vl-stack-gap); }
+.vl-grid { display: grid; gap: var(--vl-gap); }
+.vl-split { display: flex; align-items: center; justify-content: space-between; gap: var(--vl-space-3); }
+
+/* ---------- Surfaces ---------- */
+/* Frosted panel: kept on every surface by owner decision (R-10 override recorded in CHARTE.md). */
+.vl-card {
+  background: var(--vl-surface);
+  border: 1px solid var(--vl-surface-border);
+  border-radius: var(--vl-r-panel);
+  padding: var(--vl-pad);
+  box-shadow: var(--vl-shadow-panel);
+  -webkit-backdrop-filter: blur(var(--vl-blur)) saturate(1.2);
+  backdrop-filter: blur(var(--vl-blur)) saturate(1.2);
+}
+.vl-card__head { display: flex; align-items: center; gap: var(--vl-space-2); margin-bottom: var(--vl-space-3); min-height: 32px; }
+.vl-card__title { margin: 0; font-size: var(--vl-fs-body); font-weight: var(--vl-fw-semibold); letter-spacing: -.005em; flex: 1; }
+.vl-card__note { font-size: var(--vl-fs-label); color: var(--vl-muted); }
+.vl-solid { background: var(--vl-solid); border: 1px solid var(--vl-line); }
+.vl-divider { height: 1px; background: var(--vl-line); border: 0; margin: var(--vl-space-4) 0; }
+
+/* ---------- Buttons ---------- */
+.vl-btn {
+  --b-bg: var(--vl-chip); --b-fg: var(--vl-ink); --b-bd: var(--vl-chip-border);
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: var(--vl-control); padding: 0 16px; border-radius: var(--vl-r-control);
+  background: var(--b-bg); color: var(--b-fg); border: 1px solid var(--b-bd) !important;
+  font-weight: var(--vl-fw-semibold); font-size: var(--vl-fs-small); white-space: nowrap; text-decoration: none;
+  transition: transform var(--vl-motion-control) var(--vl-ease-spring), background-color var(--vl-motion-fast), border-color var(--vl-motion-fast), opacity var(--vl-motion-fast);
+}
+.vl-btn:hover:not(:disabled) { transform: translateY(-1px) scale(1.02); }
+.vl-btn:active:not(:disabled) { transform: scale(.96); }
+.vl-btn:disabled { opacity: .45; }
+.vl-btn svg { width: 16px; height: 16px; }
+.vl-btn--strong { --b-bg: var(--vl-strong); --b-fg: var(--vl-on-strong); --b-bd: transparent; }
+.vl-btn--accent { --b-bg: var(--vl-stage-yellow); --b-fg: #181815; --b-bd: transparent; }
+.vl-btn--ghost { --b-bg: transparent; --b-bd: transparent; }
+.vl-btn--ghost:hover:not(:disabled) { --b-bg: var(--vl-track); }
+.vl-btn--danger { --b-bg: transparent; --b-fg: var(--vl-status-crit); --b-bd: color-mix(in srgb, var(--vl-status-crit) 40%, transparent); }
+.vl-btn--sm { min-height: 32px; padding: 0 12px; font-size: var(--vl-fs-label); }
+.vl-btn--block { width: 100%; }
+
+.vl-icon-btn {
+  width: 38px; height: 38px; border-radius: 50%; display: inline-grid; place-items: center; flex: none; position: relative;
+  background: var(--vl-chip); border: 1px solid var(--vl-chip-border) !important; color: var(--vl-ink);
+  transition: transform var(--vl-motion-control) var(--vl-ease-spring), background-color var(--vl-motion-fast);
+}
+.vl-icon-btn:hover:not(:disabled) { transform: scale(1.07); }
+.vl-icon-btn:active:not(:disabled) { transform: scale(.93); }
+.vl-icon-btn svg { width: 17px; height: 17px; }
+.vl-icon-btn--sm { width: 32px; height: 32px; }
+.vl-icon-btn--sm svg { width: 15px; height: 15px; }
+.vl-icon-btn--ghost { background: transparent; border-color: transparent !important; }
+.vl-icon-btn--ghost:hover:not(:disabled) { background: var(--vl-track); }
+.vl-icon-btn[aria-pressed="true"] { background: var(--vl-strong); color: var(--vl-on-strong); border-color: transparent !important; }
+.vl-badge-count { position: absolute; top: -3px; right: -3px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: var(--vl-stage-rust); color: #fff; font: 700 10.5px/18px var(--vl-font-ui); text-align: center; box-shadow: 0 0 0 2px var(--vl-chip); }
+.vl-badge-count:empty { display: none; }
+
+/* Touch: every control reaches 44px on coarse pointers (R-03). */
+@media (pointer: coarse) {
+  .vl-btn, .vl-btn--sm { min-height: 44px; }
+  .vl-icon-btn, .vl-icon-btn--sm { width: 44px; height: 44px; }
+}
+
+/* ---------- Pills, chips, status ---------- */
+.vl-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: var(--vl-stage-green); color: #fff; white-space: nowrap; }
+.vl-pill--yellow { background: var(--vl-stage-yellow); color: #181815; }
+.vl-pill--rust { background: var(--vl-stage-rust); color: #fff; }
+.vl-pill--soft { background: var(--vl-chip); color: var(--vl-ink); border: 1px solid var(--vl-chip-border); }
+.vl-chip {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 12px; border-radius: 999px;
+  background: var(--vl-chip); border: 1px solid var(--vl-chip-border) !important; font-size: var(--vl-fs-label); font-weight: 500; white-space: nowrap;
+  transition: background-color var(--vl-motion-fast), color var(--vl-motion-fast), transform var(--vl-motion-control) var(--vl-ease-spring);
+}
+.vl-chip:hover { background: var(--vl-solid); }
+.vl-chip[aria-pressed="true"] { background: var(--vl-strong); color: var(--vl-on-strong); border-color: transparent !important; }
+.vl-chip svg { width: 14px; height: 14px; }
+@media (pointer: coarse) { .vl-chip { min-height: 40px; } }
+
+/* Status = shape + label + colour, never colour alone. Each state has its own mark shape for CVD readers. */
+.vl-status { display: inline-flex; align-items: center; gap: 7px; font-size: var(--vl-fs-label); font-weight: 500; white-space: nowrap; color: var(--vl-ink); }
+.vl-status::before { content: ""; width: 9px; height: 9px; flex: none; background: var(--vl-muted); border-radius: 50%; }
+.vl-status[data-tone="ok"]::before { background: var(--vl-status-ok); }
+.vl-status[data-tone="warn"]::before { background: var(--vl-status-warn); border-radius: 2px; transform: rotate(45deg) scale(.86); }
+.vl-status[data-tone="crit"]::before { background: var(--vl-status-crit); border-radius: 1px; clip-path: polygon(50% 0, 100% 100%, 0 100%); width: 10px; height: 10px; }
+.vl-status[data-tone="info"]::before { background: var(--vl-status-info); border-radius: 2px; }
+.vl-status[data-tone="idle"]::before { background: transparent; box-shadow: inset 0 0 0 2px var(--vl-muted); }
+.vl-status--text[data-tone="ok"] { color: var(--vl-status-ok); }
+.vl-status--text[data-tone="warn"] { color: var(--vl-status-warn); }
+.vl-status--text[data-tone="crit"] { color: var(--vl-status-crit); }
+
+/* ---------- Avatars (initials placeholders, R-23) ---------- */
+.vl-avatar { width: 26px; height: 26px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 10px; font-weight: 700; color: #2b2b2b; flex: none; letter-spacing: .02em; background: #e9c9b8; }
+.vl-avatar--lg { width: 40px; height: 40px; font-size: 13px; }
+.vl-avatars { display: inline-flex; padding-left: 7px; }
+.vl-avatars .vl-avatar { margin-left: -7px; box-shadow: 0 0 0 2px var(--vl-avatar-ring, var(--vl-solid)); }
+
+/* ---------- Form fields ---------- */
+.vl-field { display: grid; gap: 6px; }
+.vl-field > label, .vl-field__label { font-size: var(--vl-fs-label); font-weight: var(--vl-fw-semibold); }
+.vl-field__hint { font-size: var(--vl-fs-caption); color: var(--vl-muted); }
+.vl-field__error { font-size: var(--vl-fs-caption); color: var(--vl-status-crit); font-weight: 600; }
+.vl-input, .vl-select, .vl-textarea {
+  width: 100%; min-height: var(--vl-control); padding: 0 12px; border-radius: var(--vl-r-field);
+  border: 1px solid var(--vl-line-strong); background: var(--vl-chip); color: var(--vl-ink); font-size: 16px;
+  transition: border-color var(--vl-motion-fast), box-shadow var(--vl-motion-fast);
+}
+@media (min-width: 761px) { .vl-input, .vl-select, .vl-textarea { font-size: var(--vl-fs-small); } }
+.vl-textarea { padding: 10px 12px; min-height: 84px; resize: vertical; line-height: 1.45; }
+.vl-select { appearance: none; padding-right: 34px; background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: calc(100% - 17px) 52%, calc(100% - 12px) 52%; background-size: 5px 5px; background-repeat: no-repeat; }
+.vl-input::placeholder, .vl-textarea::placeholder { color: var(--vl-muted); opacity: 1; }
+.vl-input:focus-visible, .vl-select:focus-visible, .vl-textarea:focus-visible { outline: 2px solid var(--vl-focus); outline-offset: 1px; border-color: transparent; }
+.vl-input[aria-invalid="true"] { border-color: var(--vl-status-crit); }
+
+.vl-search { display: flex; align-items: center; gap: 8px; min-height: var(--vl-control); padding: 0 14px; border-radius: 999px; background: var(--vl-chip); border: 1px solid var(--vl-line-strong); flex: 1 1 220px; max-width: 380px; }
+.vl-search:focus-within { outline: 2px solid var(--vl-focus); outline-offset: 1px; }
+.vl-search input { border: 0; background: none; outline: 0; flex: 1; font-size: 16px; min-height: calc(var(--vl-control) - 2px); }
+@media (min-width: 761px) { .vl-search input { font-size: var(--vl-fs-small); } }
+.vl-search input::placeholder { color: var(--vl-muted); }
+.vl-search svg { width: 16px; height: 16px; color: var(--vl-muted); }
+
+/* Switch: a real checkbox, styled. */
+.vl-switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: var(--vl-fs-small); }
+.vl-switch input { appearance: none; width: 38px; height: 22px; border-radius: 999px; background: var(--vl-line-strong); position: relative; flex: none; margin: 0; cursor: pointer; transition: background-color var(--vl-motion-fast); }
+.vl-switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: var(--vl-shadow-control); transition: transform var(--vl-motion-control) var(--vl-ease-spring); }
+.vl-switch input:checked { background: var(--vl-stage-green); }
+.vl-switch input:checked::after { transform: translateX(16px); }
+.vl-switch input:focus-visible { outline: 2px solid var(--vl-focus); outline-offset: 2px; }
+.vl-check { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.vl-check input { width: 18px; height: 18px; margin: 0; accent-color: var(--vl-stage-green); cursor: pointer; }
+.vl-range { width: 100%; accent-color: var(--vl-stage-green); }
+
+/* ---------- Segmented control (knob slides with a spring: controls only) ---------- */
+.vl-seg { position: relative; display: inline-flex; background: var(--vl-track); border-radius: 999px; padding: 3px; flex: none; }
+.vl-seg button { position: relative; z-index: 1; min-height: 30px; padding: 0 12px; font-size: var(--vl-fs-label); font-weight: 500; border-radius: 999px; color: var(--vl-muted); transition: color var(--vl-motion-control); white-space: nowrap; }
+.vl-seg button[aria-pressed="true"], .vl-seg button[aria-selected="true"] { color: var(--vl-ink); }
+.vl-seg__knob { position: absolute; top: 3px; bottom: 3px; left: 0; width: 0; border-radius: 999px; background: var(--vl-chip); box-shadow: var(--vl-shadow-control); transition: left 500ms var(--vl-ease-spring), width 500ms var(--vl-ease-spring); }
+:root[data-vl-motion="reduced"] .vl-seg__knob { transition: none; }
+@media (pointer: coarse) { .vl-seg button { min-height: 40px; } }
+
+/* ---------- Meter (fill carries severity, track is a lighter step) ---------- */
+.vl-meter { height: 8px; border-radius: 999px; background: var(--vl-track); overflow: hidden; }
+.vl-meter > i { display: block; height: 100%; width: var(--v, 0%); border-radius: inherit; background: var(--vl-status-ok); transition: width var(--vl-motion-chart) var(--vl-ease-out); }
+.vl-meter[data-tone="warn"] > i { background: var(--vl-stage-yellow); }
+.vl-meter[data-tone="crit"] > i { background: var(--vl-stage-rust); }
+
+/* ---------- Object tiles: colour = stage, never priority (V3 rule) ---------- */
+.vl-tile {
+  --t-bg: var(--vl-stage-yellow); --t-fg: #181815;
+  background: var(--t-bg); color: var(--t-fg); border-radius: var(--vl-r-card); padding: 13px 14px 12px;
+  display: flex; flex-direction: column; min-height: 126px; position: relative;
+  transition: background-color .5s var(--vl-ease-out), color .5s, transform var(--vl-motion-control) var(--vl-ease-spring), box-shadow var(--vl-motion-control);
+  --vl-avatar-ring: var(--t-bg);
+}
+.vl-tile:is(button, a, [tabindex]) { cursor: pointer; text-align: left; }
+.vl-tile:is(button, a, [tabindex]):hover { transform: translateY(-2px); box-shadow: 0 16px 26px -18px rgb(0 0 0 / .45); }
+.vl-tile--yellow { --t-bg: var(--vl-stage-yellow); --t-fg: #181815; }
+.vl-tile--green { --t-bg: var(--vl-stage-green); --t-fg: #fff; }
+.vl-tile--rust { --t-bg: var(--vl-stage-rust); --t-fg: #fff; --t-sub: 1; } /* white at 85 % on rust is 3.9:1: secondary text stays opaque (tests/contrast.mjs) */
+.vl-tile--charcoal { --t-bg: var(--vl-stage-charcoal); --t-fg: #fff; }
+.vl-tile--won { --t-bg: var(--vl-stage-won); --t-fg: var(--vl-ink); border: 1px solid var(--vl-line); }
+.vl-tile--muted { --t-bg: var(--vl-track); --t-fg: var(--vl-ink); }
+.vl-tile :focus-visible, .vl-tile:focus-visible { outline-color: var(--vl-ink); }
+.vl-tile--green:focus-visible, .vl-tile--rust:focus-visible, .vl-tile--charcoal:focus-visible { outline-color: var(--vl-stage-yellow); }
+.vl-tile__meta { font-size: var(--vl-fs-caption); opacity: var(--t-sub, .85); padding-right: 30px; }
+.vl-tile__title { margin: 9px 0 2px; font-size: var(--vl-fs-card-title); font-weight: 500; line-height: 1.15; letter-spacing: -.01em; }
+.vl-tile__sub { font-size: var(--vl-fs-label); opacity: var(--t-sub, .85); }
+.vl-tile__foot { margin-top: auto; padding-top: 10px; display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; }
+.vl-tile__value { font-size: 19px; font-weight: 600; letter-spacing: -.015em; }
+
+/* ---------- Tooltip (CSS-only for icon buttons; charts use their own) ---------- */
+[data-vl-tip] { position: relative; }
+[data-vl-tip]::after {
+  content: attr(data-vl-tip); position: absolute; left: 50%; top: calc(100% + 8px); z-index: 90;
+  transform: translate(-50%, -4px); opacity: 0; pointer-events: none; white-space: nowrap;
+  background: var(--vl-strong); color: var(--vl-on-strong); font-size: 12px; font-weight: 500; padding: 5px 10px; border-radius: 999px;
+  transition: opacity var(--vl-motion-fast), transform var(--vl-motion-control) var(--vl-ease-out);
+}
+[data-vl-tip]:hover::after, [data-vl-tip]:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
+@media (hover: none) { [data-vl-tip]::after { display: none; } }
+
+/* ---------- Forced colours: keep structure visible ---------- */
+@media (forced-colors: active) {
+  .vl-card, .vl-tile, .vl-btn, .vl-chip, .vl-icon-btn { border: 1px solid CanvasText !important; }
+  .vl-status::before { forced-color-adjust: none; }
+}
+@media print {
+  body.vl-body::before { display: none; }
+  .vl-card { box-shadow: none; backdrop-filter: none; background: #fff; border-color: #ccc; }
+}

@@ -1,0 +1,55 @@
+/* Velora Motion V4: the motion grammar in CSS. Durations come from --vl-motion-* tokens,
+   so the Studio level (signature, subtle, reduced) and the OS setting drive everything.
+   Purpose of each animation is written next to it (antislop R-19). */
+
+/* View exit: old screen blurs away so the eye lets go of it (V3 2.4 s sequence). */
+.vl-view { transition: opacity var(--vl-motion-exit) var(--vl-ease-out), filter var(--vl-motion-exit) var(--vl-ease-out), transform var(--vl-motion-exit) var(--vl-ease-out); }
+.vl-view.is-leaving { opacity: 0; filter: blur(var(--vl-motion-blur)); transform: scale(.988); pointer-events: none; }
+
+/* Progressive appearance: blocks resolve from soft and desaturated to sharp, in reading order. */
+@keyframes vl-rise { from { opacity: 0; transform: translateY(16px) scale(.985); filter: blur(5px) saturate(.25) brightness(1.12); } }
+@keyframes vl-rise-subtle { from { opacity: 0; transform: translateY(6px); } }
+:root[data-vl-motion="subtle"] { --vl-rise: vl-rise-subtle; }
+
+/* Title letters: the page title types itself in, telling the user where they landed. */
+.vl-chr { display: inline-block; white-space: pre; }
+@keyframes vl-chr { from { opacity: 0; filter: blur(7px); transform: translateY(.3em); } }
+
+/* Counting figures stay slightly soft while they move so the eye reads them as "in motion". */
+.vl-counting { filter: blur(.4px); }
+:root[data-vl-motion="reduced"] .vl-counting { filter: none; }
+
+/* Skeleton: shows the shape of what is coming, never a fake product shot. Shimmer is slow and low-contrast. */
+.vl-skeleton { display: block; border-radius: 8px; min-height: 12px; background: linear-gradient(90deg, var(--vl-track) 25%, color-mix(in srgb, var(--vl-track) 35%, transparent) 45%, var(--vl-track) 65%); background-size: 220% 100%; animation: vl-shimmer 1.6s linear infinite; }
+.vl-skeleton--line { height: 12px; }
+.vl-skeleton--title { height: 22px; width: 55%; }
+.vl-skeleton--block { height: 100%; min-height: 80px; border-radius: var(--vl-r-card); }
+@keyframes vl-shimmer { to { background-position: -220% 0; } }
+:root[data-vl-motion="reduced"] .vl-skeleton { animation: none; }
+
+/* Flash: a changed object glows once in the accent so the user sees where the change landed. */
+@keyframes vl-flash { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--vl-stage-yellow) 80%, transparent); } 100% { box-shadow: 0 0 0 14px transparent; } }
+.vl-flash { animation: vl-flash 1.2s var(--vl-ease-out); }
+@keyframes vl-row-flash { from { background: color-mix(in srgb, var(--vl-stage-yellow) 32%, transparent); } }
+.vl-row-flash > * { animation: vl-row-flash 1.4s var(--vl-ease-out); }
+
+/* Live pulse: only for things that are live (dock, streaming monitor). */
+@keyframes vl-pulse { 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.vl-pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--vl-stage-yellow); box-shadow: 0 0 0 0 color-mix(in srgb, var(--vl-stage-yellow) 60%, transparent); animation: vl-pulse 2s infinite; flex: none; }
+.vl-pulse[data-tone="ok"] { background: var(--vl-status-ok); box-shadow: 0 0 0 0 color-mix(in srgb, var(--vl-status-ok) 60%, transparent); }
+.vl-pulse.is-paused { animation: none; opacity: .5; }
+
+/* Drag ghost: lifted, tilted copy that follows the pointer (V3 drag grammar). */
+.vl-drag-ghost { position: fixed; left: 0; top: 0; z-index: 150; pointer-events: none; margin: 0 !important; box-shadow: var(--vl-shadow-raised); will-change: transform; transition: none !important; }
+.vl-drag-placeholder { border: 2px dashed var(--vl-line-strong); border-radius: var(--vl-r-card); background: color-mix(in srgb, var(--vl-track) 60%, transparent); }
+body.vl-dragging, body.vl-dragging * { cursor: grabbing !important; user-select: none !important; -webkit-user-select: none !important; }
+
+/* Stamp: a confirmed action lands with weight (invoice paid, incident resolved). */
+@keyframes vl-stamp { 0% { opacity: 0; transform: scale(2.6) rotate(-10deg); } 70% { opacity: 1; transform: scale(.92) rotate(-10deg); } 100% { opacity: 1; transform: scale(1) rotate(-10deg); } }
+.vl-stamp { display: inline-block; border: 3px solid currentColor; border-radius: 12px; padding: 4px 14px; font-weight: 700; letter-spacing: .04em; transform: rotate(-10deg); animation: vl-stamp var(--vl-motion-sheet) var(--vl-ease-out) both; }
+
+/* Hard stop for the reduced level: nothing travels, final states are immediate. */
+:root[data-vl-motion="reduced"] *, :root[data-vl-motion="reduced"] *::before, :root[data-vl-motion="reduced"] *::after {
+  animation-duration: 1ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important;
+  transition-duration: 1ms !important; transition-delay: 0ms !important; scroll-behavior: auto !important;
+}
