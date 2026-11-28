@@ -1,4 +1,4 @@
-# Charte UX/UI — Rapport / référence de transposition
+# Charte UX/UI — Velora UI / référence de transposition
 V2 · analyse de 14485.mp4 (576 × 984, 30 i/s, 17,17 s). Cette charte sépare les constats vidéo (V), les estimations (E) et les prescriptions de reproduction (P). Le code source, la police exacte, les règles métier complètes et le responsive original sont inconnus.
 
 ## 01 — Signature
