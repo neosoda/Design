@@ -1,14 +1,17 @@
 {
   "title": "Velora UI",
-  "description": "Charte UX/UI éditoriale : toile pêche-sauge, cartes métier colorées, transitions et surfaces givrées.",
+  "description": "Design system éditorial V4 : toile pêche-sauge, surfaces givrées, objets colorés par étape, motion interruptible, Studio et 5 modèles métier.",
   "tags": [
-    "crm",
-    "motion",
+    "design-system",
     "tokens",
-    "prototype"
+    "motion",
+    "crm",
+    "itsm",
+    "dashboard",
+    "accessibility"
   ],
   "source": "rapport-ux-ui-v3.zip + charte-ux-ui-rapport-v2.zip + TemplateTheme.html (collection personnelle)",
   "license": "Inconnue",
   "usage": "reference",
-  "preview": "preview.svg"
+  "preview": "preview.webp"
 }
