@@ -30,7 +30,7 @@ Le texte des cartes jaunes est sombre ; sur vert, charbon et rouille, il est bla
 | 600–1040 px | Ordre de la vidéo : Revenue, Hot deals, puis Quota 5/12 + Stage mix 7/12 |
 | < 600 px | Une colonne ; hot deals en 2 colonnes ; tables en défilement horizontal (min 640 px) |
 | < 560 px | Rail masqué (la palette ⌘K et le dock restent) ; nav défilante |
-Contenu max 1200 px, marge gauche réservée au rail (78–100 px). Kanban : colonnes `clamp(210px, 24%, 290px)`, hauteur `clamp(380px, 100vh − 440px, 760px)`, défilement horizontal avec aimantation. Cibles ≥ 44 px au doigt (boutons ronds 38/32 px sur desktop).
+Contenu max 1200 px, marge gauche réservée au rail compact (78–100 px). En mode déplié permanent, le contenu réserve la largeur du rail et une marge de 16 px ; en mode automatique, le rail s’ouvre temporairement au-dessus du contenu sans le déplacer. Kanban : colonnes `clamp(210px, 24%, 290px)`, hauteur `clamp(380px, 100vh − 440px, 760px)`, défilement horizontal avec aimantation. Cibles ≥ 44 px au doigt (boutons ronds 38/32 px sur desktop).
 
 ## 04 — Bibliothèque de composants
 | Composant | Anatomie et règles |
@@ -47,6 +47,14 @@ Contenu max 1200 px, marge gauche réservée au rail (78–100 px). Kanban : col
 | Palette ⌘K (I) | Recherche pages / clients / deals / factures, groupée, flèches + Entrée, Échap. |
 | Création rapide (I) | Dialogue centré (deal, client, tâche, facture) ; le nouvel objet apparaît à sa place avec animation. |
 | Graphiques | Courbe + aire ; jauge annulaire ; barre segmentée ; histogrammes empilés sur pistes claires (barre courante en gras/rouille) ; donut avec survol qui isole un segment. |
+
+### Rail latéral rétractable (évolution du thème)
+- **Compact (44 px, par défaut)** : icônes seules, infobulles au survol et au focus clavier.
+- **Déplié (208 px)** : icônes et intitulés visibles en permanence ; la zone de contenu s’adapte sans recouvrement.
+- **Automatique** : le rail s’étend au survol souris/stylet ou au focus clavier, puis se replie à la sortie ; Échap ferme l’expansion temporaire.
+- Deux commandes intégrées au rail : déplier/replier (choix fixe) et activer/désactiver le mode automatique. Les choix sont conservés dans `localStorage` (`rapport.sidebar.mode`), avec repli sûr si le stockage est indisponible.
+- Transition de 260 ms, courbe ease-out du thème, sans rebond ; respect de reduced motion, commandes nommées et états ARIA. En dessous de 560 px, le comportement mobile existant est conservé ; le mode de prévisualisation téléphone force temporairement le rail compact sans modifier la préférence.
+- Vérifier les trois modes, persistance, navigation, focus, clair/sombre et responsive. Cette évolution n’est pas incluse dans les validations historiques du prototype.
 
 ## 05 — Motion design : la grammaire principale
 Les repères temporels de la vidéo ne sont pas des durées CSS certifiées (le montage peut accélérer). La colonne **I** donne ce qui est codé, piloté par les tokens `--motion-*`.

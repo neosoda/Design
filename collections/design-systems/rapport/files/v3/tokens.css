@@ -79,7 +79,7 @@
   --touch-hold: 280ms;      /* appui long avant drag au doigt */
 
   /* Shell */
-  --rail-width: 44px; --rail-offset: 14px; --content-max: 1200px; --content-gutter: clamp(14px,3vw,28px);
+  --rail-width: 44px; --rail-expanded-width: 208px; --rail-offset: 14px; --rail-gap: 16px; --rail-motion: 260ms; --content-max: 1200px; --content-gutter: clamp(14px,3vw,28px);
   --backdrop-blur: 18px; --scrim-blur: 10px;
 }
 
@@ -95,5 +95,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   :root { --motion-fast: 1ms; --motion-control: 1ms; --motion-exit: 1ms; --motion-layout: 1ms; --motion-enter: 1ms;
-          --motion-morph: 1ms; --motion-sheet: 1ms; --motion-chart: 1ms; --motion-count: 1ms; --stagger: 0ms; --tilt-max: 0; }
+          --motion-morph: 1ms; --motion-sheet: 1ms; --motion-chart: 1ms; --motion-count: 1ms; --stagger: 0ms; --tilt-max: 0; --rail-motion: 1ms; }
 }

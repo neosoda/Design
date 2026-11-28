@@ -6,6 +6,8 @@ Charte UX/UI éditoriale : toile pêche-sauge, cartes métier colorées, transit
 
 ![Aperçu de Rapport · CRM](preview.webp)
 
+Le menu latéral des deux prototypes HTML dispose de trois modes mémorisés : compact (icônes seules), déplié permanent et automatique (survol/focus).
+
 ## Ressources
 
 - [Charte V3](files/v3/CHARTE.md)
