@@ -10,6 +10,12 @@ Le menu latéral des deux prototypes HTML dispose de trois modes mémorisés : c
 
 *Soft by nature, fluid by design.*
 
+## V4 · nouvelle génération
+
+[Prototype interactif V4](files/v4/prototype.html) · [Guide V4 et composants](files/v4/README.md)
+
+Studio de personnalisation, quatre palettes, dashboard configurable, cinq profils métier, palette d’actions, centre d’activité et Playground. La V3 reste disponible comme référence historique.
+
 ## Ressources
 
 - [Charte V3](files/v3/CHARTE.md)

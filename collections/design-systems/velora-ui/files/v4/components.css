@@ -1,0 +1,62 @@
+/* Velora Components — shared classes used by Studio, Workspace and Playground */
+.vu-panel{position:fixed;inset:12px 12px 12px auto;width:min(440px,calc(100vw - 24px));max-width:none;max-height:calc(100dvh - 24px);margin:0;padding:24px;border:1px solid var(--line);border-radius:var(--velora-radius);background:var(--solid);color:var(--ink);box-shadow:0 24px 60px -22px #0006;overflow:auto;animation:vu-slide var(--velora-speed) var(--ease) both}
+.vu-panel::backdrop{background:var(--scrim);backdrop-filter:blur(8px)}
+.vu-panel h2{font-size:25px;line-height:1.15;letter-spacing:-.03em;margin:0;font-weight:600}
+.vu-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.vu-heading p{margin:4px 0;color:var(--mute);font-size:13px}
+.vu-field{display:grid;gap:6px;margin:12px 0}
+.vu-field>label,.vu-label{font-size:13px;font-weight:600}
+.vu-field input:not([type=checkbox]):not([type=range]),.vu-field select,.vu-field textarea,.vu-input{width:100%;border:1px solid var(--line);border-radius:12px;background:var(--chip);padding:10px 12px;color:var(--ink);font:inherit}
+.vu-field input[type=range]{width:100%;accent-color:var(--g)}
+.vu-group{border:0;padding:0;margin:20px 0;min-width:0}
+.vu-group legend{font-weight:600;margin-bottom:8px;padding:0}
+.vu-palette-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.vu-palette{border:1px solid var(--line);border-radius:14px;padding:8px;text-align:left;background:var(--chip);font-size:13px}
+.vu-palette[aria-pressed=true]{outline:2px solid var(--g);outline-offset:1px}
+.vu-swatch{display:flex;align-items:center;gap:5px;height:38px;border-radius:8px;padding:8px;margin-bottom:5px}
+.vu-swatch i{width:14px;height:14px;border-radius:50%;background:#2b5c4e}.vu-swatch i+i{background:#f0c94e}.vu-swatch i+i+i{background:#c64720}
+.vu-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.vu-actions .btn{min-height:40px}
+.vu-check{display:flex;gap:8px;align-items:center;padding:6px 0;font-size:14px}
+.vu-check input{accent-color:var(--g);width:18px;height:18px}
+.vu-divider{height:1px;background:var(--line);margin:18px 0}
+.vu-note{font-size:13px;color:var(--mute);line-height:1.45}
+.vu-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}
+.vu-kpi b{display:block;font-size:28px;letter-spacing:-.035em;font-weight:600;line-height:1.2}
+.vu-kpi small{color:var(--mute)}
+.vu-workspace-toolbar{display:flex;align-items:end;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.vu-workspace-toolbar .vu-field{flex:1 1 160px;margin:0}
+.vu-workspace-toolbar .btn{min-height:42px}
+.vu-table{width:100%;border-collapse:collapse;min-width:520px}
+.vu-table th,.vu-table td{padding:var(--velora-row) 9px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;vertical-align:middle}
+.vu-table th{color:var(--mute);font-size:12px;font-weight:600}
+.vu-table th button{text-align:left}
+.vu-table td button.vu-link{font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.vu-table tr:hover td{background:var(--track)}
+.vu-table input,.vu-table select{max-width:180px;width:100%;border:1px solid var(--line);border-radius:8px;padding:7px;background:var(--chip)}
+.vu-status{display:inline-flex;align-items:center;gap:6px;font-size:12px}.vu-status::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--y)}
+.vu-status[data-status=active]::before{background:var(--g)}.vu-status[data-status=blocked]::before{background:var(--r)}.vu-status[data-status=done]::before{background:var(--ink)}
+.vu-empty{display:grid;place-items:center;gap:8px;padding:32px;text-align:center;color:var(--mute)}
+.vu-feed{list-style:none;padding:0;margin:0}.vu-feed li{display:grid;grid-template-columns:10px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.vu-feed li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--g);margin-top:7px}.vu-feed small{display:block;color:var(--mute)}
+.vu-edit-bar{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px;padding:8px;border-radius:14px;background:var(--track)}
+.vu-edit-bar button{min-width:34px;min-height:34px;padding:4px 7px;border-radius:9px;background:var(--chip);color:var(--ink);font-size:12px}
+.vu-edit-bar button:disabled{opacity:.35;cursor:not-allowed}
+.vu-edit-bar [draggable=true]{cursor:grab}
+.ov.vu-layout{grid-template-areas:none;grid-auto-flow:row;grid-template-columns:repeat(12,minmax(0,1fr));align-items:start}
+.ov.vu-layout>.card{grid-area:auto!important;grid-column:span var(--vu-span,12)}
+.vu-drop{outline:2px dashed var(--g);outline-offset:-3px}
+.vu-mobile{display:none}
+.vu-lab{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.vu-lab .card h3{margin-top:0;font-size:16px}
+.vu-lab .card{min-height:130px}
+@media(max-width:760px){.vu-kpis,.vu-lab{grid-template-columns:minmax(0,1fr)}.ov.vu-layout>.card{grid-column:1/-1}.vu-panel{padding:18px}.vu-table{min-width:480px}}
+@media(max-width:560px){.vu-mobile{display:grid!important}.top{flex-wrap:wrap}.top .logo{margin-right:auto}.top .sp{display:none}.rail.vu-mobile-open{display:flex!important;top:64px;transform:none;width:min(208px,calc(100vw - 28px));max-height:calc(100dvh - 88px);overflow:auto;z-index:55}.rail.vu-mobile-open button span{left:44px;background:transparent;padding:0;opacity:1;transform:translate(0,-50%)}.rail.vu-mobile-open button:hover{transform:none}.rail.vu-mobile-open [data-rail-toggle],.rail.vu-mobile-open [data-rail-mode],.rail.vu-mobile-open .rail-control-divider{display:none}.vu-workspace-toolbar .vu-field{flex-basis:100%}}
+
+[hidden]{display:none!important}.vu-command-star{margin-left:auto;min-width:32px;min-height:32px;border-radius:8px;font-size:17px;color:var(--ink)}.vu-command-star[aria-pressed=true]{color:#947014}.vu-command-star:hover{background:var(--track)}
+@media(max-width:560px){.top .logo{font-size:18px}.top .ib{width:34px;height:34px}.top .me{width:34px;height:34px}.rail.vu-mobile-open{max-height:calc(100dvh - 88px)}.dock{max-width:calc(100vw - 20px);gap:8px;font-size:12px;padding-left:9px}}
+
+.pal .op .vu-command-run{display:flex;align-items:center;gap:8px;flex:1;min-width:0;text-align:left;padding:4px 0}.pal .op .vu-command-run small{margin-left:auto}.pal .op .vu-command-star{flex:none}
+
+/* On narrow workspaces the rail becomes an explicit, non-destructive overlay. */
+@media (max-width:760px){.vu-mobile{display:grid!important}.rail:not(.vu-mobile-open){display:none!important}body[data-rail-mode] .app{padding-left:14px!important}.rail.vu-mobile-open{display:flex!important;top:64px;left:14px;transform:none;width:min(208px,calc(100vw - 28px));max-height:calc(100dvh - 88px);overflow:auto;z-index:55}.rail.vu-mobile-open button span{left:44px;background:transparent;padding:0;opacity:1;transform:translate(0,-50%)}.rail.vu-mobile-open button:hover{transform:none}.rail.vu-mobile-open [data-rail-toggle],.rail.vu-mobile-open [data-rail-mode],.rail.vu-mobile-open .rail-control-divider{display:none}}
+@media(min-width:761px) and (max-width:1180px){body[data-rail-mode=expanded] .ov:not(.vu-layout){grid-template-areas:"rev rev rev rev rev rev rev rev rev rev rev rev" "hot hot hot hot hot hot hot hot hot hot hot hot" "quo quo quo quo quo mix mix mix mix mix mix mix"}}
